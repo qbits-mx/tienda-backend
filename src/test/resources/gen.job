@@ -1,0 +1,13 @@
+gen.PROJECT_URL=/Users/garellano/Desktop/tienda-back/generator/
+gen.SOURCE_URL=src/main/java/io/kebblar/tienda/
+
+gen.AUTOR=Fhernanda Romo
+gen.VERSION=1.0-SNAPSHOT
+gen.NOMBRE_PROYECTO=tienda
+
+gen.PACKAGE_BASE=mx.qbits.tienda.api
+
+gen.DEFINITION_FOLDER=/Users/garellano/Desktop/generator-workspace/definitions/
+       gen.TARGET_DIR=/Users/garellano/Desktop/generator-workspace/out2/
+    gen.TEMPLATES_DIR=/Users/garellano/Desktop/generator-workspace/
+

@@ -1,0 +1,53 @@
+.DS_Store
+*.log
+*.jar
+log/**
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+upload/*.png
+upload/*.jpg
+upload/*.jpeg
+upload/*.gif
+
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+/log/
+
+.metadata/
+
+/build-run/
+/bin/
+uploads/
+
+
+docker-compose.yml
+Makefile

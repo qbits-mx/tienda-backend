@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="petstore-local" id="Project_421558b" template="Default" database="MySql" >
+    <schema name="petstore" catalogname="petstore" >
+        <table name="anuncio" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="folio" type="varchar" length="14" decimal="0" jt="12" mandatory="y" />
+            <column name="titulo" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+            <column name="descripcion" type="varchar" length="10000" jt="12" mandatory="y" />
+            <column name="precio" type="decimal" length="10" decimal="2" jt="3" mandatory="y" />
+            <column name="fecha_inicio_vigencia" type="date" length="10" decimal="0" jt="91" />
+            <column name="fecha_fin_vigencia" type="date" length="10" decimal="0" jt="91" />
+            <column name="fecha_alta" type="datetime" length="19" decimal="0" jt="93" mandatory="y" />
+            <column name="fecha_modificacion" type="datetime" length="19" decimal="0" jt="93" mandatory="y" >
+                <defo>&#039;0000-00-00 00:00:00&#039;</defo>
+            </column>
+            <column name="fecha_eliminacion" type="datetime" length="19" decimal="0" jt="93" />
+            <column name="id_estatus" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_categoria" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <index name="pk_anuncio" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="idx_anuncio_id_categoria" unique="NORMAL" >
+                <column name="id_categoria" />
+            </index>
+            <index name="idx_anuncio_id_estatus" unique="NORMAL" >
+                <column name="id_estatus" />
+            </index>
+            <fk name="fk_anuncio_categoria" to_schema="petstore" to_table="categoria" >
+                <fk_column name="id_categoria" pk="id" />
+            </fk>
+            <fk name="fk_anuncio_estatus_anuncio" to_schema="petstore" to_table="estatus_anuncio" >
+                <fk_column name="id_estatus" pk="id" />
+            </fk>
+        </table>
+        <table name="anuncio_media" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" unsigned="y" autoincrement="y" />
+            <column name="id_anuncio" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="uuid" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+            <column name="id_tipo" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[1:JPG, 2:PNG, 3:GIF, 4:MP4, 5:AVI]]></comment>
+            </column>
+            <column name="principal" type="tinyint" length="3" decimal="0" jt="-6" />
+            <index name="pk_anuncio_media" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="fk_anuncio_imagen_anuncio" unique="NORMAL" >
+                <column name="id_anuncio" />
+            </index>
+            <index name="idx_anuncio_media_id_tipo" unique="NORMAL" >
+                <column name="id_tipo" />
+            </index>
+            <fk name="fk_anuncio_media_anuncio" to_schema="petstore" to_table="anuncio" >
+                <fk_column name="id_anuncio" pk="id" />
+            </fk>
+            <fk name="fk_anuncio_media_media_tipo" to_schema="petstore" to_table="media_tipo" >
+                <fk_column name="id_tipo" pk="id" />
+            </fk>
+        </table>
+        <table name="atributo" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="nombre" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+            <column name="activo" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+                <defo>1</defo>
+            </column>
+            <index name="pk_atributo" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="btc_wallet" >
+            <column name="address" type="varchar" length="34" decimal="0" jt="12" mandatory="y" />
+            <column name="id_user" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="private_key" type="varchar" length="52" decimal="0" jt="12" mandatory="y" />
+            <index name="pk_btc_wallet" unique="PRIMARY_KEY" >
+                <column name="address" />
+            </index>
+        </table>
+        <table name="carrito" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" >
+                <comment><![CDATA[Atributo que representa el identificador de un carrito de compras]]></comment>
+            </column>
+            <column name="id_usuario" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el identificador del usuario dueño del carrito de compras]]></comment>
+            </column>
+            <column name="id_anuncio" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el identificador del anuncio asociado al carrito]]></comment>
+            </column>
+            <column name="cve_orden_compra" type="varchar" length="20" decimal="0" jt="12" >
+                <comment><![CDATA[Atributo que representa la clave alfanumerica que identifica de manera univoca a la orden de compra]]></comment>
+            </column>
+            <index name="pk_carrito" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="fk_carrito_anuncio" unique="NORMAL" >
+                <column name="id_anuncio" />
+            </index>
+            <index name="fk_carrito_orden_compra" unique="NORMAL" >
+                <column name="cve_orden_compra" />
+            </index>
+            <index name="fk_carrito_usuario" unique="NORMAL" >
+                <column name="id_usuario" />
+            </index>
+            <fk name="fk_carrito_anuncio" to_schema="petstore" to_table="anuncio" >
+                <fk_column name="id_anuncio" pk="id" />
+            </fk>
+            <fk name="fk_carrito_orden_compra" to_schema="petstore" to_table="orden_compra" >
+                <fk_column name="cve_orden_compra" pk="cve_orden_compra" />
+            </fk>
+            <fk name="fk_carrito_usuario" to_schema="petstore" to_table="usuario" >
+                <fk_column name="id_usuario" pk="id" />
+            </fk>
+        </table>
+        <table name="categoria" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="categoria" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
+            <column name="activo" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+                <defo>1</defo>
+            </column>
+            <index name="pk_categoria" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="categoria_atributo" >
+            <column name="id_categoria" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_atributo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <index name="pk_categoria_atributo" unique="PRIMARY_KEY" >
+                <column name="id_categoria" />
+                <column name="id_atributo" />
+            </index>
+            <index name="fk_categoria_atributo" unique="NORMAL" >
+                <column name="id_atributo" />
+            </index>
+            <fk name="fk_categoria_atributo" to_schema="petstore" to_table="atributo" >
+                <fk_column name="id_atributo" pk="id" />
+            </fk>
+            <fk name="fk_categoria_categoria" to_schema="petstore" to_table="categoria" >
+                <fk_column name="id_categoria" pk="id" />
+            </fk>
+        </table>
+        <table name="direccion" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="calle_numero" type="varchar" length="128" decimal="0" jt="12" />
+            <column name="colonia" type="varchar" length="64" decimal="0" jt="12" />
+            <column name="id_pais" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_estado" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_municipio" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_tipo_direccion" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="cp" type="varchar" length="5" decimal="0" jt="12" />
+            <column name="referencias" type="varchar" length="256" decimal="0" jt="12" />
+            <column name="activo" type="tinyint" length="3" decimal="0" jt="-6" />
+            <index name="pk_direccion" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="fk_direccion_estado" unique="NORMAL" >
+                <column name="id_estado" />
+            </index>
+            <index name="fk_direccion_municipio" unique="NORMAL" >
+                <column name="id_municipio" />
+            </index>
+            <index name="fk_direccion_pais" unique="NORMAL" >
+                <column name="id_pais" />
+            </index>
+            <index name="fk_direccion_tipo_direccion" unique="NORMAL" >
+                <column name="id_tipo_direccion" />
+            </index>
+            <fk name="fk_direccion_estado" to_schema="petstore" to_table="estado" >
+                <fk_column name="id_estado" pk="id" />
+            </fk>
+            <fk name="fk_direccion_municipio" to_schema="petstore" to_table="municipio" >
+                <fk_column name="id_municipio" pk="id" />
+            </fk>
+            <fk name="fk_direccion_pais" to_schema="petstore" to_table="pais" >
+                <fk_column name="id_pais" pk="id" />
+            </fk>
+            <fk name="fk_direccion_tipo_direccion" to_schema="petstore" to_table="tipo_direccion" >
+                <fk_column name="id_tipo_direccion" pk="id" />
+            </fk>
+        </table>
+        <table name="estado" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="id_pais" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="nombre" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <index name="pk_estado" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="fk_estado_pais" unique="NORMAL" >
+                <column name="id_pais" />
+            </index>
+            <fk name="fk_estado_pais" to_schema="petstore" to_table="pais" >
+                <fk_column name="id_pais" pk="id" />
+            </fk>
+        </table>
+        <table name="estatus_anuncio" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="descripcion" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+            <index name="pk_estatus_anuncio" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="unq_estatus_anuncio_status" unique="UNIQUE" >
+                <column name="descripcion" />
+            </index>
+        </table>
+        <table name="mascota_valor_atributo" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="id_anuncio" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_valor_atributo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <index name="pk_mascota_valor_atributo" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="fk_anuncio_atributo" unique="NORMAL" >
+                <column name="id_valor_atributo" />
+            </index>
+            <index name="fk_anuncio_atributo_anuncio" unique="NORMAL" >
+                <column name="id_anuncio" />
+            </index>
+            <fk name="fk_mascota_atributo_anuncio" to_schema="petstore" to_table="anuncio" >
+                <fk_column name="id_anuncio" pk="id" />
+            </fk>
+            <fk name="fk_mascota_atributo_valor_atributo" to_schema="petstore" to_table="valor_atributo" >
+                <fk_column name="id_valor_atributo" pk="id" />
+            </fk>
+        </table>
+        <table name="media_tipo" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="descripcion" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+            <column name="activo" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+                <defo>1</defo>
+            </column>
+            <index name="pk_media_tipo" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="metodo_pago" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" >
+                <comment><![CDATA[Identificador de metodo de pago]]></comment>
+            </column>
+            <column name="tipo" type="varchar" length="128" decimal="0" jt="12" >
+                <comment><![CDATA[Atributo que representa el tipo de pago, por ejemplo, tarjeta de crdito, dbito, PayPal, etc.]]></comment>
+            </column>
+            <column name="activo" type="boolean" decimal="0" jt="-7" >
+                <comment><![CDATA[Atributo que representa si el registro se encuentra activo]]></comment>
+            </column>
+            <index name="pk_metodo_pago" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="moneda" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" >
+                <comment><![CDATA[Identificador de moneda]]></comment>
+            </column>
+            <column name="nombre" type="varchar" length="128" decimal="0" jt="12" >
+                <comment><![CDATA[Atributo que representa el nombre de de la moneda, por ejemplo dlllar, pesos, euros, etc]]></comment>
+            </column>
+            <column name="activo" type="boolean" decimal="0" jt="-7" >
+                <comment><![CDATA[Atributo que representa si el registro se encuentra activo]]></comment>
+            </column>
+            <index name="pk_moneda" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="municipio" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="id_estado" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="nombre" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <column name="id_orden" type="int" length="10" decimal="0" jt="4" />
+            <index name="pk_municipio" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="fk_municipio_estado" unique="NORMAL" >
+                <column name="id_estado" />
+            </index>
+            <fk name="fk_municipio_estado" to_schema="petstore" to_table="estado" >
+                <fk_column name="id_estado" pk="id" />
+            </fk>
+        </table>
+        <table name="orden_compra" >
+            <column name="cve_orden_compra" type="varchar" length="20" decimal="0" jt="12" mandatory="y" >
+                <comment><![CDATA[Atributo que representa la clave alfanumerica que identifica de manera univoca a la orden de compra]]></comment>
+            </column>
+            <column name="id_usuario" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el identificador del usuario asociado a la compra]]></comment>
+            </column>
+            <column name="id_direccion_envio" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[Atributo que representa la direccion a donde se enviar la mascota]]></comment>
+            </column>
+            <column name="id_paqueteria" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el identificador de la paqueteria asociada a la compra]]></comment>
+            </column>
+            <column name="id_metodo_pago" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el identificador del mtodo de pago asociada a la compra]]></comment>
+            </column>
+            <column name="id_moneda" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el tipo de moneda involucrada en la compra, por ejemplo, pesos, dolares, etc.]]></comment>
+            </column>
+            <column name="importe_total" type="decimal" length="10" decimal="2" jt="3" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el importe total, es decir, costo de la mascota + costo de paqueteria]]></comment>
+            </column>
+            <column name="fecha_hora_comprar" type="date" length="10" decimal="0" jt="91" mandatory="y" >
+                <comment><![CDATA[Atributo que representa la fecha y hora en que se realiza la comprar]]></comment>
+            </column>
+            <column name="estado_envio" type="boolean" decimal="0" jt="-7" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el estado del envio, los valores validos son 1-En preparacion, 2-En camino, 3-Entregado]]></comment>
+            </column>
+            <column name="recibo" type="varchar" length="256" decimal="0" jt="12" mandatory="y" >
+                <comment><![CDATA[Atributo que representa el nombre del archivo con el recibo de comprar en pdf]]></comment>
+            </column>
+            <index name="pk_orden_compra" unique="PRIMARY_KEY" >
+                <column name="cve_orden_compra" />
+            </index>
+            <index name="fk_orden_compra_direccion_envio" unique="NORMAL" >
+                <column name="id_direccion_envio" />
+            </index>
+            <index name="fk_orden_compra_metodo_pago" unique="NORMAL" >
+                <column name="id_metodo_pago" />
+            </index>
+            <index name="fk_orden_compra_moneda" unique="NORMAL" >
+                <column name="id_moneda" />
+            </index>
+            <index name="fk_orden_compra_paqueteria" unique="NORMAL" >
+                <column name="id_paqueteria" />
+            </index>
+            <index name="fk_orden_compra_usuario" unique="NORMAL" >
+                <column name="id_usuario" />
+            </index>
+            <fk name="fk_orden_compra_direccion_envio" to_schema="petstore" to_table="direccion" >
+                <fk_column name="id_direccion_envio" pk="id" />
+            </fk>
+            <fk name="fk_orden_compra_metodo_pago" to_schema="petstore" to_table="metodo_pago" >
+                <fk_column name="id_metodo_pago" pk="id" />
+            </fk>
+            <fk name="fk_orden_compra_moneda" to_schema="petstore" to_table="moneda" >
+                <fk_column name="id_moneda" pk="id" />
+            </fk>
+            <fk name="fk_orden_compra_paqueteria" to_schema="petstore" to_table="paqueteria" >
+                <fk_column name="id_paqueteria" pk="id" />
+            </fk>
+            <fk name="fk_orden_compra_usuario" to_schema="petstore" to_table="usuario" >
+                <fk_column name="id_usuario" pk="id" />
+            </fk>
+        </table>
+        <table name="pais" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="nombre" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <index name="pk_pais" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="paqueteria" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="nombre" type="varchar" length="30" decimal="0" jt="12" mandatory="y" />
+            <column name="breve_descripcion" type="varchar" length="50" decimal="0" jt="12" />
+            <column name="html_descripcion" type="varchar" length="500" decimal="0" jt="12" />
+            <column name="precio" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <index name="pk_paqueteria" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="preregistro" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="nick" type="varchar" length="32" decimal="0" jt="12" mandatory="y" />
+            <column name="correo" type="varchar" length="92" decimal="0" jt="12" mandatory="y" />
+            <column name="clave_hash" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <column name="telefono" type="varchar" length="32" decimal="0" jt="12" mandatory="y" />
+            <column name="fecha_nacimiento" type="date" length="10" decimal="0" jt="91" />
+            <column name="random_string" type="varchar" length="32" decimal="0" jt="12" mandatory="y" />
+            <column name="instante_registro" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+            <index name="pk_preregistro" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="idx_preregistro_correo" unique="UNIQUE" >
+                <column name="correo" />
+            </index>
+            <index name="idx_preregistro_random_string" unique="UNIQUE" >
+                <column name="random_string" />
+            </index>
+        </table>
+        <table name="rol" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="nombre" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <column name="activo" type="boolean" decimal="0" jt="-7" mandatory="y" />
+            <index name="pk_rol" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="tipo_direccion" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="nombre" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <column name="activo" type="boolean" decimal="0" jt="-7" mandatory="y" />
+            <index name="pk_tipo_direccion" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+        </table>
+        <table name="transaccion_btc" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="id_usuario" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_direccion" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="wallet" type="varchar" length="50" decimal="0" jt="12" mandatory="y" />
+            <column name="id_paqueteria" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="status" type="boolean" decimal="0" jt="-7" mandatory="y" />
+            <column name="monto" type="double" length="22" decimal="0" jt="8" mandatory="y" />
+            <column name="fecha" type="date" length="10" decimal="0" jt="91" mandatory="y" />
+            <column name="descripcion" type="varchar" length="100" decimal="0" jt="12" mandatory="y" />
+            <column name="last_balance" type="double" length="22" decimal="0" jt="8" />
+            <index name="pk_transaccion_btc" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="fk_anuncio" unique="NORMAL" >
+                <column name="id_paqueteria" />
+            </index>
+            <index name="fk_id_dir" unique="NORMAL" >
+                <column name="id_direccion" />
+            </index>
+            <index name="fk_id_usr" unique="NORMAL" >
+                <column name="id_usuario" />
+            </index>
+            <index name="fk_wallet" unique="NORMAL" >
+                <column name="wallet" />
+            </index>
+            <fk name="fk_wallet" to_schema="petstore" to_table="btc_wallet" >
+                <fk_column name="wallet" pk="address" />
+            </fk>
+            <fk name="fk_id_dir" to_schema="petstore" to_table="direccion" >
+                <fk_column name="id_direccion" pk="id" />
+            </fk>
+            <fk name="fk_paqueteria" to_schema="petstore" to_table="paqueteria" >
+                <fk_column name="id_paqueteria" pk="id" />
+            </fk>
+            <fk name="fk_id_usr" to_schema="petstore" to_table="usuario" >
+                <fk_column name="id_usuario" pk="id" />
+            </fk>
+        </table>
+        <table name="usuario" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="correo" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <column name="clave" type="varchar" length="128" decimal="0" jt="12" mandatory="y" >
+                <defo>&#039;temp&#039;</defo>
+            </column>
+            <column name="creado" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+                <defo>0</defo>
+            </column>
+            <column name="activo" type="boolean" decimal="0" jt="-7" mandatory="y" >
+                <defo>0</defo>
+            </column>
+            <column name="acceso_negado_contador" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+                <defo>0</defo>
+            </column>
+            <column name="instante_bloqueo" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+                <defo>0</defo>
+            </column>
+            <column name="instante_ultimo_acceso" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+                <defo>0</defo>
+            </column>
+            <column name="instante_ultimo_cambio_clave" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+                <defo>0</defo>
+            </column>
+            <column name="regenera_clave_token" type="varchar" length="128" decimal="0" jt="12" mandatory="y" >
+                <defo>&#039;NA&#039;</defo>
+            </column>
+            <column name="regenera_clave_instante" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+                <defo>0</defo>
+            </column>
+            <index name="pk_usuario" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="idx_usuario_correo" unique="UNIQUE" >
+                <column name="correo" />
+            </index>
+            <index name="idx_usuario_regenera" unique="NORMAL" >
+                <column name="regenera_clave_token" />
+            </index>
+        </table>
+        <table name="usuario_detalle" >
+            <column name="id_usuario" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="nombre" type="varchar" length="32" decimal="0" jt="12" mandatory="y" />
+            <column name="apellido_paterno" type="varchar" length="32" decimal="0" jt="12" mandatory="y" />
+            <column name="apellido_materno" type="varchar" length="32" decimal="0" jt="12" mandatory="y" />
+            <column name="fecha_nacimiento" type="date" length="10" decimal="0" jt="91" />
+            <column name="nick_name" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <column name="telefono_celular" type="varchar" length="128" decimal="0" jt="12" mandatory="y" />
+            <index name="pk_usuario_detalle" unique="PRIMARY_KEY" >
+                <column name="id_usuario" />
+            </index>
+            <fk name="fk_usuario_detalle_usuario" to_schema="petstore" to_table="usuario" >
+                <fk_column name="id_usuario" pk="id" />
+            </fk>
+        </table>
+        <table name="usuario_direccion" >
+            <column name="id_usuario" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_direccion" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <index name="pk_usuario_direccion" unique="PRIMARY_KEY" >
+                <column name="id_usuario" />
+                <column name="id_direccion" />
+            </index>
+            <index name="fk_id_direccion_usr" unique="NORMAL" >
+                <column name="id_direccion" />
+            </index>
+            <index name="fk_id_usuario_dir" unique="NORMAL" >
+                <column name="id_usuario" />
+            </index>
+            <fk name="fk_id_direccion_usr" to_schema="petstore" to_table="direccion" >
+                <fk_column name="id_direccion" pk="id" />
+            </fk>
+            <fk name="fk_id_usuario_dir" to_schema="petstore" to_table="usuario" >
+                <fk_column name="id_usuario" pk="id" />
+            </fk>
+        </table>
+        <table name="usuario_rol" >
+            <column name="id_usuario" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="id_rol" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <index name="pk_usuario_rol" unique="PRIMARY_KEY" >
+                <column name="id_usuario" />
+                <column name="id_rol" />
+            </index>
+            <index name="fk_rol" unique="NORMAL" >
+                <column name="id_rol" />
+            </index>
+            <fk name="fk_rol" to_schema="petstore" to_table="rol" >
+                <fk_column name="id_rol" pk="id" />
+            </fk>
+            <fk name="fk_usuario" to_schema="petstore" to_table="usuario" >
+                <fk_column name="id_usuario" pk="id" />
+            </fk>
+        </table>
+        <table name="valor_atributo" >
+            <column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+            <column name="id_atributo" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+            <column name="rango" type="varchar" length="128" decimal="0" jt="12" />
+            <column name="activo" type="tinyint" length="3" decimal="0" jt="-6" mandatory="y" >
+                <defo>1</defo>
+            </column>
+            <index name="pk_valor_atributo" unique="PRIMARY_KEY" >
+                <column name="id" />
+            </index>
+            <index name="idx_valor_atributo_id_atributo" unique="NORMAL" >
+                <column name="id_atributo" />
+            </index>
+            <fk name="fk_valor_atributo_atributo" to_schema="petstore" to_table="atributo" >
+                <fk_column name="id_atributo" pk="id" />
+            </fk>
+        </table>
+    </schema>
+    <connector name="petstore-local" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.43-bin.jar" driver_desc="Standard" host="34.204.151.134" port="3306" instance="petstore" user="garellano" passwd="Z2FyZWxsYW5v" />
+    <connector name="petstore-local" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.43-bin.jar" driver_desc="Standard" host="localhost" port="3306" instance="petstore" user="garellano" passwd="Z2FyZWxsYW5v" />
+    <layout name="Default Layout" id="Layout_5da5942" show_relation="columns" >
+        <entity schema="petstore" name="anuncio" color="c8f5bf" x="1605" y="60" />
+        <entity schema="petstore" name="moneda" color="bfd4f5" x="540" y="270" />
+        <entity schema="petstore" name="orden_compra" color="bfd4f5" x="690" y="210" />
+        <entity schema="petstore" name="metodo_pago" color="bfd4f5" x="900" y="270" />
+        <entity schema="petstore" name="btc_wallet" color="f5ddbf" x="855" y="765" />
+        <entity schema="petstore" name="transaccion_btc" color="f5ddbf" x="660" y="810" />
+        <entity schema="petstore" name="paqueteria" color="f5ddbf" x="600" y="540" />
+        <entity schema="petstore" name="estatus_anuncio" color="c8f5bf" x="1350" y="60" />
+        <entity schema="petstore" name="categoria" color="c8f5bf" x="1695" y="450" />
+        <entity schema="petstore" name="media_tipo" color="c8f5bf" x="2205" y="60" />
+        <entity schema="petstore" name="anuncio_media" color="c8f5bf" x="1965" y="60" />
+        <entity schema="petstore" name="mascota_valor_atributo" color="c8f5bf" x="1935" y="210" />
+        <entity schema="petstore" name="categoria_atributo" color="c8f5bf" x="1920" y="450" />
+        <entity schema="petstore" name="valor_atributo" color="c8f5bf" x="2205" y="210" />
+        <entity schema="petstore" name="atributo" color="c8f5bf" x="2205" y="450" />
+        <entity schema="petstore" name="pais" color="bfbff5" x="45" y="210" />
+        <entity schema="petstore" name="usuario_direccion" color="bfd4f5" x="1065" y="45" />
+        <entity schema="petstore" name="rol" color="99ccff" x="1485" y="225" />
+        <entity schema="petstore" name="usuario_rol" color="bfd4f5" x="1305" y="225" />
+        <entity schema="petstore" name="usuario_detalle" color="bfd4f5" x="1365" y="375" />
+        <entity schema="petstore" name="preregistro" color="99ccff" x="1155" y="465" />
+        <entity schema="petstore" name="usuario" color="bfd4f5" x="1050" y="210" />
+        <entity schema="petstore" name="carrito" color="bfd4f5" x="1080" y="660" />
+        <entity schema="petstore" name="direccion" color="9999ff" x="390" y="75" />
+        <entity schema="petstore" name="estado" color="bfbff5" x="60" y="405" />
+        <entity schema="petstore" name="tipo_direccion" color="9999ff" x="105" y="75" />
+        <entity schema="petstore" name="municipio" color="bfbff5" x="375" y="465" />
+    </layout>
+    <layout name="Sample Layout with Tools" id="Layout_1d546ba" show_column_type="y" show_relation="columns" >
+        <entity schema="petstore" name="anuncio" color="c8f5bf" x="1590" y="75" />
+        <entity schema="petstore" name="anuncio_media" color="c8f5bf" x="1830" y="75" />
+        <entity schema="petstore" name="atributo" color="c8f5bf" x="1395" y="495" />
+        <entity schema="petstore" name="btc_wallet" color="f5ddbf" x="555" y="1005" />
+        <entity schema="petstore" name="carrito" color="bfd4f5" x="555" y="480" />
+        <entity schema="petstore" name="categoria" color="c8f5bf" x="1590" y="495" />
+        <entity schema="petstore" name="categoria_atributo" color="c8f5bf" x="1590" y="360" />
+        <entity schema="petstore" name="direccion" color="bfd4f5" x="330" y="225" />
+        <entity schema="petstore" name="estado" color="bfbff5" x="1365" y="750" />
+        <entity schema="petstore" name="estatus_anuncio" color="c8f5bf" x="1365" y="360" />
+        <entity schema="petstore" name="mascota_valor_atributo" color="c8f5bf" x="1830" y="360" />
+        <entity schema="petstore" name="media_tipo" color="c8f5bf" x="2010" y="75" />
+        <entity schema="petstore" name="metodo_pago" color="bfd4f5" x="375" y="480" />
+        <entity schema="petstore" name="moneda" color="bfd4f5" x="360" y="75" />
+        <entity schema="petstore" name="municipio" color="bfbff5" x="1560" y="750" />
+        <entity schema="petstore" name="orden_compra" color="bfd4f5" x="555" y="225" />
+        <entity schema="petstore" name="pais" color="bfbff5" x="1365" y="900" />
+        <entity schema="petstore" name="paqueteria" color="f5ddbf" x="555" y="750" />
+        <entity schema="petstore" name="preregistro" color="c8f5bf" x="45" y="480" />
+        <entity schema="petstore" name="rol" color="d2bff5" x="1140" y="750" />
+        <entity schema="petstore" name="tipo_direccion" color="bfd4f5" x="105" y="750" />
+        <entity schema="petstore" name="transaccion_btc" color="f5ddbf" x="330" y="750" />
+        <entity schema="petstore" name="usuario" color="bfd4f5" x="810" y="225" />
+        <entity schema="petstore" name="usuario_detalle" color="bfd4f5" x="1095" y="495" />
+        <entity schema="petstore" name="usuario_direccion" color="bfd4f5" x="1095" y="360" />
+        <entity schema="petstore" name="usuario_rol" color="bfd4f5" x="1095" y="225" />
+        <entity schema="petstore" name="valor_atributo" color="c8f5bf" x="2025" y="360" />
+        <callout x="330" y="150" pointer="NO" >
+            <comment><![CDATA[Double-click any table, column or foreign key to edit, right-click to start one of the tools below.
+Use the Relational Data Browse for simultaneously exploring data from multiple tables.
+All tools will be saved to project file and can be reopen.]]></comment>
+        </callout>
+        <group name="direccion" color="ecf0f7" >
+            <entity schema="petstore" name="direccion" />
+            <entity schema="petstore" name="orden_compra" />
+            <entity schema="petstore" name="usuario" />
+            <entity schema="petstore" name="carrito" />
+            <entity schema="petstore" name="usuario_rol" />
+            <entity schema="petstore" name="usuario_direccion" />
+            <entity schema="petstore" name="usuario_detalle" />
+            <entity schema="petstore" name="metodo_pago" />
+            <entity schema="petstore" name="moneda" />
+        </group>
+        <group name="anuncio" color="eef7ec" >
+            <entity schema="petstore" name="anuncio" />
+            <entity schema="petstore" name="anuncio_media" />
+            <entity schema="petstore" name="mascota_valor_atributo" />
+            <entity schema="petstore" name="categoria_atributo" />
+            <entity schema="petstore" name="categoria" />
+            <entity schema="petstore" name="atributo" />
+            <entity schema="petstore" name="valor_atributo" />
+            <entity schema="petstore" name="estatus_anuncio" />
+            <entity schema="petstore" name="media_tipo" />
+        </group>
+        <group name="estado" color="ececf7" >
+            <entity schema="petstore" name="estado" />
+            <entity schema="petstore" name="municipio" />
+            <entity schema="petstore" name="pais" />
+        </group>
+        <group name="transaccion_btc" color="f7f3ec" >
+            <entity schema="petstore" name="transaccion_btc" />
+            <entity schema="petstore" name="paqueteria" />
+            <entity schema="petstore" name="btc_wallet" />
+        </group>
+        <group name="rol" color="f0ecf7" >
+            <entity schema="petstore" name="rol" />
+        </group>
+        <group name="tipo_direccion" color="ecf0f7" >
+            <entity schema="petstore" name="tipo_direccion" />
+        </group>
+        <group name="administracion_compras" color="eef7ec" >
+            <entity schema="petstore" name="preregistro" />
+        </group>
+        <script name="Sample SQL Editor" id="Editor_3456ed" language="SQL" >
+            <string><![CDATA[SELECT *
+FROM
+    petstore.direccion n;]]></string>
+        </script>
+        <browser id="Browse_2f78184" name="Sample Relational Data Browse" confirm_updates="y" >
+            <browse_table schema="petstore" entity="direccion" x="20" y="20" width="400" height="300" >
+                <browse_table schema="petstore" entity="transaccion_btc" fk="fk_id_dir" x="440" y="20" width="400" height="300" >
+                    <browse_table schema="petstore" entity="usuario" fk="fk_id_usr" x="860" y="20" width="400" height="300" record_view="y" />
+                </browse_table>
+            </browse_table>
+        </browser>
+        <query id="Query_3058682" name="Sample Query Builder" >
+            <query_table schema="petstore" name="direccion" alias="d" x="45" y="45" >
+                <column name="id" />
+                <column name="calle_numero" />
+                <column name="colonia" />
+                <column name="id_pais" />
+                <column name="id_estado" />
+                <column name="id_municipio" />
+                <column name="id_tipo_direccion" />
+                <column name="cp" />
+                <column name="referencias" />
+                <column name="activo" />
+                <query_table schema="petstore" name="transaccion_btc" alias="tb" x="225" y="45" fk="fk_id_dir" type="Inner Join" >
+                    <column name="id" />
+                    <column name="id_usuario" />
+                    <column name="id_direccion" />
+                    <column name="wallet" />
+                    <column name="id_paqueteria" />
+                    <column name="status" />
+                    <column name="monto" />
+                    <column name="fecha" />
+                    <column name="descripcion" />
+                    <column name="last_balance" />
+                    <query_table schema="petstore" name="usuario" alias="u" x="405" y="45" fk="fk_id_usr" type="Inner Join" >
+                        <column name="id" />
+                        <column name="correo" />
+                        <column name="clave" />
+                        <column name="creado" />
+                        <column name="activo" />
+                        <column name="acceso_negado_contador" />
+                        <column name="instante_bloqueo" />
+                        <column name="instante_ultimo_acceso" />
+                        <column name="instante_ultimo_cambio_clave" />
+                        <column name="regenera_clave_token" />
+                        <column name="regenera_clave_instante" />
+                    </query_table>
+                </query_table>
+            </query_table>
+        </query>
+    </layout>
+</project>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <title> Nueva Solicitud </title>
+    </head>
+
+    <body>
+        <div class="container-fluid p-3 ">
+            <div class="container border rounded border-3 border-primary p-3" style="border-style:solid;border-width:medium;border-color:blue;border-radius:10px">
+                <h1 class="text-center text-primary" style="color:blue;text-align:center">¡Nueva Solicitud!</h1>
+                <hr style="height:2px;border-width:0;color:lightblue;background-color:blue;width:90%"/>
+                <br/>
+                <div class="container mx-5 mt-3" style="padding-left:10%">
+                    <h4 style="text-align:10px">Hola %NOMBRE%.</h4>
+                </div>
+                <div class="p-3" style="padding-left:10%">
+                    <p>El motivo de este correo es informarte que el/la usuario/a: %SOLICITANTE%, solicita tu servicio: %ANUNCIO%.</p>
+                    <p>A continuación se agrega sus datos de contacto.</p>
+                    <ul>
+                        <li>Correo electrónico: %CORREO%</li>
+                        <li>Teléfono: %TELEFONO%</li>
+                    </ul>
+                    <p>Ahora puedes ponerte en contacto directo con el cliente.</p>
+                    <p class="text-primary" style="color:blue">Gracias.</p>
+                </div>
+                <br/>
+            </div>
+        </div>
+    </body>
+</html>
