@@ -38,57 +38,9 @@
            <url>http://nexus.qbits.mx/repository/all/</url>
            <name>Kebblar Repository</name>
        </repository>
-       
-    <!--
-       
-        <repository>
-            <id>redhat</id>
-            <name>rh</name>
-            <url>https://maven.repository.redhat.com</url>
-        </repository>
-        -->
     </repositories>
 
-    <!--
-    <distributionManagement>
-        <repository>
-            <id>curso</id>
-            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/ultra-mvn-artifacts/</url>
-            <name>Curso Repository</name>
-        </repository>
-        <snapshotRepository>
-            <id>curso</id>
-            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/ultra-mvn-artifacts/</url>
-        </snapshotRepository>
-    </distributionManagement>
-     -->
     <dependencies>
-
-
-<!--         <dependency> -->
-<!--             <groupId>org.apache.pdfbox</groupId> -->
-<!--             <artifactId>pdfbox</artifactId> -->
-<!--             <version>2.0.22</version> -->
-<!--         </dependency> -->
-
-<!--          <dependency> -->
-<!--             <groupId>com.itextpdf</groupId> -->
-<!--             <artifactId>itext7-core</artifactId> -->
-<!--             <version>7.1.13</version> -->
-<!--             <type>pom</type> -->
-<!--         </dependency> -->
-<!--         <dependency> -->
-<!--             <groupId>com.itextpdf</groupId> -->
-<!--             <artifactId>layout</artifactId> -->
-<!--             <version>7.1.13</version> -->
-<!--         </dependency> -->
-        <dependency>
-            <groupId>org.apache.commons.ssl</groupId>
-            <artifactId>not-yet-commons-ssl</artifactId>
-            <version>0.3.11-redhat-2</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io   -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
