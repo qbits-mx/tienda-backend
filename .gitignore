@@ -52,3 +52,4 @@ uploads/
 docker-compose.yml
 Makefile
 /bin/
+/bin/
