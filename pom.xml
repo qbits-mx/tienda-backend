@@ -158,18 +158,7 @@
            <version>1.6.0</version>
         </dependency>
         <!-- Own custom libs -->
-        <dependency>
-            <groupId>mx.com.ultrasist.ci</groupId>
-            <artifactId>generator</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.kebblar</groupId>
-            <artifactId>petstore-front</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+     </dependencies>
 
 
     <dependencyManagement>
