@@ -204,6 +204,7 @@
                         </goals>
                         <configuration>
                             <rules>
+<!--
                                 <rule>
                                     <element>PACKAGE</element>
                                     <limits>
@@ -214,6 +215,7 @@
                                         </limit>
                                     </limits>
                                 </rule>
+-->
                             </rules>
                         </configuration>
                     </execution>
