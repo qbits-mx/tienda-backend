@@ -55,40 +55,41 @@ pipeline {
         stage('despliega'){
             steps {
                 // forma 2: https://github.com/jenkinsci/ssh-steps-plugin#remote
+                sh "cd ${BASE_PATH}/${PROJECT_ROOT}/target && ls -la"
                 sshagent(['135e6064-b985-420c-b71c-dc00c127181f']){
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.151.134 uptime'
-                    sh "scp ${BASE_PATH}/${PROJECT_ROOT}/target/petstore-back-1.0-SNAPSHOT.jar ubuntu@34.204.151.134:/home/ubuntu/work/tienda/deploy"
-                    sh "ssh -o StrictHostKeyChecking=no -l ubuntu 34.204.151.134 'cd /home/ubuntu/work && ./run_tienda.sh'"
+//                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.151.134 uptime'
+//                     sh "scp ${BASE_PATH}/${PROJECT_ROOT}/target/petstore-back-1.0-SNAPSHOT.jar ubuntu@34.204.151.134:/home/ubuntu/work/tienda/deploy"
+//                     sh "ssh -o StrictHostKeyChecking=no -l ubuntu 34.204.151.134 'cd /home/ubuntu/work && ./run_tienda.sh'"
                 }
             }
         }
 
-        stage("Corre Escaneo de Sonar") {
-            environment {
-                scannerHome = tool 'sonar-scanner'
-            }
+//         stage("Corre Escaneo de Sonar") {
+//             environment {
+//                 scannerHome = tool 'sonar-scanner'
+//             }
             
-            steps {
-                withSonarQubeEnv('sonar-scanner') {
-                    sh "${scannerHome}/bin/sonar-scanner \
-                    -Dsonar.projectKey=pipeline-petstore-back \
-                    -Dsonar.projectName=pipeline-petstore-back \
-                    -Dsonar.projectVersion=0.${BUILD_NUMBER} \
-                    -Dsonar.sources=${BASE_PATH}/${PROJECT_ROOT}/src/main/java \
-                    -Dsonar.test.sources=${BASE_PATH}/${PROJECT_ROOT}/src/test/java \
-                    -Dsonar.language=java \
-                    -Dsonar.java.binaries=${BASE_PATH}/${PROJECT_ROOT}/target/classes \
-                    -Dsonar.java.test.binaries=${BASE_PATH}/${PROJECT_ROOT}/target/test-classes \
-                    -Dsonar.junit.reportPaths=${BASE_PATH}/${PROJECT_ROOT}/target/jacoco.exec \
-                    -Dsonar.coverage.jacoco.xmlReportPaths=${BASE_PATH}/${PROJECT_ROOT}/target/site/jacoco/jacoco.xml \
-                    -Dsonar.java.coveragePlugin=jacoco"
-                }
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
-                }                
-            }
+//             steps {
+//                 withSonarQubeEnv('sonar-scanner') {
+//                     sh "${scannerHome}/bin/sonar-scanner \
+//                     -Dsonar.projectKey=pipeline-petstore-back \
+//                     -Dsonar.projectName=pipeline-petstore-back \
+//                     -Dsonar.projectVersion=0.${BUILD_NUMBER} \
+//                     -Dsonar.sources=${BASE_PATH}/${PROJECT_ROOT}/src/main/java \
+//                     -Dsonar.test.sources=${BASE_PATH}/${PROJECT_ROOT}/src/test/java \
+//                     -Dsonar.language=java \
+//                     -Dsonar.java.binaries=${BASE_PATH}/${PROJECT_ROOT}/target/classes \
+//                     -Dsonar.java.test.binaries=${BASE_PATH}/${PROJECT_ROOT}/target/test-classes \
+//                     -Dsonar.junit.reportPaths=${BASE_PATH}/${PROJECT_ROOT}/target/jacoco.exec \
+//                     -Dsonar.coverage.jacoco.xmlReportPaths=${BASE_PATH}/${PROJECT_ROOT}/target/site/jacoco/jacoco.xml \
+//                     -Dsonar.java.coveragePlugin=jacoco"
+//                 }
+//                 timeout(time: 2, unit: 'MINUTES') {
+//                     waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
+//                 }                
+//             }
             
-        }
+//         }
 
     }
 }
