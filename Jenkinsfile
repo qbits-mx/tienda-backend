@@ -1,6 +1,7 @@
 pipeline {
     agent any
     triggers {
+        upstream(upstreamProjects: 'Tienda-frontend')
         GenericTrigger(
             genericVariables: [
                 [
