@@ -34,7 +34,7 @@
            <url>https://repo1.maven.org</url>
         </repository>
         <repository>
-           <id>curso</id>
+           <id>nexus.qbits.mx</id>
            <url>http://nexus.qbits.mx/repository/all/</url>
            <name>Kebblar Repository</name>
        </repository>
