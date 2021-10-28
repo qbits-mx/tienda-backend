@@ -1,6 +1,12 @@
 package mx.qbits.tienda.api.model.exceptions;
 
 public enum EnumMessage {
+    MAX_FAILED_LOGIN_EXCEPTION(
+            1001,
+            "Usuario bloqueado",
+            "El usuario ha sdo bloqueado por exceder el máximo número (%d) de intentos fallidos al sistema",
+            HttpStatus.BAD_REQUEST),
+    
     USER_NOT_EXIST_ES(
             1001,
             "El usuario %s no existe", 

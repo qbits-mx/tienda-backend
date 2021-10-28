@@ -45,7 +45,6 @@ public class WrongTokenException extends BusinessException {
         super(e);
     }
 
-    //TODO: Aquí igualmente puede proceder tener varias especializaciones de esta clase... para evitar el "msg"
     //Podría ser que esté duplicada esta custom exception @TokenNotExistException
     /**
      * <p>Constructor for WrongTokenException.</p>
