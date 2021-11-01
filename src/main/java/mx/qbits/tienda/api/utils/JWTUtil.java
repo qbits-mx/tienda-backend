@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     mx.qbits.tienda.api.utils
- * Proyecto:    tienda
+ * Paquete:     io.kebblar.petstore.api.utils
+ * Proyecto:    petstore-back
  * Tipo:        Clase
  * Nombre:      JWTUtil
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -35,9 +35,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.exceptions.TokenExpiredException;
-import mx.qbits.tienda.api.model.exceptions.WrongTokenException;
+import mx.qbits.tienda.api.model.exceptions.CustomException;
+import static mx.qbits.tienda.api.model.enumerations.EnumMessage.*;
 
 /**
  * Clase JWTUtil.
@@ -55,7 +54,7 @@ public class JWTUtil {
     /**
      * <p>Getter for the field <code>instance</code>.</p>
      *
-     * @return a {@link mx.qbits.tienda.api.utils.JWTUtil} object.
+     * @return a {@link io.kebblar.petstore.api.utils.JWTUtil} object.
      */
     public static JWTUtil getInstance() {
         if(instance==null) {
@@ -130,9 +129,9 @@ public class JWTUtil {
      * @param jwt a {@link java.lang.String} object.
      * @param user a {@link java.lang.String} object.
      * @param encryptKey a {@link java.lang.String} object.
-     * @throws mx.qbits.tienda.api.model.exceptions.BusinessException
+     * @throws io.kebblar.petstore.api.model.exceptions.CustomException
      */
-    public void verifyToken(String jwt, String user, String encryptKey) throws BusinessException {
+    public void verifyToken(String jwt, String user, String encryptKey) throws CustomException {
         try {
             Claims claims = Jwts.parser()
                .setSigningKey(encryptKey.getBytes())
@@ -145,10 +144,10 @@ public class JWTUtil {
                 logger.info("IssuedAt: " + claims.getIssuedAt());
             }
             if(!user.equals(claims.getId())) {
-                throw new WrongTokenException("issuer not verfied");
+                throw new CustomException(ISSUER_NOT_VERIFIED);
             }
         } catch(Exception e) {
-            throw new WrongTokenException(e);
+            throw new CustomException(e, WRONG_TOKEN);
         }
     }
 
@@ -160,19 +159,19 @@ public class JWTUtil {
      * @param encryptKey a {@link java.lang.String} object.
      * @param ahorita a long.
      * @return Cadena con el ID contenido en un Token válido
-     * @throws mx.qbits.tienda.api.model.exceptions.BusinessException
+     * @throws io.kebblar.petstore.api.model.exceptions.CustomException
      */
-    public String verifyToken(String jwt, String encryptKey, long ahorita) throws BusinessException {
+    public String verifyToken(String jwt, String encryptKey, long ahorita) throws CustomException {
         try {
             Claims claims = Jwts.parser()
                .setSigningKey(encryptKey.getBytes())
                .parseClaimsJws(jwt).getBody();
             long expiration = claims.getExpiration().getTime();
-            if(expiration < ahorita) throw new TokenExpiredException();
+            if(expiration < ahorita) throw new CustomException(TOKEN_EXPIRED);
             //showInfo(claims);
             return claims.getId();
         } catch(Exception e) {
-            throw new WrongTokenException(e);
+        	throw new CustomException(e, WRONG_TOKEN);
         }
     }
 
@@ -199,25 +198,24 @@ public class JWTUtil {
      */
     public void valida(String token, String encryptKey, long currentTime) throws Exception {
         if(token==null || token.trim().length()<1) return;
-        String estructuraInvalida = "El token posee una estructra inválida: --->"+token+"<---";
         // from: https://jwt.io/
         Base64.Decoder decoder = Base64.getDecoder();
         String[] chunks = token.split("\\.");
-        if(chunks.length<2) throw new Exception(estructuraInvalida);
+        if(chunks.length<2) throw new CustomException(TOKEN_INVALID_STRUCTURE, token);
         String payload = new String(decoder.decode(chunks[1]));
 
-        if(!payload.contains("\"exp\":")) throw new Exception(estructuraInvalida);
+        if(!payload.contains("\"exp\":")) throw new CustomException(TOKEN_INVALID_STRUCTURE, token);
         Long inst = 0L;
         String instante = "";
         for(String parte : payload.split(",")) {
             if(parte.contains("\"exp\":")) {
                 try {
                     instante = parte.substring(6, parte.length()-1)+"000";
-                    inst = new Long(instante);
+                    inst = Long.parseLong(instante);
                 } catch(Exception e) {
-                    throw new Exception(estructuraInvalida);
+                    throw new CustomException(TOKEN_INVALID_STRUCTURE, token);
                 }
-                if (inst < currentTime) throw new Exception("El token ha expirado");
+                if (inst < currentTime) throw new CustomException(TOKEN_EXPIRED);
             }
         }
     }
@@ -262,14 +260,14 @@ public class JWTUtil {
      * @param jwt a {@link java.lang.String} object.
      * @param encryptKey a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws mx.qbits.tienda.api.model.exceptions.BusinessException if any.
+     * @throws io.kebblar.petstore.api.model.exceptions.CustomException if any.
      */
-    public String getMail(String jwt, String encryptKey) throws BusinessException {
+    public String getMail(String jwt, String encryptKey) throws CustomException {
         Claims claim;
         try{
             claim = Jwts.parser().setSigningKey(encryptKey.getBytes()).parseClaimsJws(jwt).getBody();
         } catch (Exception e){
-            throw new WrongTokenException(e);
+            throw new CustomException(e, TOKEN_INVALID_STRUCTURE, jwt);
         }
         return claim.getId();
     }

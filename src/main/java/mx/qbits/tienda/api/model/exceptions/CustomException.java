@@ -20,23 +20,25 @@
  */
 package mx.qbits.tienda.api.model.exceptions;
 
+import mx.qbits.tienda.api.model.enumerations.EnumMessage;
+
 /**
  * <p>Descripción:</p>
  * Excepción general que define que se ha violado una regla de la lógica de negocio.
  *
  * @author  fhernanda
- * @see     mx.qbits.tienda.api.model.exceptions.NegocioException
+ * @see     mx.CustomException.tienda.api.model.exceptions.NegocioException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class NegocioException extends ControllerException {
+public class CustomException extends BusinessException {
     private static final long serialVersionUID = -1218087669509474484L;
     
-    public NegocioException(EnumMessage message, Object... messageParams) {
+    public CustomException(EnumMessage message, Object... messageParams) {
         this(new Exception(), message, messageParams);
     }
     
-    public NegocioException(Throwable throwable, EnumMessage message, Object... messageParams) {
+    public CustomException(Throwable throwable, EnumMessage message, Object... messageParams) {
         super(throwable,
         String.format(message.getShortMessage(), messageParams),
         String.format(message.getDetailedMessage(), messageParams),

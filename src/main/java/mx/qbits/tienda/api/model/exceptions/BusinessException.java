@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     mx.qbits.tienda.api.model.exceptions
- * Proyecto:    tienda
+ * Paquete:     io.kebblar.petstore.api.model.exceptions
+ * Proyecto:    petstore-back
  * Tipo:        Clase
  * Nombre:      BusinessException
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -20,12 +20,14 @@
  */
 package mx.qbits.tienda.api.model.exceptions;
 
+import mx.qbits.tienda.api.model.enumerations.HttpStatus;
+
 /**
  * <p>Descripción:</p>
  * Excepción general que define que se ha violado una regla de la lógica de negocio.
  *
  * @author  fhernanda
- * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
+ * @see     io.kebblar.petstore.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
@@ -48,7 +50,7 @@ public class BusinessException extends ControllerException {
      * @param detailedMessage a {@link java.lang.String} object.
      * @param localExceptionNumber a int.
      * @param localExceptionKey a {@link java.lang.String} object.
-     * @param httpStatus a {@link mx.qbits.tienda.api.model.exceptions.HttpStatus} object.
+     * @param httpStatus a {@link io.kebblar.petstore.api.model.enumerations.HttpStatus} object.
      */
     public BusinessException(
             String shortMessage,
@@ -85,6 +87,16 @@ public class BusinessException extends ControllerException {
             String shortMessage,
             String detailedMessage) {
         super(shortMessage, detailedMessage, 0, "CVE_0000");
+    }
+    
+    public BusinessException(
+            Throwable throwable, 
+            String shortMessage, 
+            String detailedMessage, 
+            int exceptionNumber, 
+            String message, 
+            HttpStatus httpStatus) {
+        super(throwable,shortMessage,detailedMessage,exceptionNumber,message,httpStatus);
     }
 
 }

@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     mx.qbits.tienda.api.model.exceptions
- * Proyecto:    tienda
+ * Paquete:     io.kebblar.petstore.api.model.exceptions
+ * Proyecto:    petstore-back
  * Tipo:        Clase
  * Nombre:      TransactionException
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -20,6 +20,8 @@
  */
 package mx.qbits.tienda.api.model.exceptions;
 
+import mx.qbits.tienda.api.model.enumerations.HttpStatus;
+
 /**
  * <p>Descripción</p>
  * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
@@ -29,21 +31,12 @@ package mx.qbits.tienda.api.model.exceptions;
  * código HTTP que será devuelto.
  *
  * @author  garellano
- * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
+ * @see     io.kebblar.petstore.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
 public class TransactionException extends BusinessException {
     private static final long serialVersionUID = -7083159020205284484L;
-
-    /**
-     * Por medio de la excepción original se genera la nueva excepción.
-     *
-     * @param e excepción lanzada en un inicio
-     */
-    public TransactionException(Exception e) {
-        super(e);
-    }
 
     /**
      * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
@@ -54,8 +47,8 @@ public class TransactionException extends BusinessException {
         super(
             "Transacción fallida. Haciendo rollback del proceso.",
             msg,
-            1019,
-            "CVE_1019",
+            702,
+            "CVE_702",
             HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

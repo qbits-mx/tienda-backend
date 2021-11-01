@@ -27,7 +27,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.exceptions.MailException;
+import mx.qbits.tienda.api.model.exceptions.CustomException;
+import static mx.qbits.tienda.api.model.enumerations.EnumMessage.SEND_MAIL;
 
 import java.io.File;
 import java.util.concurrent.Executors;
@@ -117,7 +118,7 @@ public class MailSenderServiceImpl implements MailSenderService {
             javaMailSender.send(mail);
             return "";
         } catch (MessagingException me) {
-            throw new MailException(me);
+            throw new CustomException(SEND_MAIL);
         }
     }
 
