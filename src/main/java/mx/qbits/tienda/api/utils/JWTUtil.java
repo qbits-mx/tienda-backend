@@ -1,29 +1,5 @@
-/*
- * Licencia:    Este  código y cualquier  derivado  de  el, es  propiedad de la
- *              empresa Metasoft SA de CV y no debe, bajo ninguna circunstancia
- *              ser copiado, donado,  cedido, modificado, prestado, rentado y/o 
- *              mostrado  a ninguna persona o institución sin el permiso expli-
- *              cito  y  por  escrito de  la empresa Metasoft SA de CV, que es, 
- *              bajo cualquier criterio, el único dueño de la totalidad de este 
- *              código y cualquier derivado de el.
- *              ---------------------------------------------------------------
- * Paquete:     io.kebblar.petstore.api.utils
- * Proyecto:    petstore-back
- * Tipo:        Clase
- * Nombre:      JWTUtil
- * Autor:       Gustavo Adolfo Arellano (GAA)
- * Correo:      gustavo.arellano@metasoft.com.mx
- * Versión:     0.0.1-SNAPSHOT
- *
- * Historia: 
- *              Creación: 5 Sep 2021 @ 08:36:01
- */
 package mx.qbits.tienda.api.utils;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,65 +37,6 @@ public class JWTUtil {
             instance = new JWTUtil();
         }
         return instance;
-    }
-
-    /**
-     * <p>digest.</p>
-     *
-     * @param source a {@link java.lang.String} object.
-     * @param salt a {@link java.lang.String} object.
-     * @return a {@link java.lang.String} object.
-     */
-    public String digest(String source, String salt) {
-        try {
-            return toHexString(getSHA256(source, salt));
-        } catch (NoSuchAlgorithmException e) {
-            // This Wouldn't ocurr never ever...
-            return null;
-        }
-    }
-
-    /**
-     * Regresa un arreglo de bytes que es la digestión de un input dado y un 'salt' dado.
-     * Generalmente, el 'salt' va a ser el usuario, para este caso de uso. (Auth)
-     *
-     * @param source Cadena a digestar (Generalmente el password)
-     * @param salt Cadena a incluir como 'salt' (Generalmente el Usuaio)
-     * @return Areeglo de bytes con la composición digestada
-     * @throws java.security.NoSuchAlgorithmException No va a pasar nunca, ya que el SHA-256 siempre exste
-     */
-    public byte[] getSHA256(String source, String salt) throws NoSuchAlgorithmException {
-        // Create the 'input' String with a 'salt', generally,
-        String input = source + salt;
-        // Static getInstance method is called with hashing SHA
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-        // digest() method called
-        // to calculate message digest of an input
-        // and return array of byte
-        return md.digest(input.getBytes(StandardCharsets.UTF_8));
-    }
-
-    /**
-     * Convierte un arreglo de bytes en una cadena hexadecimal.
-     *
-     * @param hash Arreglo de bytes a ser convertido a cadena.
-     * @return Cadena asociada al arreglo dado
-     */
-    public String toHexString(byte[] hash) {
-        // Convert byte array into signum representation
-        BigInteger number = new BigInteger(1, hash);
-
-        // Convert message digest into hex value
-        StringBuilder hexString = new StringBuilder(number.toString(16));
-
-        // Pad with leading zeros
-        while (hexString.length() < 32) {
-            hexString.insert(0, '0');
-        }
-
-        // Show me the result, baby
-        return hexString.toString();
     }
 
     /**
@@ -176,19 +93,6 @@ public class JWTUtil {
     }
 
     /**
-     * <p>showInfo.</p>
-     *
-     * @param claims a {@link io.jsonwebtoken.Claims} object.
-     */
-    public void showInfo(Claims claims) {
-        logger.info("ID: " + claims.getId());
-        logger.info("Subject: " + claims.getSubject());
-        logger.info("Issuer: " + claims.getIssuer());
-        logger.info("Expiration: " + claims.getExpiration());
-        logger.info("IssuedAt: " + claims.getIssuedAt());
-    }
-
-    /**
      * <p>valida.</p>
      *
      * @param token a {@link java.lang.String} object.
@@ -220,12 +124,6 @@ public class JWTUtil {
         }
     }
 
-//    public static void main(String...argv) {
-//        String token="eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcnlwdG8tZXhlY3V0b3Itand0TWFuYWdlciIsImlhdCI6MTYyNTUyMTYyNiwic3ViIjoiQ29vbCBqd3QgVG9rZW4gb246IDE2MjU1MjE2MjYyMTIiLCJqdGkiOiJndXN0YXZvLWFyZWxsYW5vQGdtYWlsLmNvbSIsImV4cCI6MTYyNTUyMzQyNn0._Omitk0L5XDduhPGaWcmvWBArimQw4lE8qthXK6q1Ys";
-//        boolean res = isExpired(token);
-//        System.out.println(res);
-//    }
-
     /**
      * <p>createToken.</p>
      *
@@ -255,6 +153,19 @@ public class JWTUtil {
     }
 
     /**
+     * <p>showInfo.</p>
+     *
+     * @param claims a {@link io.jsonwebtoken.Claims} object.
+     */
+    public void showInfo(Claims claims) {
+        logger.info("ID: " + claims.getId());
+        logger.info("Subject: " + claims.getSubject());
+        logger.info("Issuer: " + claims.getIssuer());
+        logger.info("Expiration: " + claims.getExpiration());
+        logger.info("IssuedAt: " + claims.getIssuedAt());
+    }
+    
+    /**
      * <p>getMail.</p>
      *
      * @param jwt a {@link java.lang.String} object.
@@ -271,5 +182,34 @@ public class JWTUtil {
         }
         return claim.getId();
     }
+    
+    public String decodeJwt(String jwt) {
+        String[] chunks = jwt.split("\\.");
+        if(chunks.length<3) throw new RuntimeException("Bad jwt");
+        Base64.Decoder decoder = Base64.getDecoder();
 
+        String header = new String(decoder.decode(chunks[0]));
+        System.out.println(header);
+                
+        String payload = new String(decoder.decode(chunks[1]));
+        
+        String signature = new String(chunks[2]);
+        System.out.println(signature);
+        
+        return payload;
+    }
 }
+
+/*
+
+
+{
+"iss":"crypto-executor-jwtManager",
+"iat":1637609469,
+"sub":"Cool jwt Token on: 1637609469452",
+"jti":"gustavi",
+"exp":1637615469
+}
+
+
+*/

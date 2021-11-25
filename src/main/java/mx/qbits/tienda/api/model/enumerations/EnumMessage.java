@@ -113,7 +113,7 @@ public enum EnumMessage {
     USER_NOT_EXIST(
             1014,
             "Usuario inexistente", 
-            "No ha sido posible encontrar al usuario %s en la base de datos",
+            "No ha sido posible encontrar al usuario '%s' en la base de datos",
             HttpStatus.BAD_REQUEST),
 
     WAIT_LOGIN(

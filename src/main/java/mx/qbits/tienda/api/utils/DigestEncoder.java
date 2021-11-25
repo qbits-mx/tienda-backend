@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     mx.qbits.tienda.api.utils
- * Proyecto:    tienda
+ * Paquete:     io.kebblar.petstore.api.utils
+ * Proyecto:    petstore-back
  * Tipo:        Clase
  * Nombre:      DigestEncoder
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -78,8 +78,7 @@ public class DigestEncoder  {
         try {
             return toHexString(getSHA256(source, salt));
         } catch (NoSuchAlgorithmException e) {
-            logger.error("This Wouldn't ocurr never ever...");
-            logger.error(e.getMessage());
+            logger.error("This Wouldn't ocurr never ever... "+ e.getMessage());
             return null;
         }
     }
@@ -118,8 +117,11 @@ public class DigestEncoder  {
         // Convert byte array into signum representation
         BigInteger number = new BigInteger(1, hash);
 
-        // Convert message digest into hex value
-        StringBuilder hexString = new StringBuilder(number.toString(16));
+        // get hexadecimal format
+        String hexa = number.toString(16);
+        
+        // Prepare for padding
+        StringBuilder hexString = new StringBuilder(hexa);
 
         // Pad with leading zeros
         while (hexString.length() < 32) {
@@ -130,19 +132,4 @@ public class DigestEncoder  {
         return hexString.toString();
     }
 
-    /**
-     * Retorna una cadena de 'len' caracteres aleatoria
-     *
-     * @param len longitud de la cadena retornada
-     * @return String aleatorio
-     */
-    public static String getRandomString(int len) {
-        StringBuilder result = new StringBuilder();
-        String base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        for(int i =0; i<len; i++) {
-            double position = Math.random()*(base.length());
-            result.append(base.charAt((int)position));
-        }
-        return result.toString();
-    }
 }

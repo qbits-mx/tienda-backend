@@ -10,7 +10,7 @@
  * Paquete:     mx.qbits.tienda.api.rest
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      AdminController
+ * Nombre:      AccessController
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import mx.qbits.tienda.api.model.exceptions.ControllerException;
+import mx.qbits.tienda.api.model.request.CredencialesRequest;
+import mx.qbits.tienda.api.model.response.LoginResponse;
 import mx.qbits.tienda.api.service.HealthService;
+import mx.qbits.tienda.api.service.LoginService;
 
 /**
  * Implementacion  del controlador REST asociado a los endpoints
@@ -65,8 +70,8 @@ import mx.qbits.tienda.api.service.HealthService;
 @RestController
 @Api(value = "admin")
 @RequestMapping(value = "/api")
-public class AdminController {
-    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+public class AccessController {
+    private static final Logger logger = LoggerFactory.getLogger(AccessController.class);
     private HealthService healthService;
 
     @Value("${app.profile.identifier}")
@@ -83,17 +88,23 @@ public class AdminController {
 
     @Autowired
     private RestTemplate restTemplate;
+    
+    
+    private LoginService loginService;
+    
+    
     /**
      * Constructor que realiza el setting de los servicios que serán
      * utilizados en este controlador.
      *
      * @param healthService Servicios de HealthService
      */
-    public AdminController(HealthService healthService) {
+    public AccessController(HealthService healthService, LoginService loginService) {
         this.healthService = healthService;
+        this.loginService = loginService;
     }
 
-    @ApiOperation( value = "AdminController::UploadPictures")
+    @ApiOperation( value = "AccessController::UploadPictures")
     @PostMapping(path="/UploadPictures", produces = "application/json; charset=utf-8")
     public String upload(
         @ApiParam(name = "request", value = "MultipartFile del archivo")
@@ -114,7 +125,7 @@ public class AdminController {
         return "ok";
     }
 
-    @ApiOperation(value = "AdminController::logout", notes = "Provoca un 'logout' del usuario firmado en el sistema")
+    @ApiOperation(value = "AccessController::logout", notes = "Provoca un 'logout' del usuario firmado en el sistema")
     @GetMapping(path = "/logout.json", produces = "application/json; charset=utf-8")
     public String logout(HttpServletRequest request) throws ServletException {
         String name = "tavo";
@@ -123,7 +134,7 @@ public class AdminController {
         return res.replace('-', '"');
     }
 
-    @ApiOperation(value = "AdminController::health", notes = "Entrega un informe a cerca de las variables del sistema")
+    @ApiOperation(value = "AccessController::health", notes = "Entrega un informe a cerca de las variables del sistema")
     @GetMapping(path = "/health.json", produces = "application/json; charset=utf-8")
     public Map<String, String> health(
             @ApiParam(name = "inputData", value = "Los datos de entrada", defaultValue = "ls")
@@ -140,7 +151,7 @@ public class AdminController {
         return result;
     }
 
-    @ApiOperation(value = "AdminController::health", notes = "Entrega el log del sistema")
+    @ApiOperation(value = "AccessController::health", notes = "Entrega el log del sistema")
     @GetMapping(path = "/log.json", produces = "application/json; charset=utf-8")
     public List<String> getLog(
             @ApiParam(name = "last", value = "Número de lineas", defaultValue = "1")
@@ -159,6 +170,11 @@ public class AdminController {
         } catch (RuntimeException e) {
             return "{'error':'" + e.getMessage() + "', 'uri':'" + uri + "'}".replace("'", "\"");
         }
+    }
+    
+    @PostMapping(path = "/acceso/login", produces = "application/json; charset=utf-8")
+    public LoginResponse login(@RequestBody CredencialesRequest cred) throws ControllerException {
+        return loginService.login(cred.getUsuario(), cred.getClave());
     }
 
 }
