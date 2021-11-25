@@ -58,9 +58,9 @@ pipeline {
                 // forma 2: https://github.com/jenkinsci/ssh-steps-plugin#remote
                 sh "cd ${BASE_PATH}/${PROJECT_ROOT}/target && ls -la"
                 sshagent(['135e6064-b985-420c-b71c-dc00c127181f']){
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@34.204.151.134 uptime'
-                    sh "scp ${BASE_PATH}/${PROJECT_ROOT}/target/tienda-back-1.0-SNAPSHOT.jar ubuntu@34.204.151.134:/home/ubuntu/work/tienda/deploy"
-                    sh "ssh -o StrictHostKeyChecking=no -l ubuntu 34.204.151.134 'cd /home/ubuntu/work && ./run_tienda.sh'"
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@44.198.66.81 uptime'
+                    sh "scp ${BASE_PATH}/${PROJECT_ROOT}/target/tienda-back-1.0-SNAPSHOT.jar ubuntu@44.198.66.81:/home/ubuntu/work/tienda/deploy"
+                    sh "ssh -o StrictHostKeyChecking=no -l ubuntu 44.198.66.81 'cd /home/ubuntu/work && ./run_tienda.sh'"
                 }
             }
         }
