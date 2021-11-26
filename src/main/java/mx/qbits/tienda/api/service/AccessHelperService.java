@@ -33,4 +33,6 @@ public interface AccessHelperService {
 
     String createToken(String mail);
 
+    UsuarioDetalle actualizaUsuarioDetalle(UsuarioDetalle usuarioDetalle) throws BusinessException;
+
 }

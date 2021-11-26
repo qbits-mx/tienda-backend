@@ -8,10 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import mx.qbits.tienda.api.model.domain.Usuario;
+import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.model.response.LoginResponse;
 import mx.qbits.tienda.api.utils.DigestEncoder;
+import mx.qbits.tienda.api.utils.JWTUtil;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -97,5 +99,16 @@ public class LoginServiceImpl implements LoginService {
                     accessHelperService.getUserRoles(usuario.getId())
             );
         }
+    }
+
+    @Override
+    public UsuarioDetalle actualizaUsuarioDetalle(String jwt, UsuarioDetalle usuarioDetalle) throws BusinessException {
+        String decoded = JWTUtil.getInstance().decodeJwt(jwt);
+        String correo = JWTUtil.getInstance().getCorreo(decoded);
+        Usuario usuario = accessHelperService.obtenUsuarioPorCorreo(correo);
+        if(usuarioDetalle.getId() != usuario.getId()) {
+            throw new CustomException(WRONG_TOKEN);
+        }
+        return accessHelperService.actualizaUsuarioDetalle(usuarioDetalle);
     }
 }

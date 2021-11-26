@@ -35,7 +35,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +48,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import mx.qbits.tienda.api.model.domain.Usuario;
+import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.ControllerException;
 import mx.qbits.tienda.api.model.request.CredencialesRequest;
 import mx.qbits.tienda.api.model.response.LoginResponse;
@@ -172,10 +176,36 @@ public class AccessController {
         }
     }
     
-    @PostMapping(path = "/acceso/login", produces = "application/json; charset=utf-8")
+    @PostMapping(path = "login.json", produces = "application/json; charset=utf-8")
     public LoginResponse login(@RequestBody CredencialesRequest cred) throws ControllerException {
         return loginService.login(cred.getUsuario(), cred.getClave());
     }
-
+    
+    @PutMapping(
+            path = "/usuarios",
+            produces = "application/json; charset=utf-8")
+    public Usuario updateUsuario(
+            @RequestHeader("jwt") String jwt,
+            @ApiParam(
+                    name = "usuario",
+                    value = "Actualiza un Usuario empleando todos los atributos provistos")
+            @RequestBody Usuario usuario
+            ) throws ControllerException {
+         //this.verifica(jwt, "ADMIN"); // o sea: sólo un administrador puede actualizar a un usuario cualquiera
+         return usuario;//this.usuarioService.actualizaUsuario(usuario);
+    }
+    
+    @PutMapping(
+            path = "/usuario-detalles.json",
+            produces = "application/json; charset=utf-8")
+    public UsuarioDetalle updateUsuarioDetalles(
+            @RequestHeader("jwt") String jwt,
+            @ApiParam(
+                    name = "usuarioDetalle",
+                    value = "Actualiza un UsuarioDetalle empleando todos los atributos provistos")
+            @RequestBody UsuarioDetalle usuarioDetalle
+            ) throws ControllerException {
+         return loginService.actualizaUsuarioDetalle(jwt, usuarioDetalle);
+    }
 }
 

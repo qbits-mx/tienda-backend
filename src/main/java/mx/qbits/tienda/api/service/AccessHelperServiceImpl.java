@@ -16,6 +16,7 @@ import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.support.JwtManagerService;
+import mx.qbits.tienda.api.utils.StringUtils;
 
 @Service
 public class AccessHelperServiceImpl implements AccessHelperService {    
@@ -80,5 +81,18 @@ public class AccessHelperServiceImpl implements AccessHelperService {
     @Override
     public String createToken(String mail) {
         return jwtManagerService.createToken(mail);
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public UsuarioDetalle actualizaUsuarioDetalle(UsuarioDetalle usuarioDetalle) throws BusinessException {
+        try {
+            String nuevoCel = StringUtils.limpia(usuarioDetalle.getTelefonoCelular());
+            usuarioDetalle.setTelefonoCelular(nuevoCel);
+            usuarioDetalleMapper.update(usuarioDetalle);
+            return usuarioDetalle;
+        } catch (Exception e) {
+            throw new CustomException(e, DATABASE, "Error actualizando los datos del usuario");
+        }
     }
 }

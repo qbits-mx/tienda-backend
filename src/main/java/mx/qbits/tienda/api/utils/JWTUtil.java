@@ -3,6 +3,8 @@ package mx.qbits.tienda.api.utils;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -188,16 +190,30 @@ public class JWTUtil {
         if(chunks.length<3) throw new RuntimeException("Bad jwt");
         Base64.Decoder decoder = Base64.getDecoder();
 
-        String header = new String(decoder.decode(chunks[0]));
-        System.out.println(header);
-                
-        String payload = new String(decoder.decode(chunks[1]));
-        
-        String signature = new String(chunks[2]);
-        System.out.println(signature);
-        
-        return payload;
+        try {
+            //String header = new String(decoder.decode(chunks[0]));
+            //System.out.println(header);
+            String payload = new String(decoder.decode(chunks[1]));
+            
+            //String signature = new String(chunks[2]);
+            //System.out.println(signature);
+            
+            return payload;
+        } catch(IllegalArgumentException e) {
+            throw new RuntimeException("Bad jwt");
+        }
     }
+    
+    public String getCorreo(String decodedJwt) {
+        String[] partes = decodedJwt.substring(1, decodedJwt.length()-1).replaceAll("\"", "").split(",");
+        Map<String, String> mapa = new HashMap<>();
+        for(String parte : partes) {
+            String[] d = parte.split(":");
+            mapa.put(d[0], d[1]);
+        }
+        return mapa.get("jti");
+    }
+    
 }
 
 /*
