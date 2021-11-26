@@ -176,7 +176,7 @@ public class AccessController {
         }
     }
     
-    @PostMapping(path = "login.json", produces = "application/json; charset=utf-8")
+    @PostMapping(path = "/acceso/login", produces = "application/json; charset=utf-8")
     public LoginResponse login(@RequestBody CredencialesRequest cred) throws ControllerException {
         return loginService.login(cred.getUsuario(), cred.getClave());
     }
