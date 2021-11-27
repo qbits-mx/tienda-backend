@@ -13,15 +13,14 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.model.response.LoginResponse;
 import mx.qbits.tienda.api.utils.DigestEncoder;
-import mx.qbits.tienda.api.utils.JWTUtil;
 
 @Service
-public class LoginServiceImpl implements LoginService {
-    private static final Logger logger = LoggerFactory.getLogger(LoginServiceImpl.class);
+public class AccessServiceImpl implements AccessService {
+    private static final Logger logger = LoggerFactory.getLogger(AccessServiceImpl.class);
     
     private AccessHelperService accessHelperService;
     
-    public LoginServiceImpl(AccessHelperService accessHelperService) {
+    public AccessServiceImpl(AccessHelperService accessHelperService) {
         this.accessHelperService = accessHelperService;
     }
 
@@ -101,14 +100,29 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public UsuarioDetalle actualizaUsuarioDetalle(String jwt, UsuarioDetalle usuarioDetalle) throws BusinessException {
-        String decoded = JWTUtil.getInstance().decodeJwt(jwt);
-        String correo = JWTUtil.getInstance().getCorreo(decoded);
-        Usuario usuario = accessHelperService.obtenUsuarioPorCorreo(correo);
+        String correoFromJwt = accessHelperService.getCorreoFromJwt(jwt);
+        Usuario usuario = accessHelperService.obtenUsuarioPorCorreo(correoFromJwt);
         if(usuarioDetalle.getId() != usuario.getId()) {
             throw new CustomException(WRONG_TOKEN);
         }
         return accessHelperService.actualizaUsuarioDetalle(usuarioDetalle);
     }
+
+    /** {@inheritDoc} */
+    @Override
+    public Usuario cambiaClave(String jwt, String correo, String clave) throws BusinessException {
+        String correoFromJwt = accessHelperService.getCorreoFromJwt(jwt);
+        if(!correoFromJwt.equals(correo)) {
+            throw new CustomException(WRONG_TOKEN);
+        }
+        Usuario usr = accessHelperService.obtenUsuarioPorCorreo(correo);
+        String claveHasheada = DigestEncoder.digest(clave, usr.getCorreo());
+        usr.setClave(claveHasheada);
+        accessHelperService.update(usr);
+        return usr;
+    }
+    
 }

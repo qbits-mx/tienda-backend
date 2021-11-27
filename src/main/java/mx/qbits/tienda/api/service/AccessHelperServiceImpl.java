@@ -16,6 +16,7 @@ import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.support.JwtManagerService;
+import mx.qbits.tienda.api.utils.JWTUtil;
 import mx.qbits.tienda.api.utils.StringUtils;
 
 @Service
@@ -94,5 +95,13 @@ public class AccessHelperServiceImpl implements AccessHelperService {
         } catch (Exception e) {
             throw new CustomException(e, DATABASE, "Error actualizando los datos del usuario");
         }
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public String getCorreoFromJwt(String jwt) {
+        String decoded = JWTUtil.getInstance().decodeJwt(jwt);
+        String correo = JWTUtil.getInstance().getCorreo(decoded);
+        return correo;
     }
 }

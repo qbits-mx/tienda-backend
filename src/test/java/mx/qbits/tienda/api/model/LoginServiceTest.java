@@ -23,13 +23,13 @@ import mx.qbits.tienda.api.model.domain.Usuario;
 import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.response.LoginResponse;
-import mx.qbits.tienda.api.service.LoginService;
-import mx.qbits.tienda.api.service.LoginServiceImpl;
+import mx.qbits.tienda.api.service.AccessService;
+import mx.qbits.tienda.api.service.AccessServiceImpl;
 
 //@RunWith(MockitoJUnitRunner.class)
 public class LoginServiceTest {
     /*
-    private LoginService loginService;
+    private AccessService loginService;
     
     @Mock
     private UsuarioDetalleMapper usuarioDetalleMapper;
@@ -56,7 +56,7 @@ public class LoginServiceTest {
         
     @Test
     public void loginIncorrectTest() {
-        loginService = new LoginServiceImpl(usuarioDetalleMapper, usuarioMapper, rolMapper);
+        loginService = new AccessServiceImpl(usuarioDetalleMapper, usuarioMapper, rolMapper);
         
         try {
             LoginResponse lr = loginService.login("gustavo-arellano@gmail.com", "incorrecto");
@@ -68,7 +68,7 @@ public class LoginServiceTest {
     
     @Test
     public void loginCorrectTest() throws SQLException {
-        loginService = new LoginServiceImpl(usuarioDetalleMapper, usuarioMapper, rolMapper);
+        loginService = new AccessServiceImpl(usuarioDetalleMapper, usuarioMapper, rolMapper);
         
         try {
             LoginResponse lr = loginService.login("gustavo-arellano@gmail.com", "Kebblar2017_");
