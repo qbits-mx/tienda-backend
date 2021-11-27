@@ -124,5 +124,25 @@ public class AccessServiceImpl implements AccessService {
         accessHelperService.update(usr);
         return usr;
     }
+
+    @Override
+    public String regeneraClave(String correo) {
+        // envía correo electrónico
+        // busca en la base el correo.
+        // si no lo encuantas, no hagas nada
+        // si lo encuentras: guarda en la base (tabla usuario, llave correo) el token con fecha de expiración
+        return "{'result':'succeed'}".replace('\'', '\"');
+    }
+
+    @Override
+    public String confirmaRegeneraClave(String token, String clave) throws BusinessException {
+        // valida token contra la base y su expiración
+        // valida fortaleza de la clave
+        // busca usuario con base en el token 
+        // crea claveHash y setea al usuario con la clave
+        // guarda al usuario
+        // Opcinalmente, retorna al usuario (evaluar si eso es lo mejor)
+        return "{'result':'succeed'}".replace('\'', '\"');
+    }
     
 }

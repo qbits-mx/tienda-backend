@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -142,5 +143,24 @@ public class AccessController {
             ) throws ControllerException {
          return accessService.cambiaClave(jwt, cred.getUsuario(), cred.getClave());
     }
+    
+    @GetMapping(
+            path = "/regenera-clave.json",
+            produces = "application/json; charset=utf-8")
+    public String regeneraClave(
+            @ApiParam(
+                    name = "correo",
+                    value = "Gestiona la recuperación de la clave")
+            @RequestParam String correo) throws ControllerException {
+         return accessService.regeneraClave(correo);
+    }
+
+    @GetMapping(
+            path = "/confirma-regenera-clave.json",
+            produces = "application/json; charset=utf-8")
+    public String confirmaRegeneraClave(
+            @RequestParam String token, @RequestParam String clave) throws ControllerException {
+         return accessService.confirmaRegeneraClave(token, clave);
+    }  
 }
 
