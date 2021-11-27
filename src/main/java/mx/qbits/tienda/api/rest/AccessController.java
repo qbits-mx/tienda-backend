@@ -47,6 +47,7 @@ import mx.qbits.tienda.api.model.domain.Usuario;
 import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.ControllerException;
 import mx.qbits.tienda.api.model.request.CredencialesRequest;
+import mx.qbits.tienda.api.model.request.GoogleCaptcha;
 import mx.qbits.tienda.api.model.response.LoginResponse;
 import mx.qbits.tienda.api.service.AccessService;
 
@@ -161,6 +162,17 @@ public class AccessController {
     public String confirmaRegeneraClave(
             @RequestParam String token, @RequestParam String clave) throws ControllerException {
          return accessService.confirmaRegeneraClave(token, clave);
-    }  
-}
+    }
+    
+    @ApiOperation(
+            value = "RegistroController::VerificarCaptcha",
+            notes = "Verifica que el Google captcha V 2.0 sea correcto")
+    @PostMapping(
+            value = "/check-captcha",
+            produces = "application/json; charset=utf-8")
+    public String checkCaptcha(
+            @ApiParam(name = "googleCaptcha", value = "Google Captcha V2.0")
+            @RequestBody GoogleCaptcha googleCaptcha) throws ControllerException {
+        return accessService.checkCaptcha(googleCaptcha);
+    }}
 

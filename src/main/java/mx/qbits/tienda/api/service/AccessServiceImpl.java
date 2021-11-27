@@ -11,7 +11,9 @@ import mx.qbits.tienda.api.model.domain.Usuario;
 import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
+import mx.qbits.tienda.api.model.request.GoogleCaptcha;
 import mx.qbits.tienda.api.model.response.LoginResponse;
+import mx.qbits.tienda.api.support.RecaptchaService;
 import mx.qbits.tienda.api.utils.DigestEncoder;
 
 @Service
@@ -19,9 +21,11 @@ public class AccessServiceImpl implements AccessService {
     private static final Logger logger = LoggerFactory.getLogger(AccessServiceImpl.class);
     
     private AccessHelperService accessHelperService;
+    private RecaptchaService recaptchaService;
     
-    public AccessServiceImpl(AccessHelperService accessHelperService) {
+    public AccessServiceImpl(AccessHelperService accessHelperService, RecaptchaService recaptchaService) {
         this.accessHelperService = accessHelperService;
+        this.recaptchaService = recaptchaService;
     }
 
     /** {@inheritDoc} */
@@ -144,5 +148,10 @@ public class AccessServiceImpl implements AccessService {
         // Opcinalmente, retorna al usuario (evaluar si eso es lo mejor)
         return "{'result':'succeed'}".replace('\'', '\"');
     }
-    
+
+    @Override
+    public String checkCaptcha(GoogleCaptcha googleCaptcha) throws BusinessException {
+        return recaptchaService.checkCaptcha(googleCaptcha);
+    }
+
 }
