@@ -205,13 +205,61 @@ public class JWTUtil {
     }
     
     public String getCorreo(String decodedJwt) {
+        return getValueFromDecodedJwtString(decodedJwt, "jti");
+    }
+    
+    public long getExpiration(String decodedJwt) {
+        String expStr = getValueFromDecodedJwtString(decodedJwt, "exp");
+        return new Long(expStr);
+    }
+    
+    public String getValueFromDecodedJwtString(String decodedJwt, String field) {
         String[] partes = decodedJwt.substring(1, decodedJwt.length()-1).replaceAll("\"", "").split(",");
         Map<String, String> mapa = new HashMap<>();
         for(String parte : partes) {
             String[] d = parte.split(":");
             mapa.put(d[0], d[1]);
         }
-        return mapa.get("jti");
+        return mapa.get(field);
+    }
+    
+    /**
+     * Checa si un token dado (con estructira correcta) ha sido firmado adecuadamente.
+     * En caso de que sea un token con una estructira inválida o no esté firmado de una 
+     * manera adecuada, dispara una excepción. Si todo esta bien, retorna "true".
+     * <p> Es interesante mencionar que si a cadena jwt es verificada exitosamente, entonces
+     * es posible parsear (hacer decode) al jwt de manera simple y confiar en la decodificación.
+     * Ver decodeJwt para un decode en forma de cadena json.
+     * 
+     * @param jwt Cadena jwt a verificar
+     * @param encryptKey Clave de encripción
+     * 
+     * @return true, si la cadena jwt es correcta y se verifica la clave
+     * @throws CustomException
+     */
+    public boolean revisaToken(String jwt, String encryptKey) throws CustomException {
+        try {
+            Jwts
+               .parser()
+               .setSigningKey(encryptKey.getBytes())
+               .parseClaimsJws(jwt).getBody();
+            return true;
+        } catch(Exception e) {
+            throw new CustomException(e, WRONG_TOKEN);
+        }
+    }
+    
+    public boolean revisaExpiracion(String decodedJwt) throws CustomException {
+        long now = System.currentTimeMillis();
+        long someFutureDay = this.getExpiration(decodedJwt);
+        if(someFutureDay< now) throw new CustomException(TOKEN_EXPIRED);
+        return true;
+    }
+    
+    public boolean revisaSender(String decodedJwt, String sender) throws CustomException {
+        String correo = this.getCorreo(decodedJwt);
+        if(!sender.equals(correo)) throw new CustomException(TOKEN_INVALID);
+        return true;
     }
     
 }

@@ -103,7 +103,13 @@ public enum EnumMessage {
     		"Token inexistente",
     		"El token referido no existe",
     		HttpStatus.UNAUTHORIZED),
-
+    
+    TOKEN_INVALID(
+            1018,
+            "Token inválido",
+            "El token referido es inválido",
+            HttpStatus.UNAUTHORIZED),
+    
     USER_ALREADY_EXISTS(
     		1013,
     		"Usuario existente",

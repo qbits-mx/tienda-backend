@@ -25,6 +25,7 @@ public class CalcTest {
     @Test
     public void testDecodeJwt() {
         String decoded = JWTUtil.getInstance().decodeJwt("eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcnlwdG8tZXhlY3V0b3Itand0TWFuYWdlciIsImlhdCI6MTYzNzkzMjI4Miwic3ViIjoiQ29vbCBqd3QgVG9rZW4gb246IDE2Mzc5MzIyODI3OTIiLCJqdGkiOiJndXN0YXZvLWFyZWxsYW5vQGdtYWlsLmNvbSIsImV4cCI6MTYzNzkzMzE4Mn0.qJk0UylGcp097ZUL_JfzHokaX7D5E3tjzXPa3pcaM1g");
+        System.out.println(decoded);
         String correo = JWTUtil.getInstance().getCorreo(decoded);
         assertTrue("gustavo-arellano@gmail.com".equals(correo));
     }
