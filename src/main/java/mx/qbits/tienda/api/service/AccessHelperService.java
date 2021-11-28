@@ -7,6 +7,7 @@ import mx.qbits.tienda.api.model.domain.Usuario;
 import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
+import mx.qbits.tienda.api.model.request.Preregistro;
 
 public interface AccessHelperService {
 
@@ -40,4 +41,10 @@ public interface AccessHelperService {
     Usuario getByToken(String token);
 
     void confirmaRegeneraClave(String token, String claveHash);
+
+    Preregistro getRegistroByMail(String correo) throws BusinessException;
+
+    void insertRegistro(Preregistro preRegistroRequest) throws BusinessException;
+
+    void updateRegistro(Preregistro preRegistroRequest) throws BusinessException;
 }

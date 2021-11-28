@@ -13,10 +13,13 @@ import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.model.request.GoogleCaptcha;
+import mx.qbits.tienda.api.model.request.Preregistro;
+import mx.qbits.tienda.api.model.request.PreregistroRequest;
 import mx.qbits.tienda.api.model.response.LoginResponse;
 import mx.qbits.tienda.api.support.MailSenderService;
 import mx.qbits.tienda.api.support.RecaptchaService;
 import mx.qbits.tienda.api.utils.DigestEncoder;
+import mx.qbits.tienda.api.utils.ManageDates;
 import mx.qbits.tienda.api.utils.StringUtils;
 import mx.qbits.tienda.api.utils.ValidadorClave;
 
@@ -137,6 +140,7 @@ public class AccessServiceImpl implements AccessService {
         return usr;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String regeneraClave(String correo) {
         String token = StringUtils.getRandomString(6);
@@ -165,6 +169,7 @@ public class AccessServiceImpl implements AccessService {
         this.mailSenderService.sendHtmlMail(correo, titulo, body);
     }
     
+    /** {@inheritDoc} */
     @Override
     public String confirmaRegeneraClave(String token, String clave) throws BusinessException {
         // Valida la fortaleza de la clave
@@ -188,9 +193,73 @@ public class AccessServiceImpl implements AccessService {
         return "{'result':'succeed'}".replace('\'', '\"');
     }
 
+    /** {@inheritDoc} */
     @Override
     public String checkCaptcha(GoogleCaptcha googleCaptcha) throws BusinessException {
         return recaptchaService.checkCaptcha(googleCaptcha);
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public Preregistro preRegistro(PreregistroRequest preRegistroRequest) throws BusinessException {
+        ManageDates md = new ManageDates();
+        int dia = preRegistroRequest.getDay();
+        int mes = preRegistroRequest.getMonth();
+        int anio = preRegistroRequest.getYear();
+        Date fechaNacimiento = md.validaFechaPropuesta(anio, mes, dia);
+        md.validaEdad(new Date(), fechaNacimiento, 21); // 21 años es la edad mínima (OJO: Convertir en valor de properties)
+        Preregistro preRegistro = new Preregistro(
+                 preRegistroRequest.getId(), 
+                 preRegistroRequest.getNick(), 
+                 preRegistroRequest.getCorreo(), 
+                 preRegistroRequest.getClaveHash(), 
+                 preRegistroRequest.getTelefono(), 
+                 fechaNacimiento, 
+                 preRegistroRequest.getRandomString(), 
+                 preRegistroRequest.getInstanteRegistro());
+        return preRegistroHelper(preRegistro);
+    }
+    
+    private Preregistro preRegistroHelper(Preregistro preRegistroRequest) throws BusinessException {
+        // Quitale los caracteres raros al teléfono.
+        String nuevoCel = StringUtils.limpia(preRegistroRequest.getTelefono());
+        preRegistroRequest.setTelefono(nuevoCel);
+
+        // Valida si la clave proporcionada es compatible con el
+        // patrón de seguridad de claves solicitado por el sistema:
+        ValidadorClave.validate(preRegistroRequest.getClaveHash());
+        
+        // Exista o no el preregistro, se procesará la solicitud
+        Preregistro preRegistro = accessHelperService.getRegistroByMail(preRegistroRequest.getCorreo());
+
+        // Genera una cadena aleatoria de caracteres y crea un objeto de tipo 'PreRegistro':
+        String randomString = StringUtils.getRandomString(6);
+
+        // Calcula el Hash de la clave con un salt del correo:
+        String claveHasheada = DigestEncoder.digest(preRegistroRequest.getClaveHash(), preRegistroRequest.getCorreo());
+
+        // Asigna valores:
+        preRegistroRequest.setRandomString(randomString);
+        preRegistroRequest.setInstanteRegistro(System.currentTimeMillis());
+        preRegistroRequest.setClaveHash(claveHasheada);
+
+        // Si el usuario NO está en la tabla de 'registro', insertar info:
+        if (preRegistro == null) {
+            logger.info("Creando registro en la tabla 'Registro'");
+            accessHelperService.insertRegistro(preRegistroRequest);
+        } else { // Si el usuario SI está: actualizar info:
+            logger.info("Actualizando registro en la tabla 'Registro'");
+            accessHelperService.updateRegistro(preRegistroRequest);
+        }
+
+        // Envia correo de notificación:
+        sendMail(
+                preRegistroRequest.getNick(),
+                preRegistroRequest.getCorreo(),
+                randomString,
+                "Clave de confirmación de registro");
+        logger.info("Se ha enviado un correo para confirmación a: {} con la clave: {}", preRegistroRequest.getCorreo(), randomString);
+        return preRegistroRequest;
+    }
+    
 }

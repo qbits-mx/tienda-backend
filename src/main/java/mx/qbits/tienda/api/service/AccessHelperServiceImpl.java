@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import mx.qbits.tienda.api.mapper.RegistroMapper;
 import mx.qbits.tienda.api.mapper.RolMapper;
 import mx.qbits.tienda.api.mapper.UsuarioDetalleMapper;
 import mx.qbits.tienda.api.mapper.UsuarioMapper;
@@ -15,6 +16,7 @@ import mx.qbits.tienda.api.model.domain.Usuario;
 import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
+import mx.qbits.tienda.api.model.request.Preregistro;
 import mx.qbits.tienda.api.support.JwtManagerService;
 import mx.qbits.tienda.api.utils.JWTUtil;
 import mx.qbits.tienda.api.utils.StringUtils;
@@ -23,6 +25,7 @@ import mx.qbits.tienda.api.utils.StringUtils;
 public class AccessHelperServiceImpl implements AccessHelperService {    
     private UsuarioDetalleMapper usuarioDetalleMapper;
     private UsuarioMapper usuarioMapper;
+    private RegistroMapper registroMapper;
     private RolMapper rolMapper;
     private JwtManagerService jwtManagerService;
     
@@ -30,11 +33,13 @@ public class AccessHelperServiceImpl implements AccessHelperService {
             UsuarioDetalleMapper usuarioDetalleMapper,
             UsuarioMapper usuarioMapper, 
             RolMapper rolMapper,
-            JwtManagerService jwtManagerService) {
+            JwtManagerService jwtManagerService,
+            RegistroMapper registroMapper) {
         this.usuarioDetalleMapper = usuarioDetalleMapper;
         this.usuarioMapper = usuarioMapper;
         this.rolMapper = rolMapper;
         this.jwtManagerService = jwtManagerService;
+        this.registroMapper = registroMapper;
     }
 
     /** {@inheritDoc} */
@@ -115,5 +120,34 @@ public class AccessHelperServiceImpl implements AccessHelperService {
     @Override
     public void confirmaRegeneraClave(String token, String claveHash) {
         usuarioMapper.confirmaRegeneraClave(token, claveHash);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Preregistro getRegistroByMail(String correo) throws BusinessException {
+        try {
+            return registroMapper.getByMail(correo);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::getRegistroByMail");
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void insertRegistro(Preregistro preRegistroRequest) throws BusinessException {
+        try {
+            registroMapper.insert(preRegistroRequest);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::insertRegistro");
+        }
+    }
+
+    @Override
+    public void updateRegistro(Preregistro preRegistroRequest) throws BusinessException {
+        try {
+            registroMapper.update(preRegistroRequest);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::updateRegistro");
+        }
     }
 }

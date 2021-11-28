@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,8 @@ import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.ControllerException;
 import mx.qbits.tienda.api.model.request.CredencialesRequest;
 import mx.qbits.tienda.api.model.request.GoogleCaptcha;
+import mx.qbits.tienda.api.model.request.Preregistro;
+import mx.qbits.tienda.api.model.request.PreregistroRequest;
 import mx.qbits.tienda.api.model.response.LoginResponse;
 import mx.qbits.tienda.api.service.AccessService;
 
@@ -174,5 +177,19 @@ public class AccessController {
             @ApiParam(name = "googleCaptcha", value = "Google Captcha V2.0")
             @RequestBody GoogleCaptcha googleCaptcha) throws ControllerException {
         return accessService.checkCaptcha(googleCaptcha);
-    }}
+    }
+    
+    @ApiOperation(
+            value = "AccessController::?",
+            notes = "Recibe la información de registro de un nuevo usuario al sistema.")
+    @PostMapping(
+            path = "/usuario-preregistro2",
+            produces = "application/json; charset=utf-8")
+    public Preregistro preRegistro2(
+            @ApiParam(name = "preRegistroRequest", value = "Información con el detalle de un Usuario")
+            @RequestBody @Valid PreregistroRequest preRegistroRequest) throws ControllerException {
+        return accessService.preRegistro(preRegistroRequest);
+    }
+    
+}
 
