@@ -183,7 +183,7 @@ public class AccessController {
             value = "AccessController::?",
             notes = "Recibe la información de registro de un nuevo usuario al sistema.")
     @PostMapping(
-            path = "/usuario-preregistro2",
+            path = "/usuario-preregistro2.json",
             produces = "application/json; charset=utf-8")
     public Preregistro preRegistro2(
             @ApiParam(name = "preRegistroRequest", value = "Información con el detalle de un Usuario")
