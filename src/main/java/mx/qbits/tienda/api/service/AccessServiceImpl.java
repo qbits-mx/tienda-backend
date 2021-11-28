@@ -41,6 +41,7 @@ public class AccessServiceImpl implements AccessService {
             MailSenderService mailSenderService) {
         this.accessHelperService = accessHelperService;
         this.recaptchaService = recaptchaService;
+        this.mailSenderService = mailSenderService;
     }
 
     /** {@inheritDoc} */
