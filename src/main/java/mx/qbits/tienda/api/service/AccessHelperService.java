@@ -24,7 +24,7 @@ public interface AccessHelperService {
      * @param usuario objeto usuario a actualizar.
      * @throws CustomException En caso que ocurra algún problema con la actualización.
      */
-    void update(Usuario usuario) throws BusinessException;
+    void updateUsuario(Usuario usuario) throws BusinessException;
 
     Usuario obtenUsuarioPorCorreo(String correo) throws BusinessException;
 
@@ -47,4 +47,12 @@ public interface AccessHelperService {
     void insertRegistro(Preregistro preRegistroRequest) throws BusinessException;
 
     void updateRegistro(Preregistro preRegistroRequest) throws BusinessException;
+
+    void insertUsuario(Usuario usuario) throws BusinessException;
+
+    void insertUsuarioDetalle(UsuarioDetalle usuarioDetalle) throws BusinessException;
+
+    void insertUserRol(int idUsuario, int rolId) throws BusinessException;
+
+    void deletePreregistroByRandomString(String randomString) throws BusinessException;
 }

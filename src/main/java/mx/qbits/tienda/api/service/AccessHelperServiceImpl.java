@@ -49,7 +49,7 @@ public class AccessHelperServiceImpl implements AccessHelperService {
     }
 
     @Override
-    public void update(Usuario usuario) throws BusinessException {
+    public void updateUsuario(Usuario usuario) throws BusinessException {
         try {
             usuarioMapper.update(usuario);
         } catch (SQLException e) {
@@ -150,4 +150,41 @@ public class AccessHelperServiceImpl implements AccessHelperService {
             throw new CustomException(e, DATABASE, "AccessHelper::updateRegistro");
         }
     }
+
+    @Override
+    public void insertUsuario(Usuario usuario) throws BusinessException {
+        try {
+            usuarioMapper.update(usuario);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::insertUsuario");
+        }
+    }
+
+    @Override
+    public void insertUsuarioDetalle(UsuarioDetalle usuarioDetalle) throws BusinessException {
+        try {
+            usuarioDetalleMapper.insert(usuarioDetalle);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::insertUsuarioDetalle");
+        }
+    }
+
+    @Override
+    public void insertUserRol(int idUsuario, int rolId) throws BusinessException {
+        try {
+            rolMapper.insertUserRol(idUsuario, rolId);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::insertUserRol");
+        }
+    }
+
+    @Override
+    public void deletePreregistroByRandomString(String randomString) throws BusinessException {
+        try {
+            registroMapper.deleteByRandomString(randomString);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::deletePreregistroByRandomString");
+        }
+    }
+
 }

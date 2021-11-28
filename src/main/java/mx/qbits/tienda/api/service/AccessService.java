@@ -22,8 +22,11 @@ public interface AccessService {
     UsuarioDetalle actualizaUsuarioDetalle(String jwt, UsuarioDetalle usuarioDetalle) throws BusinessException;
     
     Usuario cambiaClave(String jwt, String correo, String clave) throws BusinessException;
+    String checkCaptcha(GoogleCaptcha googleCaptcha) throws BusinessException;
+        
     String regeneraClave(String correo);
     String confirmaRegeneraClave(String token, String clave) throws BusinessException;
-    String checkCaptcha(GoogleCaptcha googleCaptcha) throws BusinessException;
+    
     Preregistro preRegistro(PreregistroRequest preRegistroRequest) throws BusinessException;
+    Usuario confirmaPreregistro(String token) throws BusinessException;
 }

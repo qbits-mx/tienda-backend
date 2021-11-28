@@ -7,11 +7,15 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import mx.qbits.tienda.api.model.domain.Usuario;
 import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
+import mx.qbits.tienda.api.model.exceptions.TransactionException;
 import mx.qbits.tienda.api.model.request.GoogleCaptcha;
 import mx.qbits.tienda.api.model.request.Preregistro;
 import mx.qbits.tienda.api.model.request.PreregistroRequest;
@@ -81,12 +85,12 @@ public class AccessServiceImpl implements AccessService {
             // Incrementa el contador de intentos erroneos de ingreso y actualiza:
             int numeroDeIntentosFallidos = usuario.getAccesoNegadoContador()+1;
             usuario.setAccesoNegadoContador(numeroDeIntentosFallidos);
-            accessHelperService.update(usuario);
+            accessHelperService.updateUsuario(usuario);
 
             // Si los intentos de ingreso inválidos superan un limite, actualiza y Notifica:
             if(numeroDeIntentosFallidos >= maximoNumeroIntentosConcedidos) {
                 usuario.setInstanteBloqueo(instanteActual);
-                accessHelperService.update(usuario);
+                accessHelperService.updateUsuario(usuario);
                 throw new CustomException(MAX_FAILED_LOGIN_EXCEPTION, maximoNumeroIntentosConcedidos);
             }
 
@@ -102,7 +106,7 @@ public class AccessServiceImpl implements AccessService {
             usuario.setAccesoNegadoContador(0);
             usuario.setInstanteBloqueo(0);
             usuario.setInstanteUltimoAcceso(instanteActual);
-            accessHelperService.update(usuario);
+            accessHelperService.updateUsuario(usuario);
 
             // Esto va al front y se almacena en 'localStorage' (setItem)
             return new LoginResponse(
@@ -136,7 +140,7 @@ public class AccessServiceImpl implements AccessService {
         Usuario usr = accessHelperService.obtenUsuarioPorCorreo(correo);
         String claveHasheada = DigestEncoder.digest(clave, usr.getCorreo());
         usr.setClave(claveHasheada);
-        accessHelperService.update(usr);
+        accessHelperService.updateUsuario(usr);
         return usr;
     }
 
@@ -149,7 +153,7 @@ public class AccessServiceImpl implements AccessService {
             if(usuario==null) "{'result':'error'}".replace('\'', '\"');
             usuario.setRegeneraClaveInstante(System.currentTimeMillis());
             usuario.setRegeneraClaveToken(token);
-            accessHelperService.update(usuario);
+            accessHelperService.updateUsuario(usuario);
             sendMail("Estimado Usuario", correo, token, "Clave de recuperación");
             return "{'result':'succeed'}".replace('\'', '\"');
         } catch (BusinessException e) {
@@ -262,4 +266,93 @@ public class AccessServiceImpl implements AccessService {
         return preRegistroRequest;
     }
     
+    /** {@inheritDoc} */
+    @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.DEFAULT,
+            timeout = 36000,
+            rollbackFor = TransactionException.class)
+    public Usuario confirmaPreregistro(String token) throws BusinessException {
+        // El token sirve sólo 10 minutes:
+        long delta = 1000*60*10L;
+
+        // Obtén la túpla asociada al token de confirmación
+        Preregistro preregistro = accessHelperService.getRegistroByMail(token);
+
+        // Si no hay un registro asociado a tal token, notifica el error:
+        if(preregistro==null) throw new CustomException(TOKEN_NOT_EXIST);
+
+        // Si ya expiró el token, notifica el error:
+        long age = System.currentTimeMillis()-preregistro.getInstanteRegistro();
+        if(age>delta) { // token expirado
+            throw new CustomException(TOKEN_EXPIRED);
+        }
+
+        // Si la clave no es la misma, notifica el error:
+        if(!token.equals(preregistro.getRandomString())) {
+            throw new CustomException(WRONG_TOKEN);
+        }
+
+        // Si todito lo anterior salió bien, actualiza los
+        // datos, guárdalos y elimina el preregistro auxiliar:
+        try {
+            return doTransaction(preregistro, token);
+        } catch (BusinessException e) {
+            throw new TransactionException("Registro fallido. Haciendo rollback a la transaccion");
+        }
+    }
+    
+    private Usuario doTransaction(Preregistro preregistro, String randomString) throws BusinessException {
+        Usuario testUser = accessHelperService.obtenUsuarioPorCorreo(preregistro.getCorreo());
+        if(testUser != null) {
+            // Si el usuario SI existe, sólo actualiza su password y el instante de ultimo cambio
+            testUser.setClave(preregistro.getClaveHash());
+            testUser.setInstanteUltimoCambioClave(System.currentTimeMillis());
+            accessHelperService.updateUsuario(testUser);
+            return testUser;
+        }
+        
+        // Si el usuario NO existe, Créalo e insértalo en la base:
+        Usuario usuario = new Usuario(
+            0, //id (que va a ser autogenerado)
+            preregistro.getCorreo(),       // correo
+            preregistro.getClaveHash(),    // clave
+            System.currentTimeMillis(), // creado
+            true,// activo
+            0,  // accesoNegadoContador
+            0,  // instanteBloqueo
+            0,  // instanteUltimoAcceso
+            System.currentTimeMillis(),  // instanteUltimoCambioClave
+            "", // regeneraClaveToken
+            0   // regeneraClaveTokenInstante
+        );            
+        accessHelperService.insertUsuario(usuario);
+
+        // Obtén el id autogenerado del usuario recién creado:
+        int idUsuario = usuario.getId();
+
+        // Crea un objeto 'usuarioDetalles' (con el ID autogenerado) e insértalo en la DB:
+        UsuarioDetalle usuarioDetalle = new UsuarioDetalle(
+            idUsuario,
+            "",     // nombre
+            "",     // apellidoPaterno
+            "",     // apellidoMaterno
+            preregistro.getNick(),     // nickName
+            preregistro.getFechaNacimiento(),   // fechaNacimiento
+            preregistro.getTelefono()    // telefonoCelular
+        );
+        accessHelperService.insertUsuarioDetalle(usuarioDetalle);
+
+        // asociar el usuario recién creado con el rol 2:
+        accessHelperService.insertUserRol(idUsuario, 2);
+
+        // Borra lo que tengas en la tabla registro
+        accessHelperService.deletePreregistroByRandomString(randomString);
+
+        // Notifica al log y retorna el id del usuario recién creado:
+        logger.info("Nevo Usuario Creado con ID: {}", idUsuario);
+        return usuario;
+    }
+
 }
