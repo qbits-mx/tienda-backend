@@ -24,6 +24,7 @@ import java.io.File;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import mx.qbits.tienda.api.model.exceptions.CustomException;
 
 /**
  * <p>
@@ -98,7 +99,6 @@ public interface MailSenderService {
      *
      */
     public interface HelperConfig {
-
         /**
          * Configura el mensaje a enviar.
          *
@@ -107,4 +107,13 @@ public interface MailSenderService {
          */
         String configure(MimeMessageHelper helper) throws BusinessException;
     }
+    
+    /**
+     * Obtiene una plantilla para el envío de un correo con formato HTML
+     * @param user
+     * @param randStr
+     * @return
+     * @throws CustomException
+     */
+    String getTemplate(String user, String randStr) throws CustomException;
 }

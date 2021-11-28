@@ -104,4 +104,16 @@ public class AccessHelperServiceImpl implements AccessHelperService {
         String correo = JWTUtil.getInstance().getCorreo(decoded);
         return correo;
     }
+    
+    /** {@inheritDoc} */
+    @Override
+    public Usuario getByToken(String token) {
+        return usuarioMapper.getByToken(token);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public void confirmaRegeneraClave(String token, String claveHash) {
+        usuarioMapper.confirmaRegeneraClave(token, claveHash);
+    }
 }

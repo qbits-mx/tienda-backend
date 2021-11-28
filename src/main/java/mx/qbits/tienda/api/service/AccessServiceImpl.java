@@ -1,6 +1,7 @@
 package mx.qbits.tienda.api.service;
 
 import static mx.qbits.tienda.api.model.enumerations.EnumMessage.*;
+
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -13,8 +14,11 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.model.request.GoogleCaptcha;
 import mx.qbits.tienda.api.model.response.LoginResponse;
+import mx.qbits.tienda.api.support.MailSenderService;
 import mx.qbits.tienda.api.support.RecaptchaService;
 import mx.qbits.tienda.api.utils.DigestEncoder;
+import mx.qbits.tienda.api.utils.StringUtils;
+import mx.qbits.tienda.api.utils.ValidadorClave;
 
 @Service
 public class AccessServiceImpl implements AccessService {
@@ -22,8 +26,12 @@ public class AccessServiceImpl implements AccessService {
     
     private AccessHelperService accessHelperService;
     private RecaptchaService recaptchaService;
+    private MailSenderService mailSenderService;
     
-    public AccessServiceImpl(AccessHelperService accessHelperService, RecaptchaService recaptchaService) {
+    public AccessServiceImpl(
+            AccessHelperService accessHelperService, 
+            RecaptchaService recaptchaService,
+            MailSenderService mailSenderService) {
         this.accessHelperService = accessHelperService;
         this.recaptchaService = recaptchaService;
     }
@@ -131,21 +139,52 @@ public class AccessServiceImpl implements AccessService {
 
     @Override
     public String regeneraClave(String correo) {
-        // envía correo electrónico
-        // busca en la base el correo.
-        // si no lo encuantas, no hagas nada
-        // si lo encuentras: guarda en la base (tabla usuario, llave correo) el token con fecha de expiración
-        return "{'result':'succeed'}".replace('\'', '\"');
+        String token = StringUtils.getRandomString(6);
+        try {
+            Usuario usuario = accessHelperService.obtenUsuarioPorCorreo(correo);
+            if(usuario==null) "{'result':'error'}".replace('\'', '\"');
+            usuario.setRegeneraClaveInstante(System.currentTimeMillis());
+            usuario.setRegeneraClaveToken(token);
+            accessHelperService.update(usuario);
+            sendMail("Estimado Usuario", correo, token, "Clave de recuperación");
+            return "{'result':'succeed'}".replace('\'', '\"');
+        } catch (BusinessException e) {
+            logger.error(e.toString());
+            return "{'result':'error'}".replace('\'', '\"');
+        }
     }
-
+    
+    private void sendMail(String nick, String correo, String randomString, String titulo) {
+        String body= String.format("<h1>Hola %s. Tu clave de acceso es %s y tiene una validez de %d minutos. (body auxiliar) </h1>", nick, randomString, 10);
+        try {
+            body = this.mailSenderService.getTemplate(nick, randomString);
+        } catch (CustomException e) {
+            logger.error(e.toString());
+        }
+        logger.info("Enviando correo a {} con la clave de recuperacion {} ...", correo, randomString);
+        this.mailSenderService.sendHtmlMail(correo, titulo, body);
+    }
+    
     @Override
     public String confirmaRegeneraClave(String token, String clave) throws BusinessException {
-        // valida token contra la base y su expiración
-        // valida fortaleza de la clave
-        // busca usuario con base en el token 
-        // crea claveHash y setea al usuario con la clave
-        // guarda al usuario
-        // Opcinalmente, retorna al usuario (evaluar si eso es lo mejor)
+        // Valida la fortaleza de la clave
+        ValidadorClave.validate(clave);
+        
+        // esto realmente se debe parametrizar...
+        long unMinuto = 1000*60L;
+        long duracionToken = unMinuto*60L; // una hora
+        
+        // Buscar a un usuario con el tken dado y si no existe, disparar una excepcion
+        Usuario usuario = accessHelperService.getByToken(token);
+        if(usuario==null) throw new CustomException(TOKEN_NOT_EXIST);
+        
+        // Verificar que el token no haya expirado y si ya expiró, disparar una excepción
+        long remaining = System.currentTimeMillis()-usuario.getRegeneraClaveInstante();
+        if(remaining>duracionToken) throw new CustomException(TOKEN_EXPIRED);
+        
+        // grabaar la  nueva clave hasheada y retornar "exito"
+        String claveHash = DigestEncoder.digest(clave, usuario.getCorreo());
+        accessHelperService.confirmaRegeneraClave(token, claveHash);
         return "{'result':'succeed'}".replace('\'', '\"');
     }
 

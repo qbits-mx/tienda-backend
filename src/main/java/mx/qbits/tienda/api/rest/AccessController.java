@@ -168,7 +168,7 @@ public class AccessController {
             value = "RegistroController::VerificarCaptcha",
             notes = "Verifica que el Google captcha V 2.0 sea correcto")
     @PostMapping(
-            value = "/check-captcha",
+            value = "/check-captcha.json",
             produces = "application/json; charset=utf-8")
     public String checkCaptcha(
             @ApiParam(name = "googleCaptcha", value = "Google Captcha V2.0")

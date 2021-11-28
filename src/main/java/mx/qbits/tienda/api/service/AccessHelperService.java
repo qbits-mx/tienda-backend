@@ -36,4 +36,8 @@ public interface AccessHelperService {
     UsuarioDetalle actualizaUsuarioDetalle(UsuarioDetalle usuarioDetalle) throws BusinessException;
     
     String getCorreoFromJwt(String jwt);
+
+    Usuario getByToken(String token);
+
+    void confirmaRegeneraClave(String token, String claveHash);
 }

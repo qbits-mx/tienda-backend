@@ -20,6 +20,7 @@
  */
 package mx.qbits.tienda.api.support;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -28,11 +29,17 @@ import org.springframework.stereotype.Service;
 
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
-import static mx.qbits.tienda.api.model.enumerations.EnumMessage.SEND_MAIL;
 
+import static mx.qbits.tienda.api.model.enumerations.EnumMessage.*;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -166,4 +173,22 @@ public class MailSenderServiceImpl implements MailSenderService {
         return "";
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public String getTemplate(String user, String randStr) throws CustomException {
+        String archivo = "public/mail/templateMail.html";
+        try {
+            // Accedemos al recurso
+            InputStream resource = new ClassPathResource(archivo).getInputStream();
+            // Leemos el recurso
+            BufferedReader reader = new BufferedReader( new InputStreamReader(resource));
+            String template = reader.lines().collect(Collectors.joining("\n"));
+            // remplazamos el contenido:
+            template = template.replace("%NAME%",user);
+            template = template.replace("%TOKEN%",randStr);
+            return template;
+        } catch (IOException e) {
+            throw new CustomException(e, INTERNAL_SERVER, "No se ha podido leer el archivo " + archivo);
+        }
+    }
 }
