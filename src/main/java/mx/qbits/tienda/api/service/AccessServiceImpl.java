@@ -279,7 +279,7 @@ public class AccessServiceImpl implements AccessService {
         long delta = 1000*60*10L;
 
         // Obtén la túpla asociada al token de confirmación
-        Preregistro preregistro = accessHelperService.getRegistroByMail(token);
+        Preregistro preregistro = accessHelperService.getByRandomString(token);
 
         // Si no hay un registro asociado a tal token, notifica el error:
         if(preregistro==null) throw new CustomException(TOKEN_NOT_EXIST);
