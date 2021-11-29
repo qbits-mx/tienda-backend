@@ -74,7 +74,7 @@ public interface RegistroMapper {
      * @throws java.sql.SQLException En caso de que haya un problema con la consulta
      */
     @ResultMap("RegistroMap")
-    @Select("SELECT " + CAMPOS_REG + " FROM preregistro WHERE random_string = #{randomString} ")
+    @Select("SELECT " + CAMPOS_REG + " FROM preregistro WHERE random_string = #{randomString} ") 
     Preregistro getByRandomString(String randomString) throws SQLException;
 
     /**
