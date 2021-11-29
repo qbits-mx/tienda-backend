@@ -55,4 +55,6 @@ public interface AccessHelperService {
     void insertUserRol(int idUsuario, int rolId) throws BusinessException;
 
     void deletePreregistroByRandomString(String randomString) throws BusinessException;
+    
+    Preregistro getByRandomString(String token) throws BusinessException;
 }
