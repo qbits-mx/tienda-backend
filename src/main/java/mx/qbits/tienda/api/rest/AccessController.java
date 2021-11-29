@@ -191,5 +191,18 @@ public class AccessController {
         return accessService.preRegistro(preRegistroRequest);
     }
     
+    @ApiOperation(
+            value = "AccessController::ConfirmaPreregistro",
+            notes = "Valida un registro por medio de un token que el sistema envía" +
+                    "al usuario por correo electrónico para confirmar que este ultimo" +
+                    "existe.")
+    @GetMapping(
+            path = "/confirma-preregistro.json",
+            produces = "application/json; charset=utf-8")
+    public Usuario confirmaPreregistro(
+            @ApiParam(name = "token", value = "Token de confirmación del registro enviado por correo")
+            @RequestParam String token) throws ControllerException {
+        return accessService.confirmaPreregistro(token);
+    }    
 }
 
