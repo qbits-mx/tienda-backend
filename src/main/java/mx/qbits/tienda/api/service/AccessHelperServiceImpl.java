@@ -192,5 +192,14 @@ public class AccessHelperServiceImpl implements AccessHelperService {
             throw new CustomException(e, DATABASE, "Error actualizando los datos del usuario");
         }
     }
+
+    @Override
+    public Preregistro getByRandomString(String token) throws BusinessException {
+        try {
+            return registroMapper.getByRandomString(token);
+        } catch (SQLException e) {
+            throw new CustomException(e, DATABASE, "AccessHelper::getByRandomString");
+        }
+    }
     
 }
