@@ -135,7 +135,7 @@ public class AccessHelperServiceImpl implements AccessHelperService {
     @Override
     public void insertUsuario(Usuario usuario) throws BusinessException {
         try {
-            usuarioMapper.update(usuario);
+            usuarioMapper.insert(usuario);
         } catch (SQLException e) {
             throw new CustomException(e, DATABASE, "AccessHelper::insertUsuario");
         }
