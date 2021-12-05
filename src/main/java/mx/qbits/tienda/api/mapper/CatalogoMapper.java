@@ -34,7 +34,7 @@ import mx.qbits.tienda.api.model.domain.Catalogo;
 
 /**
  * <p>Descripción:</p>
- *
+ * Interfaz 'Mapper' MyBatis asociado a la entidad Catalogo.
  * @author Juan Carlos Bautista Sandoval
  * @version 1.0-SNAPSHOT
  * @since 1.0-SNAPSHOT
@@ -45,10 +45,12 @@ public interface CatalogoMapper {
     final String CAMPOS_CATALOGO = "id, id_catalogo_categoria, activo, nombre";
 
     /**
-     * 
-     * @param id
-     * @return
-     * @throws SQLException
+     * Obtiene un objeto de tipo 'Catalogo' dado su id.
+     * @param id a int , el cual nos indica el id del Catalogo que deceamos recuperar.
+     * @return Catalogo en caso de encontrar el catalogo maestro asociado al id 
+     * pasado como parametro, null en caso de no encontrar un Catalogo asociado al
+     * id pasado como parametro. 
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @Results(id="CatalogoMapping", value = {
         @Result(property = "id", column = "id"),
@@ -59,48 +61,51 @@ public interface CatalogoMapper {
     Catalogo getById(int id) throws SQLException;
 
     /**
-     * 
-     * @param nombre
-     * @return
-     * @throws SQLException
+     * Obtiene un objeto de tipo 'Catalogo' dado su nombre.
+     * @param nombre a String , el cual nos indica el nombre del Catalogo que deceamos recuperar.
+     * @return Catalogo en caso de encontrar el catalogo maestro asociado al nombre 
+     * pasado como parametro, null en caso de no encontrar un Catalogo asociado al
+     * nombre pasado como parametro.
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @ResultMap("CatalogoMapping")
     @Select("SELECT " + CAMPOS_CATALOGO + " FROM catalogo WHERE id = #{nombre}")
     Catalogo getByNombre(String nombre) throws SQLException;
 
     /**
-     * 
-     * @param idCatalogoCategoria
-     * @param activo
-     * @param nombre
-     * @return
+     * Inserta un objeto de tipo 'Catalogo' con base en la información dada por el objeto 'tipoCatalogo'.
+     * @param idCatalogoCategoria a int, el cual indica la categoria a la cual pertenece dicho catalogo.
+     * @param activo a boolean, indica si el catalogo esta activo en el sistema.
+     * @param nombre a String, el cual indica el nombre del catalogo.
+     * @return el id auto incremental asociado a esa inserción.
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @Insert("INSERT INTO catalogo(id_catalogo_categoria, activo, nombre) VALUES(#{idCatalogoCategoria}, #{activo}, #{nombre})")
     int insert(int idCatalogoCategoria, boolean activo, String nombre) throws SQLException;
 
     /**
-     * 
-     * @param catalogo
-     * @return
-     * @throws SQLException
+     * Actualiza un objeto de tipo 'catalogo' con base en la información dada por el objeto de tipo 'Catalogo'.
+     * @param catalogo a ser actualizado.
+     * @return el número de registros actualizados.
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @Update("UPDATE catalogo set id_catalogo_categoria=#{idCatalogoCategoria}, activo=#{activo}, nombre=#{nombre} WHERE id=#{id}")
     int update(Catalogo catalogo) throws SQLException;
 
     /**
-     * 
-     * @param nombre
-     * @return
-     * @throws SQLException
+     * Borra (de manera lógica y no física) el registro de Catalogo dado su nombre.
+     * @param nombre a String, que representa el nombre del Catalogo a ser eliminado.
+     * @return id del CatalogoMaestro a ser eliminado.
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @Delete("DELETE FROM catalogo WHERE nombre=#{nombre}")
     int deleteByNombre(String nombre) throws SQLException;
 
     /**
-     * 
-     * @param id
-     * @return
-     * @throws SQLException
+     * Borra (de manera lógica y no física) el registro de Catalogo dado su id.
+     * @param id a int, el id del catalogo a ser elimindado.
+     * @return id del CatalogoMaestro a ser eliminado.
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @Delete("DELETE FROM catalogo WHERE id=#{id}")
     int deleteById(int id) throws SQLException;

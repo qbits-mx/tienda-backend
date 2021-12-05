@@ -1,3 +1,23 @@
+/*
+ * Licencia:    Este  código y cualquier  derivado  de  el, es  propiedad de la
+ *              empresa Metasoft SA de CV y no debe, bajo ninguna circunstancia
+ *              ser copiado, donado,  cedido, modificado, prestado, rentado y/o 
+ *              mostrado  a ninguna persona o institución sin el permiso expli-
+ *              cito  y  por  escrito de  la empresa Metasoft SA de CV, que es, 
+ *              bajo cualquier criterio, el único dueño de la totalidad de este 
+ *              código y cualquier derivado de el.
+ *              ---------------------------------------------------------------
+ * Paquete:     mx.qbits.tienda.api.rest
+ * Proyecto:    tienda
+ * Tipo:        Clase
+ * Nombre:      CatalogoMaestroController
+ * Autor:       Gustavo Adolfo Arellano (GAA)
+ * Correo:      gustavo.arellano@metasoft.com.mx
+ * Versión:     0.0.1-SNAPSHOT
+ *
+ * Historia: 
+ *              Creación: 3 Dic 2021 @ 08:22:14
+ */
 package mx.qbits.tienda.api.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +29,26 @@ import mx.qbits.tienda.api.model.domain.CatalogoMaestro;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.CatalogoMaestroService;
 
+/**
+ * Implementacion  del controlador REST asociado a los endpoints
+ * de gestión por CatalogoMaestroService.
+ *
+ * @author  Juan Carlos Bautista Sandoval
+ * @see     mx.qbits.tienda.api.service.CatalogoMaestroService
+ * @version 1.0-SNAPSHOT
+ * @since   1.0-SNAPSHOT
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class CatalogoMaestroController {
     
     private CatalogoMaestroService catalogoMaestroService;
 
+    /**
+     * Constructor que realiza el setting de los servicios que serán
+     * utilizados en este controlador.
+     * @param catalogoMaestroService Servicios de CatalogoMaestroService
+     */
     public CatalogoMaestroController(CatalogoMaestroService catalogoMaestroService) {
         this.catalogoMaestroService = catalogoMaestroService;
     }
