@@ -23,7 +23,7 @@ public class Anuncio {
     private Date fechaCompra;
     private int estrellas;
     private int comentario;
-    private String comentarioAprobado;
+    private boolean comentarioAprobado;
     private List<Multimedia> multimedia;
 
     public Anuncio() {
@@ -33,7 +33,7 @@ public class Anuncio {
                    int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
                    String descripcion, Date vigenciaAnuncio, String contacto, boolean validado,
                    boolean notificado, boolean revisado, boolean activo, boolean comprado,
-                   Date fechaCompra, int estrellas, int comentario, String comentarioAprobado
+                   Date fechaCompra, int estrellas, int comentario, boolean comentarioAprobado
             , List<Multimedia> multimedia) {
         this.id = id;
         this.idUsuario = idUsuario;
@@ -216,11 +216,11 @@ public class Anuncio {
         this.comentario = comentario;
     }
 
-    public String getComentarioAprobado() {
+    public boolean getComentarioAprobado() {
         return comentarioAprobado;
     }
 
-    public void setComentarioAprobado(String comentarioAprobado) {
+    public void setComentarioAprobado(boolean comentarioAprobado) {
         this.comentarioAprobado = comentarioAprobado;
     }
 
