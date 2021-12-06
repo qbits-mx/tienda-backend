@@ -13,7 +13,7 @@ public class Anuncio {
     private int idCatalogoFormaDePago;
     private int idCatalogoZonaDeEntrega;
     private String descripcion;
-    private int vigenciaAnuncio;
+    private Date vigenciaAnuncio;
     private String contacto;
     private boolean validado;
     private boolean notificado;
@@ -24,10 +24,17 @@ public class Anuncio {
     private int estrellas;
     private int comentario;
     private String comentarioAprobado;
-    private String categoria;
     private List<Multimedia> multimedia;
 
-    public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoCategoria, int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega, String descripcion, int vigenciaAnuncio, String contacto, boolean validado, boolean notificado, boolean revisado, boolean activo, boolean comprado, Date fechaCompra, int estrellas, int comentario, String comentarioAprobado, String categoria, List<Multimedia> multimedia) {
+    public Anuncio() {
+    }
+
+    public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoCategoria,
+                   int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
+                   String descripcion, Date vigenciaAnuncio, String contacto, boolean validado,
+                   boolean notificado, boolean revisado, boolean activo, boolean comprado,
+                   Date fechaCompra, int estrellas, int comentario, String comentarioAprobado
+            , List<Multimedia> multimedia) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idComprador = idComprador;
@@ -47,7 +54,21 @@ public class Anuncio {
         this.estrellas = estrellas;
         this.comentario = comentario;
         this.comentarioAprobado = comentarioAprobado;
-        this.categoria = categoria;
+        this.multimedia = multimedia;
+    }
+
+    public Anuncio(int id, int idUsuario,  int idCatalogoCategoria,
+                   int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
+                   String descripcion, Date vigenciaAnuncio, String contacto, List<Multimedia> multimedia) {
+        this.id = id;
+        this.idUsuario = idUsuario;
+        this.idCatalogoCategoria = idCatalogoCategoria;
+        this.idCatalogoCondicion = idCatalogoCondicion;
+        this.idCatalogoFormaDePago = idCatalogoFormaDePago;
+        this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
+        this.descripcion = descripcion;
+        this.vigenciaAnuncio = vigenciaAnuncio;
+        this.contacto = contacto;
         this.multimedia = multimedia;
     }
 
@@ -115,11 +136,11 @@ public class Anuncio {
         this.descripcion = descripcion;
     }
 
-    public int getVigenciaAnuncio() {
+    public Date getVigenciaAnuncio() {
         return vigenciaAnuncio;
     }
 
-    public void setVigenciaAnuncio(int vigenciaAnuncio) {
+    public void setVigenciaAnuncio(Date vigenciaAnuncio) {
         this.vigenciaAnuncio = vigenciaAnuncio;
     }
 
@@ -201,14 +222,6 @@ public class Anuncio {
 
     public void setComentarioAprobado(String comentarioAprobado) {
         this.comentarioAprobado = comentarioAprobado;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public List<Multimedia> getMultimedia() {
