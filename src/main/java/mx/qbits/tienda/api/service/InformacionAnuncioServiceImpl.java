@@ -12,7 +12,9 @@ import mx.qbits.tienda.api.model.domain.InformacionAnuncio;
 import mx.qbits.tienda.api.model.domain.InformacionMultimedia;
 import mx.qbits.tienda.api.model.domain.Usuario;
 import mx.qbits.tienda.api.model.domain.UsuarioDetalle;
+import mx.qbits.tienda.api.model.enumerations.EnumMessage;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.support.MailSenderService;
 
 @Service
@@ -65,23 +67,29 @@ public class InformacionAnuncioServiceImpl implements InformacionAnuncioService 
 		try {
 			InformacionAnuncio anuncio = getAnuncio(id);
 			if (anuncio == null) {
-				throw new Exception("No se encontro el anuncio solicitado");
+				String formato = String.format("Anuncio con identificador: %d", id);
+				throw new CustomException(EnumMessage.NOT_FOUND, formato);
 			}
 			Usuario usuario = uMapper.getById(anuncio.getIdUsuario());
 			if (usuario == null) {
-				throw new Exception("No se encontro al usuario solicitado");
+				String formato = String.format("Usuario con identificador: %d", anuncio.getIdUsuario());
+				throw new CustomException(EnumMessage.NOT_FOUND, formato);
 			}
 			UsuarioDetalle detalleU = uDMapper.getById(anuncio.getIdUsuario());
 			if (detalleU == null) {
-				throw new Exception("No se encontro la informacion del usuario solicitado");
+				String formato = String.format("Informacion del Usuario con identificador: %d", anuncio.getIdUsuario());
+				throw new CustomException(EnumMessage.NOT_FOUND, formato);
 			}
 			String body = String.format("<h1>Hola %s. Tu anuncio sobre %s, no cumple las normas. Favor de revisarlo</h1>", detalleU.getNickName(), anuncio.getDescripcion());
 			String enviado = mailSenderService.sendHtmlMail(usuario.getCorreo(), "Super Tienda: Anuncio Rechazado", body);
 			if (!enviado.equals("succeed")) {
-				throw new Exception("No se pudo enviar el correo al usuario");
+				String formato = String.format("No se pudo enviar correo a %s", usuario.getCorreo());
+				throw new CustomException(EnumMessage.SEND_MAIL, formato);
 			}
 			return aMapper.updateNotificado(id, notificado);
-		} catch (Exception e) {
+		} catch (CustomException e) {
+			throw e;
+		} catch (SQLException e) {
 			throw new BusinessException(e);
 		}
 	}
