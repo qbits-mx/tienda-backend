@@ -1,35 +1,30 @@
 package mx.qbits.tienda.api.service;
 
-import java.sql.SQLException;
-
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import java.sql.Date;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import mx.qbits.tienda.api.mapper.AnuncioMapper;
 import mx.qbits.tienda.api.model.domain.Anuncio;
-import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
+@Service
 public class AnuncioServiceImpl implements AnuncioService{
-	AnuncioMapper mapper = new AnuncioMapper();
-	int salvaAnuncio(Anuncio anuncio) throws BusinessException{
-		int usuario = anuncio.getIdUsuario();
-		int catalogoPago = anuncio.getCatalogoFormaPago();
-		int catalogoCondicion = anuncio.getCatalogoCondicion();
-		int catalogoEntrega = anuncio.getCatalogoZOnaEntrega();
-		int catalogoDepartamento =anuncio.getCatalogoDepartamento();
-		String descripcion = anuncio.getDescripcion();
-		date vigencia = anuncio.getVigencia();
-		String datosContacto = anuncio.getDatosContacto();
+	private AnuncioMapper anuncioMapper;
 
-		try{
-			mapper.salvaAnuncio(usuario, catalogoPago, catalogoCondicion, catalogoCondicion, catalogoEntrega, catalogoDepartamento, descripcion, vigencia, datosContacto);
-		} catch(SQLException e){
-			throw new BusinessException("Error de Conexión con la base de datos");
-		}
+	public AnuncioServiceImpl(AnuncioMapper anuncioMapper) {
+		this.anuncioMapper = anuncioMapper;
+	}
+
+	@Override
+	public int salvaAnuncio(Anuncio anuncio) throws Exception{
+		int usuario = anuncio.getIdUsuario();
+		int catalogoPago = anuncio.getIdCatalogoFormaDePago();
+		int catalogoCondicion = anuncio.getIdCatalogoCondicion();
+		int catalogoEntrega = anuncio.getIdCatalogoZonaDeEntrega();
+		int catalogoDepartamento =anuncio.getIdCatalogoDepartamento();
+		String descripcion = anuncio.getDescripcion();
+		Date vigencia = anuncio.getVigenciaAnuncio();
+		String datosContacto = anuncio.getContacto();
+
+		//anuncioMapper.insert(usuario, catalogoPago, catalogoCondicion, catalogoCondicion, catalogoEntrega, catalogoDepartamento, descripcion, vigencia, datosContacto);
+		return 1;
 	}
 }
