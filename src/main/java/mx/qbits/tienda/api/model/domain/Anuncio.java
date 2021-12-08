@@ -8,7 +8,7 @@ public class Anuncio {
     private int id;
     private int idUsuario;
     private int idComprador;
-    private int idCatalogoCategoria;
+    private int idCatalogoDepartamento;
     private int idCatalogoCondicion;
     private int idCatalogoFormaDePago;
     private int idCatalogoZonaDeEntrega;
@@ -29,7 +29,7 @@ public class Anuncio {
     public Anuncio() {
     }
 
-    public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoCategoria,
+    public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoDepartamento,
                    int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
                    String descripcion, Date vigenciaAnuncio, String contacto, boolean validado,
                    boolean notificado, boolean revisado, boolean activo, boolean comprado,
@@ -38,7 +38,7 @@ public class Anuncio {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idComprador = idComprador;
-        this.idCatalogoCategoria = idCatalogoCategoria;
+        this.idCatalogoDepartamento = idCatalogoDepartamento;
         this.idCatalogoCondicion = idCatalogoCondicion;
         this.idCatalogoFormaDePago = idCatalogoFormaDePago;
         this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
@@ -57,12 +57,12 @@ public class Anuncio {
         this.multimedia = multimedia;
     }
 
-    public Anuncio(int id, int idUsuario,  int idCatalogoCategoria,
+    public Anuncio(int id, int idUsuario,  int idCatalogoDepartamento,
                    int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
                    String descripcion, Date vigenciaAnuncio, String contacto, List<Multimedia> multimedia) {
         this.id = id;
         this.idUsuario = idUsuario;
-        this.idCatalogoCategoria = idCatalogoCategoria;
+        this.idCatalogoDepartamento = idCatalogoDepartamento;
         this.idCatalogoCondicion = idCatalogoCondicion;
         this.idCatalogoFormaDePago = idCatalogoFormaDePago;
         this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
@@ -96,12 +96,12 @@ public class Anuncio {
         this.idComprador = idComprador;
     }
 
-    public int getIdCatalogoCategoria() {
-        return idCatalogoCategoria;
+    public int getIdCatalogoDepartamento() {
+        return idCatalogoDepartamento;
     }
 
-    public void setIdCatalogoCategoria(int idCatalogoCategoria) {
-        this.idCatalogoCategoria = idCatalogoCategoria;
+    public void setIdCatalogoDepartamento(int idCatalogoDepartamento) {
+        this.idCatalogoDepartamento = idCatalogoDepartamento;
     }
 
     public int getIdCatalogoCondicion() {

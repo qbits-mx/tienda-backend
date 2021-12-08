@@ -4,6 +4,9 @@ public class Multimedia {
 
     String url;
     boolean tipo;
+
+    public Multimedia(){
+    }
     public Multimedia(String url, boolean tipo) {
         this.url = url;
         this.tipo = tipo;
