@@ -1,5 +1,3 @@
-package mx.qbits.tienda.api.mapper;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -11,6 +9,8 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import mx.qbits.tienda.api.model.domain.Anuncio;
+
 public interface AnuncioMapper{
 	final String CAMPOS_ANUNCIO: "id, id_usuario, id_comprador, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto, validado, notificado, revisado, activo, comprado, fecha_compra, estrellas, comentario, comentario_aprobado";
 
@@ -21,6 +21,7 @@ public interface AnuncioMapper{
 					@Result(property = "id_catalogo_condicion", 		column = "id_ctalogo_condicion")
 					@Result(property = "id_catalogo_forma_pago",		column = "id_catalogo_forma_pago"),
 					@Result(property = "id_catalogo_zona_entrega",	column = "id_catalogo_zona_entrega"),
+					@Result(property = "id_catalogo_departamento",	column = "id_catalogo_departamento"),
 					@Result(property = "descripcion",								column = "descripcion"),
 					@Result(property = "vigencia",									column = "vigencia"),
 					@Result(property = "datos_contacto",						column = "datos_contacto"),
@@ -34,12 +35,6 @@ public interface AnuncioMapper{
 					@Result(property = "comentario",								column = "comentario"),
 					@Result(property = "comentario_aprobado",				column = "comentario_aprobado")
 	})
-	@Insert("INSERT INTO anuncio(id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto) VALUES(#{id_usuario}, #{id_catalogo_condicion}, #{id_catalogo_forma_pago}, #{id_catalogo_zona_entrega, #{descripcion} #{vigencia} #{datos_contacto}}")
-	int insert(int id_usuario, int id_catalogo_condicion, int id_catalogo_forma_pago, int id_catalogo_zona_entrega, String descripcion, date vigencia, String datos_contacto) throws SQLException;
+	@Insert("INSERT INTO anuncio(id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega id_catalogo_departamento, descripcion, vigencia, datos_contacto) VALUES(#{id_usuario}, #{id_catalogo_condicion}, #{id_catalogo_forma_pago}, #{id_catalogo_zona_entrega}, #{id_catalogo_departamento}, #{descripcion}, #{vigencia}, #{datos_contacto}}")
+	int insert(int id_usuario, int id_catalogo_condicion, int id_catalogo_forma_pago, int id_catalogo_zona_entrega, int catalogo_departamento, String descripcion, Date vigencia, String datos_contacto) throws SQLException;
 }
-
-
-
-
-}
-
