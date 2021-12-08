@@ -21,15 +21,15 @@ public class AnuncioServiceImpl implements AnuncioService{
 		int catalogoPago = anuncio.getCatalogoFormaPago();
 		int catalogoCondicion = anuncio.getCatalogoCondicion();
 		int catalogoEntrega = anuncio.getCatalogoZOnaEntrega();
+		int catalogoDepartamento =anuncio.getCatalogoDepartamento();
 		String descripcion = anuncio.getDescripcion();
 		date vigencia = anuncio.getVigencia();
 		String datosContacto = anuncio.getDatosContacto();
 
 		try{
-			mapper.salvaAnuncio(usuario, catalogoPago, catalogoCondicion, catalogoCondicion, catalogoEntrega, descripcion, vigencia, datosContacto);
+			mapper.salvaAnuncio(usuario, catalogoPago, catalogoCondicion, catalogoCondicion, catalogoEntrega, catalogoDepartamento, descripcion, vigencia, datosContacto);
 		} catch(SQLException e){
 			throw new BusinessException("Error de Conexión con la base de datos");
 		}
 	}
 }
-
