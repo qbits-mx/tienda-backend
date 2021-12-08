@@ -22,7 +22,7 @@ public class AnuncioController{
 	@RequestParam int id_catalogo_forma_pago,
 	@RequestParam int id_catalogo_zona_entrega,
 	@RequestParam String descripcion,
-	@RequestParam int vigencia,
+	@RequestParam Date vigencia,
 	@RequestParam String datos_contacto) throws BusinessException{
 		try{
 			model = new Anuncio(id, id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto);
