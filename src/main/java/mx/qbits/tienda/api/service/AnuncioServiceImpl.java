@@ -16,7 +16,7 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 public class AnuncioServiceImpl implements AnuncioService{
 	AnuncioMapper mapper = new AnuncioMapper();
-	int salvaAnuncio(Anuncio anuncio) throws Exception{
+	int salvaAnuncio(Anuncio anuncio) throws BusinessException{
 		int usuario = anuncio.getIdUsuario();
 		int catalogoPago = anuncio.getCatalogoFormaPago();
 		int catalogoCondicion = anuncio.getCatalogoCondicion();
