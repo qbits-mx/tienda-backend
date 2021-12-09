@@ -34,98 +34,99 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 public interface CatalogoService {
 
     /**
-     * 
-     * @param nombre
-     * @return
-     * @throws BusinessException
+     * Método que dado un nombre de un catalogo, lo elimina.
+     * @param nombre un String, que nos indica el nombre del catalogo.
+     * @return boolean, que nos indica si la operación fue ralizada con exito.
+     * @throws BusinessException en caso de que ocurra un problema con la eliminación.
      */
     boolean eliminarCatalogo(String nombre) throws BusinessException;
 
     /**
-     * 
-     * @param id
-     * @return
-     * @throws BusinessException
+     * Método que dado un id , elimina el catalogo asociado al mismo.
+     * @param id un int, con el id del catalogo a eliminar.
+     * @return boolean, que nos indica si la operacion fue realizada con exito.
+     * @throws BusinessException en caso de que ocurra un problema con la eliminación.
      */
     boolean eliminarCatalogo(int id) throws BusinessException;
 
     /**
-     * 
-     * @param id
-     * @return
-     * @throws BusinessException
+     * Método que dado un id, busca el catalogo asociado a ese id.
+     * @param id un int, que indica el identificador del catalogo a buscar.
+     * @return Catalogo, asociado al id, pasado como parametro.
+     * @throws BusinessException en caso de que ocurra un problema de busqueda.
      */
     Catalogo buscarCatalogo(int id) throws BusinessException;
 
     /**
-     * 
-     * @param nombre
-     * @return
-     * @throws BusinessException
+     * Método que dado un nombre, regresa un Catalog asociado a dicho nombre.
+     * @param nombre un String, con el nombre del catalogo a eliminar.
+     * @return Catalogo, asociado al nomnre pasado como parametro.
+     * @throws BusinessException en caso de que ocurra un problema con la busquda.
      */
     Catalogo buscarCatalogo(String nombre) throws BusinessException;
 
     /**
-     * 
-     * @param id
-     * @param nuevoNombre
-     * @return
-     * @throws BusinessException
+     * Método que dado un id y un nuevoNombre, modifica el nombre asociado al catalogo
+     * @param id un int, que nos indica el id del catalogo.
+     * @param nuevoNombre un String, el nuevo nombre del catalogo.
+     * @return boolean, si se pudo realizar dicha operacion.
+     * @throws BusinessException en caso de que ocurra un problema con la modificación.
      */
     boolean modificarNombre(int id, String nuevoNombre) throws BusinessException;
 
     /**
-     * 
-     * @param nombre
-     * @param nuevoNombre
-     * @return
-     * @throws BusinessException
+     * Metodo que dado un nombre y un nuevoNombre, modifica el nombre del catalogo asociado
+     * al nombre pasado como parametro.
+     * @param nombre un String, que indica el nombre del catalogo a modificar.
+     * @param nuevoNombre un String, con el nuevo nombre del catalogo.
+     * @return boolean, indicando si se pudo efectuar la operación.
+     * @throws BusinessException en caso de que ocurra un problema con la modificación.
      */
     boolean modificarNombre(String nombre, String nuevoNombre) throws BusinessException;
 
     /**
-     * 
-     * @param id
-     * @param nuevoActivo
-     * @return
+     * Método que dado un id y un nuevoActivo, modifica el activo asociado al catalogo.
+     * @param id un int, que nos indica el id del catalogo.
+     * @param nuevoActivo un boolean, el nuevo activo del catalogo.
+     * @return boolean, indicando si se pudo efectuar la operación.
      * @throws BusinessException
      */
     boolean modificarActivo(int id, boolean nuevoActivo) throws BusinessException;
 
     /**
-     * 
-     * @param nombre
-     * @param nuevoActivo
-     * @return
-     * @throws BusinessException
+     * Método que dado un nombre y un nuevoActivo, modifica el activo asociado al catalogo.
+     * @param nombre nombre un String, que indica el nombre del catalogo a modificar.
+     * @param nuevoActivo un boolean, el nuevo activo del catalogo.
+     * @return boolean, indicando si se pudo efectuar la operación.
+     * @throws BusinessException en caso de que ocurra un problema con la modificación.
      */
     boolean modificarActivo(String nombre, boolean nuevoActivo) throws BusinessException;
 
     /**
-     * 
-     * @param id
-     * @param nuevoIdCatalogoCategoria
-     * @return
-     * @throws BusinessException
+     * Método que dado el id y un nuevoIdCatalogoCategoria, modifica su categoria.
+     * @param id un int, que nos indica el id del catalogo.
+     * @param nuevoIdCatalogoCategoria un int, con el nuevo idCatalogoCategoria del catalogo.
+     * @return boolean, indicando si se pudo efectuar la operación.
+     * @throws BusinessException en caso de que ocurra un problema con la modificación.
      */
     boolean modificarIdCatalogoCategoria(int id, int nuevoIdCatalogoCategoria) throws BusinessException;
 
     /**
-     * 
-     * @param nombre
-     * @param nuevoIdCatalogoCategoria
-     * @return
-     * @throws BusinessException
+     * Método que dado el nombre y un nuevoIdCatalogoCategoria, modifica su categoria.
+     * @param nombre nombre un String, que indica el nombre del catalogo a modificar.
+     * @param nuevoIdCatalogoCategoria un int, con el nuevo idCatalogoCategoria del catalogo.
+     * @return boolean, indicando si se pudo efectuar la operación.
+     * @throws BusinessException en caso de que ocurra un problema con la modificación.
      */
     boolean modificarIdCatalogoCategoria(String nombre, int nuevoIdCatalogoCategoria) throws BusinessException;
 
     /**
-     * 
-     * @param idCatalogoCategoria
-     * @param activo
-     * @param nombre
-     * @return
-     * @throws BusinessException
+     * Método para crear nuevos catalogos de alguna categoria dada.
+     * @param idCatalogoCategoria un int, que indica la categoria a la que pertenece el catalogo.
+     * @param activo un boolean, que nos indica si el catalogo esta activo.
+     * @param nombre un String que nos indica el nombre del catalogo.
+     * @return boolean, indicando si se pudo efectuar la operación.
+     * @throws BusinessException en caso de que ocurra un problema con la inserción.
      */
     boolean crearCatalogo(int idCatalogoCategoria, boolean activo, String nombre) throws BusinessException;
 }
