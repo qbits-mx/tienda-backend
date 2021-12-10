@@ -26,8 +26,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import mx.qbits.tienda.api.mapper.CatalogoMaestroMapper;
 import mx.qbits.tienda.api.mapper.CatalogoMapper;
 import mx.qbits.tienda.api.model.domain.Catalogo;
+import mx.qbits.tienda.api.model.domain.CatalogoMaestro;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 /**
@@ -40,10 +42,12 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 @Service
 public class CatalogoServiceImpl implements CatalogoService {
 
+    private CatalogoMaestroMapper catalogoMaestroMapper;
     private CatalogoMapper catalogoMapper;
 
-    public CatalogoServiceImpl(CatalogoMapper catalogoMapper) {
+    public CatalogoServiceImpl(CatalogoMapper catalogoMapper, CatalogoMaestroMapper catalogoMaestroMapper) {
         this.catalogoMapper = catalogoMapper;
+        this.catalogoMaestroMapper = catalogoMaestroMapper;
     }
 
     /** {@inheritDoc} */
@@ -313,11 +317,10 @@ public class CatalogoServiceImpl implements CatalogoService {
     @Override
     public List<List<Catalogo>> obtenerCatalogosPorCategoria() throws BusinessException {
         try {
-            // Obtener todos los indices del catalogo
-            int indices = 4;
             List<List<Catalogo>> result = new ArrayList<>();
-            for (int i = 0; i < indices; i++) {
-                result.add(obtenerCatalogosPorIdCatalogoCategoria(i));
+            for (CatalogoMaestro catalogoMaestro : catalogoMaestroMapper.getAll()) {
+                int idCatalgoMaestro = catalogoMaestro.getId();
+                result.add(obtenerCatalogosPorIdCatalogoCategoria(idCatalgoMaestro));
             }
             return result;    
         } catch (Exception e) {
