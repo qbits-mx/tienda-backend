@@ -27,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,12 +61,20 @@ public class CatalogoMaestroServiceTest {
     @Before
     public void setup() throws SQLException {
         CatalogoMaestro catalogoMaestro = new CatalogoMaestro(1, "Estados");
+        CatalogoMaestro catalogoMaestro2 = new CatalogoMaestro(5, "Paises");
+        CatalogoMaestro catalogoMaestro3 = new CatalogoMaestro(6, "Estados");
+        
+        List<CatalogoMaestro> result = new ArrayList<>();
+        result.add(catalogoMaestro);
+        result.add(catalogoMaestro2);
+        result.add(catalogoMaestro3);
 
         when(catalogoMaestroMapper.deleteByTipoCatalogo("Estados")).thenReturn(1);
         when(catalogoMaestroMapper.deleteById(1)).thenReturn(1);
         when(catalogoMaestroMapper.getByTipoCatalogo("Estados")).thenReturn(catalogoMaestro);
         when(catalogoMaestroMapper.getById(1)).thenReturn(catalogoMaestro);
         when(catalogoMaestroMapper.insert("Cocina")).thenReturn(2);
+        when(catalogoMaestroMapper.getAll()).thenReturn(result);
     }
 
     @Test
@@ -206,6 +216,26 @@ public class CatalogoMaestroServiceTest {
             assertFalse(catalogoMaestroService.crearCatalogo("Estados"));
         } catch (BusinessException e) {
             
+        }
+    }
+
+    @Test
+    public void dameTodosLosCatalogosMaestrosCorrectTest (){
+        catalogoMaestroService = new CatalogoMaestroServiceImpl(catalogoMaestroMapper);
+        try {
+            assertNotNull(catalogoMaestroService.dameTodosLosCatalogosMaestros());
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void dameTodosLosCatalogosMaestrosIncorrectTest (){
+        catalogoMaestroService = new CatalogoMaestroServiceImpl(catalogoMaestroMapper);
+        try {
+            assertNotNull(catalogoMaestroService.dameTodosLosCatalogosMaestros());
+        } catch (BusinessException e) {
+            assertTrue(false);
         }
     }
 

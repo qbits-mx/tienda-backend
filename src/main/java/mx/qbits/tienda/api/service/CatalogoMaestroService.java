@@ -20,6 +20,8 @@
  */
 package mx.qbits.tienda.api.service;
 
+import java.util.List;
+
 import mx.qbits.tienda.api.model.domain.CatalogoMaestro;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
@@ -92,4 +94,11 @@ public interface CatalogoMaestroService {
      * @throws BusinessException en caso de que ocurra un problema con la inserción.
      */
     boolean crearCatalogo(String tipoCatalogo) throws BusinessException;
+
+    /**
+     * Método que obtiene todos los catalogos maestros en la base de datos.
+     * @return List<CatalogoMaestro>, una lista con todos los catalogos maestro que hay en la base de datos.
+     * @throws BusinessException en caso de que ocurra un problema con la inserción.
+     */
+    List<CatalogoMaestro> dameTodosLosCatalogosMaestros() throws BusinessException;
 }

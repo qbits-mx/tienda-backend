@@ -21,6 +21,7 @@
 package mx.qbits.tienda.api.mapper;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -69,6 +70,24 @@ public interface CatalogoMaestroMapper {
     @ResultMap("CatalogoMaestroMapping")
     @Select("SELECT " + CAMPOS_CATALOGO_MAESTRO + " FROM catalogo_maestro WHERE tipo_catalogo = #{tipoCatalogo}")
     CatalogoMaestro getByTipoCatalogo(String tipoCatalogo) throws SQLException;
+    
+    /**
+     * Obtiene todos los catalogosMaestros en la base de datos.
+     * @return List<CatalogoMaestro> , lista con todos los catalogos maestros en la base de datos.
+     * @throws SQLException Se dispara en caso de que ocurra un error en esta operación desde la base de datos.
+     */
+    @ResultMap("CatalogoMaestroMapping")
+    @Select("SELECT "+ CAMPOS_CATALOGO_MAESTRO + " FROM catalogo_maestro")
+    List<CatalogoMaestro> getAll() throws SQLException;
+
+    /**
+     * Obtiene el número total de catalogos maestros.
+     * @return a Integer con el numero total de catalogos maestros.
+     * @throws SQLException Se dispara en caso de que ocurra un error en esta operación desde la base de datos.
+     */
+    @ResultMap("CatalogoMaestroMapping")
+    @Select("SELECT COUNT(*) FROM catalogo_maestro")
+    Integer totalCatalogosMaestro() throws SQLException;
 
     /**
      * Inserta un objeto de tipo 'CatalogoMaestro' con base en la información dada por el objeto 'tipoCatalogo'.

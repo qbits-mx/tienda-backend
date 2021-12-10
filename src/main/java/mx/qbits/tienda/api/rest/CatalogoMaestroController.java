@@ -20,6 +20,8 @@
  */
 package mx.qbits.tienda.api.rest;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +34,10 @@ import mx.qbits.tienda.api.service.CatalogoMaestroService;
 /**
  * Implementacion  del controlador REST asociado a los endpoints
  * de gestión por CatalogoMaestroService.
+ * 
+ * <p>NOTA IMPORTANTE: Los  distntos métodos de este controlador no
+ * llevan  javadoc  debido a que la  documentación  Swagger  API
+ * cumple con ese objetivo.</p>
  *
  * @author  Juan Carlos Bautista Sandoval
  * @see     mx.qbits.tienda.api.service.CatalogoMaestroService
@@ -90,5 +96,10 @@ public class CatalogoMaestroController {
     @GetMapping(path = "/crear-catalogo.json", produces = "application/json; charset=utf-8")
     public boolean crearCatalogo(@RequestParam String tipoCatalogo) throws BusinessException {
         return catalogoMaestroService.crearCatalogo(tipoCatalogo);
+    }
+
+    @GetMapping(path = "/obtener-todos-catalogosMaestros", produces = "application/json; charset=utf-8")
+    public List<CatalogoMaestro> dameTodo() throws BusinessException {
+        return catalogoMaestroService.dameTodosLosCatalogosMaestros();
     }
 }

@@ -21,6 +21,8 @@
 package mx.qbits.tienda.api.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -172,6 +174,153 @@ public class CatalogoServiceImpl implements CatalogoService {
             }
             return false;
         } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean eliminarCatalogo(String nombre, int idCatalogoCategoria) throws BusinessException {
+        try {
+            return catalogoMapper.deleteByNombreAndIdCatalogoCategoria(nombre, idCatalogoCategoria) > 0;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean eliminarCatalogo(int id, int idCatalogoCategoria) throws BusinessException {
+        try {
+            return catalogoMapper.deleteByIdAndIdCatalogoCategoria(id, idCatalogoCategoria) > 0;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public Catalogo buscarCatalogo(String nombre, int idCatalogoCategoria) throws BusinessException {
+        try {
+            return catalogoMapper.getByNombreAndIdCategoria(nombre, idCatalogoCategoria);
+        } catch (SQLException e) {
+            throw new BusinessException(e);    
+        }
+    }
+
+    @Override
+    public Catalogo buscarCatalogo(int id, int idCatalogoCategoria) throws BusinessException {
+        try {
+            return catalogoMapper.getByIdAndIdCategoria(id, idCatalogoCategoria);
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean modificarNombreConIdEIdCatalogoCategoria(int id, int idCatalogoCategoria, String nuevoNombre)
+            throws BusinessException {
+        try {
+            Catalogo result = catalogoMapper.getByIdAndIdCategoria(id, idCatalogoCategoria);
+            if (result == null) return false;
+            catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(id, idCatalogoCategoria, result.isActivo(), nuevoNombre));
+            return true;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean modificarNombreConNombreEIdCatalogoCategoria(String nombre, int idCatalogoCategoria,
+            String nuevoNombre) throws BusinessException {
+        try {
+            Catalogo result = catalogoMapper.getByNombreAndIdCategoria(nombre, idCatalogoCategoria);
+            if (result == null) return false;
+            catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(result.getId(), idCatalogoCategoria, result.isActivo(), nuevoNombre));
+            return true;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean modificarActivoConIdEIdCatalogoCategoria(int id, int idCatalogoCategoria, boolean nuevoActivo)
+            throws BusinessException {
+        try {
+            Catalogo result = catalogoMapper.getByIdAndIdCategoria(id, idCatalogoCategoria);
+            if (result == null) return false;
+            catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(id, idCatalogoCategoria, nuevoActivo, result.getNombre()));
+            return true;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean modificarActivoConNombreEIdCatalogoCategoria(String nombre, int idCatalogoCategoria,
+            boolean nuevoActivo) throws BusinessException {
+        try {
+            Catalogo result = catalogoMapper.getByNombreAndIdCategoria(nombre, idCatalogoCategoria);
+            if (result == null) return false;
+            catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(result.getId(), idCatalogoCategoria, nuevoActivo, nombre));
+            return true;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean modificarIdCatalogoCategoriaConIdEIdCatalogoCategoria(int id, int idCatalogoCategoria,
+            int nuevoIdCatalogoCategoria) throws BusinessException {
+        try {
+            Catalogo result = catalogoMapper.getByIdAndIdCategoria(id, idCatalogoCategoria);
+            if (result == null) return false;
+            catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(id, nuevoIdCatalogoCategoria, result.isActivo(), result.getNombre()));
+            return true;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public boolean modificarIdCatalogoCategoriaConNombreEIdCatalogoCategoria(String nombre, int idCatalogoCategoria,
+            int nuevoIdCatalogoCategoria) throws BusinessException {
+        try {
+            Catalogo result = catalogoMapper.getByNombreAndIdCategoria(nombre, idCatalogoCategoria);
+            if (result == null) return false;
+            catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(result.getId(), nuevoIdCatalogoCategoria, result.isActivo(), nombre));
+            return true;
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public List<Catalogo> obtenerTodosLosCatalogos() throws BusinessException {
+        try {
+            return catalogoMapper.getAll();
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public List<Catalogo> obtenerCatalogosPorIdCatalogoCategoria(int idCatalogoCategoria) throws BusinessException {
+        try {
+            return catalogoMapper.getByIdCatalogoCategoria(idCatalogoCategoria);
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
+    @Override
+    public List<List<Catalogo>> obtenerCatalogosPorCategoria() throws BusinessException {
+        try {
+            // Obtener todos los indices del catalogo
+            int indices = 4;
+            List<List<Catalogo>> result = new ArrayList<>();
+            for (int i = 0; i < indices; i++) {
+                result.add(obtenerCatalogosPorIdCatalogoCategoria(i));
+            }
+            return result;    
+        } catch (Exception e) {
             throw new BusinessException(e);
         }
     }

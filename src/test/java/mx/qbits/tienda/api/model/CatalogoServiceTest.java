@@ -27,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,11 +61,24 @@ public class CatalogoServiceTest {
     @Before
     public void setup() throws SQLException{
         Catalogo catalogo = new Catalogo(3, 2, true, "Deporte");
-        
+        Catalogo catalogo2 = new Catalogo(6, 6, true, "Yucatan");
+        List<Catalogo> result1 = new ArrayList<>();
+        List<Catalogo> result2 = new ArrayList<>();
+        result1.add(catalogo);
+        result1.add(catalogo2);
+        result2.add(catalogo);
+
         when(catalogoMapper.deleteByNombre("Jalisco")).thenReturn(1);
         when(catalogoMapper.deleteById(1)).thenReturn(1);
         when(catalogoMapper.getByNombre("Deporte")).thenReturn(catalogo);
         when(catalogoMapper.getById(3)).thenReturn(catalogo);
+
+        when(catalogoMapper.deleteByNombreAndIdCatalogoCategoria("Yucatan", 6)).thenReturn(6);
+        when(catalogoMapper.deleteByIdAndIdCatalogoCategoria(6, 6)).thenReturn(6);
+        when(catalogoMapper.getByNombreAndIdCategoria("Yucatan", 6)).thenReturn(catalogo2);
+        when(catalogoMapper.getByIdAndIdCategoria(6, 6)).thenReturn(catalogo2);
+        when(catalogoMapper.getAll()).thenReturn(result1);
+        when(catalogoMapper.getByIdCatalogoCategoria(22)).thenReturn(result2);
     }
 
     @Test
@@ -293,4 +308,242 @@ public class CatalogoServiceTest {
             assertFalse(true);
         }
     }
+
+    @Test
+    public void eliminarCatalogoConNombreYCategoriaCorrectTest(){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertTrue(catalogoService.eliminarCatalogo("Yucatan", 6));
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void eliminarCatalogoConNombreYCategoriaIncorrectTest(){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertFalse(catalogoService.eliminarCatalogo("Yucatan", 7));
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void eliminarCatalogoConIdYCategoriaCorrectTest(){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertTrue(catalogoService.eliminarCatalogo(6, 6));
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void eliminarCatalogoIdYCategoriaIncorrectTest(){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertFalse(catalogoService.eliminarCatalogo(7, 7));
+        } catch (Exception e) {
+            assertTrue(false);
+        }
+    }
+
+
+    @Test
+    public void buscarCatalogoIdYCategoriaCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertNotNull(catalogoService.buscarCatalogo(6, 6) ); 
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void buscarCatalogoIdYCategoriaIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertNull(catalogoService.buscarCatalogo(7, 7) ); 
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void buscarCatalogoNombreYCategoriaCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertNotNull(catalogoService.buscarCatalogo("Yucatan", 6)); 
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void buscarCatalogoNombreYCategoriaIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertNull(catalogoService.buscarCatalogo("Yucatan", 7)); 
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoIdNombreCatalogoCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarNombreConIdEIdCatalogoCategoria(6, 6, "Colima");
+            assertTrue(true);
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoIdNombreCatalogoIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertFalse(catalogoService.modificarNombreConIdEIdCatalogoCategoria(7, 7, "Colima"));
+        } catch (BusinessException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoNombreNombreCatalogoCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarNombreConNombreEIdCatalogoCategoria("Yucatan", 6, "Colima") ;
+            assertTrue(true);
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoNombreNombreCatalogoIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertFalse(catalogoService.modificarNombreConNombreEIdCatalogoCategoria("Paris", 7, "Colima"));
+        } catch (BusinessException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoIdActivoCatalogoCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarActivoConIdEIdCatalogoCategoria(6, 6, true) ;
+            assertTrue(true);
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoIdActivoCatalogoIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertFalse(catalogoService.modificarActivoConIdEIdCatalogoCategoria(7, 7, false));
+        } catch (BusinessException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoNombreActivoCategoriaCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarActivoConNombreEIdCatalogoCategoria("Yucatan", 6, true);
+            assertTrue(true);
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoNombreActivoCategoriaIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertFalse(catalogoService.modificarActivoConNombreEIdCatalogoCategoria("Calabaza", 7, false));
+        } catch (BusinessException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoIdCatalogoCategoriaCategoriaCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarIdCatalogoCategoriaConIdEIdCatalogoCategoria(6, 6, 9);
+            assertTrue(true);
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoIdCatalogoCategoriaCategoriaIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarIdCatalogoCategoriaConIdEIdCatalogoCategoria(7, 7, 9);
+        } catch (BusinessException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoNombreCatalogoCategoriaCategoriaCorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarIdCatalogoCategoriaConNombreEIdCatalogoCategoria("Yucatan", 6, 9) ;
+            assertTrue(true);
+        } catch (BusinessException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void modificarCatalogoNombreCatalogoCategoriaCategoriaIncorrectTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            catalogoService.modificarIdCatalogoCategoriaConNombreEIdCatalogoCategoria("Colima", 7, 8) ;
+        } catch (BusinessException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void obtenerTodosLosCatalogosTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertNotNull(catalogoService.obtenerTodosLosCatalogos());
+        } catch (BusinessException e) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void obtenerCatalogosPorIdCatalogoCategoriaTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertNotNull(catalogoService.obtenerCatalogosPorIdCatalogoCategoria(6));
+        } catch (BusinessException e) {
+            assertFalse(true);
+        }
+    }
+
+    @Test
+    public void obtenerCatalogosPorCategoriaTest (){
+        catalogoService = new CatalogoServiceImpl(catalogoMapper);
+        try {
+            assertNotNull(catalogoService.obtenerCatalogosPorCategoria()) ;
+        } catch (BusinessException e) {
+            assertFalse(true);
+        }
+    }
+
 }
