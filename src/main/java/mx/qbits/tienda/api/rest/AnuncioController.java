@@ -29,6 +29,6 @@ public class AnuncioController {
 	@RequestParam String descripcion,
 	@RequestParam Date vigencia,
 	@RequestParam String datos_contacto) throws BusinessException{
-			return service.salvaAnuncio(id, id_usuario, id_catalogo_departamento, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto);
+			return anuncioService.salvaAnuncio(id, id_usuario, id_catalogo_departamento, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto);
 	}
 }
