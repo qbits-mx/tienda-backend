@@ -22,14 +22,13 @@ public class AnuncioController {
     @GetMapping(path = "/salva-anuncio.json", produces = "application/json; charset=utf-8")
 	public int salvaAnuncio(
 	@RequestParam int id_usuario,
+	@RequestParam int id_catalogo_departamento,
 	@RequestParam int id_catalogo_condicion,
 	@RequestParam int id_catalogo_forma_pago,
 	@RequestParam int id_catalogo_zona_entrega,
-	@RequestParam int id_catalogo_departamento,
 	@RequestParam String descripcion,
 	@RequestParam Date vigencia,
 	@RequestParam String datos_contacto) throws BusinessException{
-			model = new Anuncio(0, id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, id_catalogo_departamento, descripcion, vigencia, datos_contacto);
-			return anuncioService.salvaAnuncio(model);
+			return service.salvaAnuncio(id, id_usuario, id_catalogo_departamento, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto);
 	}
 }
