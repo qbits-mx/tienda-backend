@@ -1,11 +1,14 @@
 package mx.qbits.tienda.api.rest;
 
+import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.AnuncioService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -27,6 +30,6 @@ public class AnuncioController {
 	@RequestParam Date vigencia,
 	@RequestParam String datos_contacto) throws BusinessException{
 			model = new Anuncio(0, id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, id_catalogo_departamento, descripcion, vigencia, datos_contacto);
-			return anuncioService.salvaAnuncio(model)
+			return anuncioService.salvaAnuncio(model);
 	}
 }

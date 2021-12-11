@@ -1,6 +1,6 @@
 package mx.qbits.tienda.api.model.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 public class Anuncio {
