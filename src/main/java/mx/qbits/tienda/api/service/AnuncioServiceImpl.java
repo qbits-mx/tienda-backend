@@ -7,24 +7,19 @@ import mx.qbits.tienda.api.model.domain.Anuncio;
 
 @Service
 public class AnuncioServiceImpl implements AnuncioService{
-	private AnuncioMapper anuncioMapper;
+	private AnuncioMapper mapper;
 
-	public AnuncioServiceImpl(AnuncioMapper anuncioMapper) {
-		this.anuncioMapper = anuncioMapper;
+	pubic AnuncioServiceImpl(AnuncioMapper mapper){
+		this.mapper = mapper;
 	}
-
 	@Override
-	public int salvaAnuncio(Anuncio anuncio) throws Exception{
-		int usuario = anuncio.getIdUsuario();
-		int catalogoPago = anuncio.getIdCatalogoFormaDePago();
-		int catalogoCondicion = anuncio.getIdCatalogoCondicion();
-		int catalogoEntrega = anuncio.getIdCatalogoZonaDeEntrega();
-		int catalogoDepartamento =anuncio.getIdCatalogoDepartamento();
-		String descripcion = anuncio.getDescripcion();
-		Date vigencia = anuncio.getVigenciaAnuncio();
-		String datosContacto = anuncio.getContacto();
+	public int salvaAnuncio(int idUsuario, int catalogoDepartamento, int catalogoPago, int catalogoCondicion, int catalogoEntrega, String descripcion, Date vigencia, String datosContacto) throws BusinessException{
 
-		//anuncioMapper.insert(usuario, catalogoPago, catalogoCondicion, catalogoCondicion, catalogoEntrega, catalogoDepartamento, descripcion, vigencia, datosContacto);
-		return 1;
+		try{
+			mapper.insert(idUsuario, catalogoDepartamento, catalogoPago, catalogoCondicion, catalogoCondicion, catalogoEntrega, descripcion, vigencia, datosContacto);
+			return 1;
+		} catch(SQLException e){
+			throws new BusinessException(e);
+		}
 	}
 }
