@@ -1,5 +1,5 @@
 package mx.qbits.tienda.api.mapper;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnuncioMapper{
-	final String CAMPOS_ANUNCIO: "id, id_usuario, id_comprador, id_catalogo_departamento, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto, validado, notificado, revisado, activo, comprado, fecha_compra, estrellas, comentario, comentario_aprobado";
+	final String CAMPOS_ANUNCIO = "id, id_usuario, id_comprador, id_catalogo_departamento, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto, validado, notificado, revisado, activo, comprado, fecha_compra, estrellas, comentario, comentario_aprobado";
 
 	@Results(id="AnuncioMapping", value = {
 					@Result(property = "id",              				column = "id"),
 					@Result(property = "idUsuario",      					column = "id_usuario"),
 					@Result(property = "idComprador",    					column = "id_comprador"),
 					@Result(property = "idCatalogoDepartamento",	column = "id_catalogo_departamento"),
-					@Result(property = "idCatalogoCondicion", 		column = "id_catalogo_condicion")
+					@Result(property = "idCatalogoCondicion", 		column = "id_catalogo_condicion"),
 					@Result(property = "idCatalogoFormaDePago",		column = "id_catalogo_forma_pago"),
 					@Result(property = "idCatalogoZonaEntrega",		column = "id_catalogo_zona_entrega"),
 					@Result(property = "descripcion",							column = "descripcion"),
@@ -41,6 +41,6 @@ public interface AnuncioMapper{
 					@Result(property = "multimedia",	column = "mulimedia"),
 	})
 	@Insert("INSERT INTO anuncio(id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega id_catalogo_departamento, descripcion, vigencia, datos_contacto) VALUES(#{id_usuario}, #{id_catalogo_condicion}, #{id_catalogo_forma_pago}, #{id_catalogo_zona_entrega}, #{id_catalogo_departamento}, #{descripcion}, #{vigencia}, #{datos_contacto}}")
-	int insert(int id_usuario, int id_catalogo_condicion, int id_catalogo_forma_pago, int id_catalogo_zona_entrega, int catalogo_departamento, String descripcion, Date vigencia, String datos_contacto) throws SQLException;
+	int insert(int id_usuario, int id_catalogo_condicion, int catalogo_departamento, int id_catalogo_forma_pago, int id_catalogo_zona_entrega,  String descripcion, Date vigencia, String datos_contacto) throws SQLException;
 
 }
