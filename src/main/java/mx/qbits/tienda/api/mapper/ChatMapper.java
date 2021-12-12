@@ -46,7 +46,7 @@ public interface ChatMapper {
      * @throws SQLException
      */
     @ResultMap("ChatMapping")
-    @Select("SELECT ("+ CAMPOS_CHAT + ") FROM chat  WHERE id_hilo_padre = #{idHiloPadre}")
+    @Select("SELECT ("+ CAMPOS_CHAT + ") FROM chat  WHERE id_anuncio = #{idAnuncio} AND id_hilo_padre = #{idHiloPadre}")
     List<Chat> getByConversacion(int idAnuncio, int idHiloPadre) throws SQLException;
 
     /**
@@ -57,9 +57,10 @@ public interface ChatMapper {
      * @return
      * @throws SQLException
      */
-  
+  //id, id_anuncio, id_remitente, id_hilo_padre, mensaje, fecha
+  //SELECT (id, id_anuncio, id_remitente, id_hilo_padre, mensaje, fecha) FROM chat  WHERE id_anuncio = #{idAnuncio} ORDER BY id_hilo_padre
     @ResultMap("ChatMapping")
-    @Select("SELECT (" + CAMPOS_CHAT+") FROM chat  WHERE id_anuncio = #{idAnuncio} GROUP BY id_hilo_padre")
+    @Select("SELECT " + CAMPOS_CHAT+" FROM chat  WHERE id_anuncio = #{idAnuncio} ORDER BY id_hilo_padre")
     List<Chat> getByAnuncio(int idAnuncio) throws SQLException;
 
     /**
