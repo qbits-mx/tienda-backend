@@ -1,25 +1,25 @@
 package mx.qbits.tienda.api.service;
-
-import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Date;
+
+import org.springframework.stereotype.Service;
+
+import mx.qbits.tienda.api.mapper.AnuncioMapper;
 
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import org.springframework.stereotype.Service;
-import mx.qbits.tienda.api.mapper.AnuncioMapper;
-import mx.qbits.tienda.api.model.domain.Anuncio;
-
 @Service
 public class AnuncioServiceImpl implements AnuncioService{
-	private AnuncioMapper mapper;
+	AnuncioMapper mapper;
 
 	public AnuncioServiceImpl(AnuncioMapper mapper){
 		this.mapper = mapper;
 	}
 	@Override
-	public int salvaAnuncio(int idUsuario, int catalogoDepartamento, int catalogoPago, int catalogoCondicion, int catalogoEntrega, String descripcion, Date vigencia, String datosContacto) throws BusinessException{
+	public int salvaAnuncio(int idUsuario, int catalogoCondicion, int catalogoPago,  int catalogoEntrega,int catalogoDepartamento, String descripcion, Date vigencia, String datosContacto) throws BusinessException{
 
 		try{
-			return (mapper.insert(idUsuario, catalogoCondicion, catalogoDepartamento, catalogoPago, catalogoPago,  descripcion, vigencia, datosContacto));
+			mapper.insert(idUsuario, catalogoCondicion, catalogoPago,  catalogoEntrega, catalogoDepartamento,descripcion, vigencia, datosContacto);
+			return 1;
 		} catch(SQLException e){
 			throw new BusinessException(e);
 		}
