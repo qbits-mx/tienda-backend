@@ -20,7 +20,9 @@
  */
 package mx.qbits.tienda.api.model.domain;
 
-import java.util.Date;
+//import java.util.String;
+
+import javax.print.DocFlavor.STRING;
 
 /**
  * Implementacion del POJO de la entidad de {@link mx.qbits.tienda.api.model.domain.Chat}.
@@ -38,7 +40,7 @@ public class Chat {
     private int idRemitente;
     private int idHiloPadre;
     private String mensaje;
-    private Date fecha;
+    private String fecha;
     
     /**
      * Constructor por default.
@@ -55,12 +57,13 @@ public class Chat {
      * @param mensaje el mensaje
      * @param fecha la fecha de l acreación del chat
      */
-    public Chat(int id, int idAnuncio, int idRemitente, int idHiloPadre, String mensaje, Date fecha) {
+    public Chat(int id, int idAnuncio, int idRemitente, int idHiloPadre, String mensaje, String fecha) {
         this.id = id;
         this.idAnuncio = idAnuncio;
         this.idRemitente = idRemitente;
         this.idHiloPadre = idHiloPadre;
         this.mensaje = mensaje;
+        System.out.println("Fecha nueva: " + fecha);
         this.fecha = fecha;
     }
 
@@ -148,7 +151,7 @@ public class Chat {
      * 
      * @return
      */
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
@@ -156,7 +159,7 @@ public class Chat {
      * 
      * @param fecha
      */
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

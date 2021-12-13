@@ -33,8 +33,7 @@ public interface ChatMapper {
             @Result(property = "idHiloPadre", column = "id_hilo_padre"),
             @Result(property = "mensaje", column = "mensaje"),
             @Result(property = "fecha", column = "fecha")
-    })
-    @Select("SELECT " + CAMPOS_CHAT + " FROM chat WHERE id = #{id} ")
+    })@Select("SELECT *"+ " FROM chat WHERE id = #{id} ")
     Chat getById(int id) throws SQLException;
 
     /**
@@ -46,7 +45,7 @@ public interface ChatMapper {
      * @throws SQLException
      */
     @ResultMap("ChatMapping")
-    @Select("SELECT ("+ CAMPOS_CHAT + ") FROM chat  WHERE id_anuncio = #{idAnuncio} AND id_hilo_padre = #{idHiloPadre}")
+    @Select("SELECT "+ CAMPOS_CHAT + " FROM chat  WHERE id_hilo_padre = #{idHiloPadre} AND id_anuncio = #{idAnuncio}")
     List<Chat> getByConversacion(int idAnuncio, int idHiloPadre) throws SQLException;
 
     /**
@@ -57,8 +56,7 @@ public interface ChatMapper {
      * @return
      * @throws SQLException
      */
-  //id, id_anuncio, id_remitente, id_hilo_padre, mensaje, fecha
-  //SELECT (id, id_anuncio, id_remitente, id_hilo_padre, mensaje, fecha) FROM chat  WHERE id_anuncio = #{idAnuncio} ORDER BY id_hilo_padre
+  
     @ResultMap("ChatMapping")
     @Select("SELECT " + CAMPOS_CHAT+" FROM chat  WHERE id_anuncio = #{idAnuncio} ORDER BY id_hilo_padre")
     List<Chat> getByAnuncio(int idAnuncio) throws SQLException;

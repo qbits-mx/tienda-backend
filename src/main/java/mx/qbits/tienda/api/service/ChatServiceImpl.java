@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.springframework.stereotype.Service;
 
 import mx.qbits.tienda.api.mapper.ChatMapper;
@@ -48,12 +47,11 @@ public class ChatServiceImpl implements ChatService {
     public List<List<Chat>> getConversaciones(int idAnuncio) throws ChatException {
         try {
             List<Chat> todasLasConversaciones = chatMapper.getByAnuncio(idAnuncio);
+            
             List<List<Chat>> respuesta = new ArrayList<>();
 
-
-            int convActual = -1;
+            int convActual = -1; // id hilo padre actual olis :c
             int contador = 0;
-
             for (Chat chat : todasLasConversaciones) {
                 if (chat.getIdHiloPadre() != convActual) {
                     convActual = chat.getIdHiloPadre();
@@ -66,21 +64,19 @@ public class ChatServiceImpl implements ChatService {
                 respuesta.add(aux);
             }
 
-            contador = 0;
-
+            contador = -1;
+            convActual = -1;
             for (Chat chat : todasLasConversaciones) {
                 if (chat.getIdHiloPadre() != convActual) {
                     contador++;
                 }
+                
                 respuesta.get(contador).add(chat);
+                System.out.println("RESPUESTA: "+ contador+"\n"+respuesta.get(contador));
             }
-
-            if(idAnuncio <=0) throw new Exception();
-
             return respuesta;
 
         } catch (Exception e) {
-
             String error = "Error al recuperar las conversaciones del anuncio: " + idAnuncio;
             throw new ChatException(error, idAnuncio);
         }
