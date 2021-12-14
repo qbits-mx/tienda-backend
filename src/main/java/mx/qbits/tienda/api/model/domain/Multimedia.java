@@ -1,17 +1,38 @@
 package mx.qbits.tienda.api.model.domain;
 
 public class Multimedia {
-
+	
+	int id;
+	int idAnuncio;
     String url;
-    boolean tipo;
+    String tipo;
 
     public Multimedia(){
     }
-    public Multimedia(String url, boolean tipo) {
+    public Multimedia(int id, int idAnuncio, String url, String tipo) {
+    	
+    	this.id = id;
+    	this.idAnuncio = idAnuncio;
         this.url = url;
         this.tipo = tipo;
     }
-
+    
+    public int getId() {
+    	return id;
+    }
+    
+    public void setId(int id) {
+    	this.id = id;
+    }
+    
+    public int getIdAnuncio() {
+    	return idAnuncio;
+    }
+    
+    public void setIdAnuncio(int idAnuncio) {
+    	this.idAnuncio= idAnuncio;
+    }
+    
     public String getUrl() {
         return url;
     }
@@ -20,15 +41,12 @@ public class Multimedia {
         this.url = url;
     }
 
-    public boolean isTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(boolean tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-
-
 
 }
