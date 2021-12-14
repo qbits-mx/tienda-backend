@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     io.kebblar.petstore.api.utils
- * Proyecto:    petstore-back
+ * Paquete:     mx.qbits.tienda.api.utils
+ * Proyecto:    tienda
  * Tipo:        Clase
  * Nombre:      ValidadorClave
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -20,8 +20,6 @@
  */
 package mx.qbits.tienda.api.utils;
 
-//import static io.kebblar.petstore.api.model.enumerations.EnumMessage.INTERNAL_SERVER;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,10 +28,8 @@ import java.util.Properties;
 
 import org.passay.*;
 
-import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.exceptions.CustomException;
+import mx.qbits.tienda.api.model.exceptions.InternalServerException;
 import mx.qbits.tienda.api.model.exceptions.StrengthPasswordValidatorException;
-import static mx.qbits.tienda.api.model.enumerations.EnumMessage.*;
 
 /**
  * <p>ValidadorClave class.</p>
@@ -50,9 +46,10 @@ public class ValidadorClave {
      *
      * @param clave a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws BusinessException if any
+     * @throws mx.qbits.tienda.api.model.exceptions.StrengthPasswordValidatorException if any.
+     * @throws mx.qbits.tienda.api.model.exceptions.InternalServerException if any.
      */
-    public static boolean validate(String clave) throws BusinessException {
+    public static boolean validate(String clave) throws StrengthPasswordValidatorException, InternalServerException {
         List<Rule> rules = new ArrayList<>();
         //Rule 1: Password length should be in between
         //8 and 16 characters
@@ -73,7 +70,7 @@ public class ValidadorClave {
         try {
             props.load(is);
         } catch (IOException e) {
-            throw new CustomException(e, INTERNAL_SERVER);
+            throw new InternalServerException("Ha ocurrido un error en el servidor", e.getMessage());
         }
         MessageResolver resolver = new PropertiesMessageResolver(props);
         PasswordValidator validator = new PasswordValidator(resolver, rules);
@@ -81,16 +78,10 @@ public class ValidadorClave {
         PasswordData password = new PasswordData(clave);
         RuleResult result = validator.validate(password);
 
-
         if(!result.isValid()) { // NOT valid !!!!
            List<String> messages = validator.getMessages(result);
-           StringBuilder sb = new StringBuilder();
-           for(String msg : messages) {
-               sb.append(msg);
-               sb.append("\n");
-           }
            throw new StrengthPasswordValidatorException(messages);
         }
         return true;
-    }
+      }
 }

@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     io.kebblar.petstore.api.model.exceptions
- * Proyecto:    petstore-back
+ * Paquete:     mx.qbits.tienda.api.model.exceptions
+ * Proyecto:    tienda
  * Tipo:        Clase
  * Nombre:      MapperCallException
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -20,7 +20,10 @@
  */
 package mx.qbits.tienda.api.model.exceptions;
 
-import mx.qbits.tienda.api.model.enumerations.EnumMessage;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>Descripción:</p>
@@ -32,12 +35,14 @@ import mx.qbits.tienda.api.model.enumerations.EnumMessage;
  * código HTTP que será devuelto.
  *
  * @author garellano
- * @see io.kebblar.petstore.api.model.exceptions.BusinessException
+ * @see mx.qbits.tienda.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since 1.0-SNAPSHOT
  */
 public class MapperCallException extends BusinessException {
+
     private static final long serialVersionUID = -7083159020205284484L;
+    private static final Logger logger = LoggerFactory.getLogger(MapperCallException.class);
 
     /**
      * Brinda la oportunidad de especificar una breve descripción y un mensaje detallado a la
@@ -47,17 +52,23 @@ public class MapperCallException extends BusinessException {
      * @param technicalDescription Descripción específica
      */
     public MapperCallException(String shortMessage, String technicalDescription) {
-        this(new Exception(""), shortMessage, technicalDescription);
-    }
-    
-    public MapperCallException(Throwable throwable, String shortMessage, String technicalDescription) {
         super(
-            throwable,
             shortMessage,
-            technicalDescription,
-            701,
-            throwable.getMessage(),
-            EnumMessage.DATABASE.getHttpStatus());
+            buildMessage(technicalDescription),
+            1012,
+            "CVE_1012",
+            HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * Método auxiliar para dar formato
+     * @param technicalDescription descripción específica
+     * @return cadena con la descripción técnica construida
+     */
+    private static String buildMessage(String technicalDescription) {
+        String uid = UUID.randomUUID().toString();
+        logger.error("UID: {}. Desc: {}", uid, technicalDescription);
+        return "Codigo de error: " + uid;
     }
 
 }

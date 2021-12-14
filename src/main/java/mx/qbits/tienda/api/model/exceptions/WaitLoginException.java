@@ -10,21 +10,19 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      StrengthPasswordValidatorException
+ * Nombre:      WaitLoginException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:57:58
+ *              Creación: 5 Sep 2021 @ 07:59:18
  */
 package mx.qbits.tienda.api.model.exceptions;
 
-import java.util.List;
-
 /**
- * <p>Descripción</p>
- * Excepción que determina cuando existe un problema con la fortaleza de una clave.
+ * <p>Descripción:</p>
+ * Excepción que indica que un usuario bloqueado debe de esperar aún para poder acceder a su cuenta.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
@@ -35,32 +33,35 @@ import java.util.List;
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class StrengthPasswordValidatorException extends BusinessException {
+public class WaitLoginException extends BusinessException {
 
-    private static final long serialVersionUID = -1222301152057974505L;
-    private final List<String> messages;
+    private static final long serialVersionUID = 8948866486775990561L;
+    private static final String DETAILED_MENSAJE = "El usuario ha sido bloqueado por los próximos %d minutos y %d segundos debido a que alcanzó el máximo numero de intentos fallidos de ingreso al sistema.";
+    private static final String SHORT_MENSAJE = "Usuario bloqueado";
 
     /**
-     * Se lanza cuando existe una clave que no cumple con los lineamientos de seguridad
+     * Indica cuánto tiempo debe de esperar antes de poder volver a intentar el ingreso al sistema.
      *
-     * @param messages lista de requisitos no cubiertos por la clave
+     * @param seconds segundos restantes
      */
-    public StrengthPasswordValidatorException(List<String> messages) {
+    public WaitLoginException(long seconds) {
         super(
-            "Clave inválida",
-            "La clave proporcionada es inválida.",
-            1016,
-            "CVE_1016",
+                SHORT_MENSAJE,
+            calc(seconds),
+            1024,
+            "CVE_1024",
             HttpStatus.BAD_REQUEST);
-        this.messages = messages;
     }
 
     /**
-     * Devuelve el atributo de la clase.
-     *
-     * @return atributo lista de mensajes
+     * Método auxiliar generar un mensaje explicativo del tiempo de espera restante.
+     * @param seconds segundos restantes
+     * @return Cadena que informa al usuario en cuánto tiempo se desbloquea su cuenta
      */
-    public List<String> getMessages() {
-        return this.messages;
+    private static String calc(long seconds) {
+        long minutes = seconds/60;
+        long seg = seconds%60;
+        return String.format(DETAILED_MENSAJE, minutes, seg);
     }
+
 }

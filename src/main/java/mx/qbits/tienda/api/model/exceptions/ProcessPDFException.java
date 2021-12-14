@@ -10,53 +10,43 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      ProcessPDFException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:57:39
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
  * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * Excepción que modela la respuesta a una petición de procesar archivo PDF.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
  * código HTTP que será devuelto.
  *
- * @author  garellano
- * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
+ * @author dalvarez
+ * @see mx.qbits.tienda.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
- * @since   1.0-SNAPSHOT
+ * @since 1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
-    private static final long serialVersionUID = -7083159020205284484L;
+public class ProcessPDFException extends BusinessException {
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * Da la descripción del problema que ocurre con el procesamiento del pdf.
      *
-     * @param e excepción lanzada en un inicio
+     * @param technicalDescription mensaje específico del problema
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
-
-    /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
-     */
-    public TransactionException(String msg) {
+    public ProcessPDFException(Exception technicalDescription) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
+            "Error al generar el documento PDF",
+            technicalDescription.getMessage(),
+            1014,
+            "CVE_1014",
             HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 }

@@ -10,19 +10,19 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      UploadException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:58:32
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
  * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * Excepción que se lanza cuando hay un problema con la carga de un archivo.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
@@ -33,29 +33,49 @@ package mx.qbits.tienda.api.model.exceptions;
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class UploadException extends BusinessException {
+
     private static final long serialVersionUID = -7083159020205284484L;
+    private static final String CVE = "CVE_1020";
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * Toma la excepción que se lanzó originalmente y reutiliza su mensaje.
      *
-     * @param e excepción lanzada en un inicio
+     * @param e excepción atrapada por el constructor
      */
-    public TransactionException(Exception e) {
-        super(e);
+    public UploadException(Exception e) {
+        super(
+            "Error en el servicio de envío de carga de archivos",
+            e.getMessage(),
+            1020,
+            CVE,
+            HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
+     * Es lanzado cuando hay un problema con la talla del archivo.
      *
-     * @param msg detalles del problema
+     * @param max máximo peso permitido
+     * @param peso peso del archivo que se quiso cargar
      */
-    public TransactionException(String msg) {
+    public UploadException(long max, long peso) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
+            "Error en el servicio de envio de carga de archivos",
+            String.format("Limite excedido. Max: %d. Upload: %d", max, peso),
+            1020,
+            CVE,
+            HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     * Constructor sin parámetros, lanza un mensaje default.
+     */
+    public UploadException() {
+        super(
+            "Error en el servicio de envío de carga de archivos",
+            "Tipo mime desconocido",
+            1020,
+            CVE,
             HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

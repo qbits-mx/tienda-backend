@@ -10,53 +10,46 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      CarritoException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:56:04
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
- * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * <p>Descripción:</p>
+ * Excepción que es lanzada cuando ocurre un problema al procesar la actualización
+ * de un carrito de compras del aplicativo.
  *
- * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
+ * <p>Tal y como ocurre en la mayoría de "custom exceptions", solo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
- * código HTTP que será devuelto.
+ * código HTTP que será devuelto.</p>
  *
- * @author  garellano
+ * @author  fhernanda
  * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
-    private static final long serialVersionUID = -7083159020205284484L;
+public class CarritoException extends BusinessException {
+    private static final long serialVersionUID = -2374644132039662770L;
+    private static final String DETAILED_MESSAGE = "No pudo actualizarse la orden compra del carrito del usuario %d";
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * Dado el id del usuario a quien corresponde el carrito, lanza una excepción informando que
+     * determinada compra no pudo ser asociada a los items que este usuario agregó a su carrito.
      *
-     * @param e excepción lanzada en un inicio
+     * @param idUser id del usuario afectado
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
-
-    /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
-     */
-    public TransactionException(String msg) {
+    public CarritoException(int idUser) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+            "Error al asociar el carrito a una compra",
+            String.format(DETAILED_MESSAGE, idUser),
+            1004,
+            "CVE-1004",
+            HttpStatus.BAD_REQUEST);
     }
-
 }

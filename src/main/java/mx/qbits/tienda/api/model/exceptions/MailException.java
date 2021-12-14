@@ -10,19 +10,20 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      MailException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:57:15
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
- * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * <p>Descripción:</p>
+ * Excepción que modela la respuesta a una petición de envío de correos
+ * cuya salida no tuvo éxito.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
@@ -33,29 +34,20 @@ package mx.qbits.tienda.api.model.exceptions;
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class MailException extends BusinessException {
     private static final long serialVersionUID = -7083159020205284484L;
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * Se lanza al ocurrir un problema con el envío de correos.
      *
-     * @param e excepción lanzada en un inicio
+     * @param e excepción atrapada
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
-
-    /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
-     */
-    public TransactionException(String msg) {
+    public MailException(Exception e) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
+            "Error en el servicio de envío de correos",
+            e.getMessage(),
+            1011,
+            "CVE_1011",
             HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

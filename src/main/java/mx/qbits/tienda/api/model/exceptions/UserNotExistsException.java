@@ -10,19 +10,19 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      UserNotExistsException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:59:03
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
  * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * Excepción que se lanza cuando un usuario intenta entrar al sistema con credenciales incorrectas.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
@@ -33,30 +33,33 @@ package mx.qbits.tienda.api.model.exceptions;
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class UserNotExistsException extends BusinessException {
     private static final long serialVersionUID = -7083159020205284484L;
 
+    private static final String DETAILED_MENSAJE = "El usuario %s no se encuentra reistrado.";
+    private static final String SHORT_MENSAJE = "Usuario Inexistente";
+
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * Indica que el nombre de usuario introducido no existe en el sistema.
      *
-     * @param e excepción lanzada en un inicio
+     * @param user cadena del usuario introducido
      */
-    public TransactionException(Exception e) {
-        super(e);
+    public UserNotExistsException(String user) {
+        super(
+                SHORT_MENSAJE,
+            mess(user),
+            1022,
+            "CVE_1022",
+            HttpStatus.BAD_REQUEST);
     }
 
     /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
+     * Brinda el mensaje detallado del problema.
+     * @param user usuario introducido
+     * @return Mensaje específico de la problemática
      */
-    public TransactionException(String msg) {
-        super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+    private static String mess(String user) {
+        return String.format(DETAILED_MENSAJE, user);
     }
 
 }

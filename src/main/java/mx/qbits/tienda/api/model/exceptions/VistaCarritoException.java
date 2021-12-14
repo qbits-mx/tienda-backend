@@ -10,53 +10,45 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      VistaCarritoException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:59:11
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
- * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * <p>Descripción:</p>
+ * Excepción que es lanzada cuando ocurre un problema al procesar la petición de la
+ * vista hacia un carrito de compras del aplicativo.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
  * código HTTP que será devuelto.
  *
- * @author  garellano
+ * @author  fhernanda
  * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
-    private static final long serialVersionUID = -7083159020205284484L;
+public class VistaCarritoException extends BusinessException{
+
+    private static final long serialVersionUID = 129288280347509459L;
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * Ocurrió un problema al procesar la petición del carrito de un usuario.
      *
-     * @param e excepción lanzada en un inicio
+     * @param clave cadena que representa la clave de orden del carrito
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
-
-    /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
-     */
-    public TransactionException(String msg) {
+    public VistaCarritoException(String clave) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+            "Error al recuperar la vista del carrito",
+            String.format("La clave de orden ingresada no existe: %s", clave),
+            1023,
+            "CVE-1023",
+            HttpStatus.BAD_REQUEST);
     }
-
 }

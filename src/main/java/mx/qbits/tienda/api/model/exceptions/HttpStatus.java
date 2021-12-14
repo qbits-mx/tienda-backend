@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     io.kebblar.petstore.api.model.exceptions
- * Proyecto:    petstore-back
+ * Paquete:     mx.qbits.tienda.api.model.exceptions
+ * Proyecto:    tienda
  * Tipo:        Enum
  * Nombre:      HttpStatus
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -18,7 +18,7 @@
  * Historia: 
  *              Creación: 5 Sep 2021 @ 07:56:47
  */
-package mx.qbits.tienda.api.model.enumerations;
+package mx.qbits.tienda.api.model.exceptions;
 
 /**
  * Enumeration of HTTP status codes.
@@ -452,7 +452,7 @@ public enum HttpStatus {
      * Return the HTTP status series of this status code.
      *
      * @see HttpStatus.Series
-     * @return a {@link io.kebblar.petstore.api.model.enumerations.HttpStatus.Series} object.
+     * @return a {@link mx.qbits.tienda.api.model.exceptions.HttpStatus.Series} object.
      */
     public Series series() {
         return Series.valueOf(this);

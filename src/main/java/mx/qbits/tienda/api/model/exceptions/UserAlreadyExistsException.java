@@ -10,19 +10,19 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      UserAlreadyExistsException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:58:50
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
  * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * Excepción que se lanza cuando el sistema detecta que los datos de un usuario que desea registrarse ya existen.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
@@ -33,30 +33,19 @@ package mx.qbits.tienda.api.model.exceptions;
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class UserAlreadyExistsException extends BusinessException{
     private static final long serialVersionUID = -7083159020205284484L;
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
-     *
-     * @param e excepción lanzada en un inicio
+     * Se lanza cuando el sistema detecta que el usuario ya fue registrado.
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
-
-    /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
-     */
-    public TransactionException(String msg) {
+    public UserAlreadyExistsException() {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+            "Error de registro",
+            "El correo proporcionado ya se encuentra registrado en la base de datos.",
+            1021,
+            "CVE_1021",
+            HttpStatus.BAD_REQUEST);
     }
 
 }

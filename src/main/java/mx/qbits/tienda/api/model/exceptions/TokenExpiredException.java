@@ -10,19 +10,19 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      TokenExpiredException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:58:06
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
  * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * Excepción que determina cuando el token proporcionado existe, pero ya expiró.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
@@ -33,30 +33,19 @@ package mx.qbits.tienda.api.model.exceptions;
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class TokenExpiredException extends BusinessException {
     private static final long serialVersionUID = -7083159020205284484L;
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
-     *
-     * @param e excepción lanzada en un inicio
+     * El token era válido, pero ya ha expirado.
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
-
-    /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
-     */
-    public TransactionException(String msg) {
+    public TokenExpiredException() {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+            "Token expirado",
+            "El token que se ha proporcionado no es válido, ya que ha expirado.",
+            1017,
+            "CVE_1017",
+            HttpStatus.UNAUTHORIZED);
     }
 
 }

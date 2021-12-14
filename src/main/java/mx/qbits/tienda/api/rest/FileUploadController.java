@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     io.kebblar.petstore.api.rest
- * Proyecto:    petstore-back
+ * Paquete:     mx.qbits.tienda.api.rest
+ * Proyecto:    tienda
  * Tipo:        Clase
  * Nombre:      FileUploadController
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -35,9 +35,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import mx.qbits.tienda.api.model.domain.UploadModel;
-import mx.qbits.tienda.api.model.exceptions.ControllerException;
+import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import mx.qbits.tienda.api.model.exceptions.UploadException;
 import mx.qbits.tienda.api.support.UploadService;
 
 /**
@@ -73,7 +75,7 @@ public class FileUploadController {
      *
      * @param file archivo a almacenar
      * @return lista que contiene el modelo de donde se almaceno el archivo
-     * @throws ControllerException si hay algun error
+     * @throws UploadException si hay algun error
      */
     @PostMapping(
             path = "/upload.json",
@@ -84,7 +86,7 @@ public class FileUploadController {
             @RequestParam("uno") int uno,
             @RequestParam("dos") String dos,
             @RequestParam("file") MultipartFile file
-            ) throws ControllerException {
+            ) throws UploadException {
         logger.info(jwt);
         String s = String.valueOf(uno);
         logger.info(s);
@@ -100,7 +102,7 @@ public class FileUploadController {
             produces = "application/json; charset=utf-8",
             consumes = { "multipart/*" }
             )
-    public List<UploadModel> handleFileUploadWithKDMCopyPut(@RequestParam("files") MultipartFile[] files) throws ControllerException {
+    public List<UploadModel> handleFileUploadWithKDMCopyPut(@RequestParam("files") MultipartFile[] files) throws UploadException {
         return uploadService.store(files, destinationFolder, max);
     }
     // https://stackoverflow.com/questions/54683075/how-to-implement-multiple-files-upload-with-extra-fields-per-each-file-in-spring
@@ -110,10 +112,13 @@ public class FileUploadController {
             produces = "application/json; charset=utf-8",
             consumes = { "multipart/*" }
             )
-    public UploadModel upload2(@RequestParam("files") MultipartFile files) throws ControllerException {
+    public UploadModel upload2(@RequestParam("files") MultipartFile files) throws UploadException {
         return uploadService.storeOne(files, destinationFolder, max);
     }
 
+    @ApiOperation(
+    value = "AnuncioController::Registro",
+    notes = "Recibe una imagen que sera asociada a un anuncio")
     @PostMapping(
         path = "/up/imagen.json",
         produces = "application/json; charset=utf-8")
@@ -121,10 +126,13 @@ public class FileUploadController {
     @ApiParam(name = "idAnuncio", value = "Identificador del anuncio.")
     @RequestHeader("idAnuncio") int idAnuncio,
     @ApiParam(name = "file", value = "Imagen a guardar.")
-    @RequestParam("file") MultipartFile file) throws ControllerException {
+    @RequestParam("file") MultipartFile file) throws BusinessException {
         return uploadService.storeOne(file, destinationFolder, max);
     }
 
+    @ApiOperation(
+    value = "AnuncioController::Registro",
+    notes = "Recibe una imagen que sera asociada a un anuncio")
     @PostMapping(
         path = "/up/imagen2.json",
         produces = "application/json; charset=utf-8")
@@ -132,7 +140,7 @@ public class FileUploadController {
     @ApiParam(name = "idAnuncio", value = "Identificador del anuncio.")
     @RequestHeader("idAnuncio") int idAnuncio,
     @ApiParam(name = "file", value = "Imagen a guardar.")
-    @RequestParam("file") MultipartFile[] files) throws ControllerException {
+    @RequestParam("file") MultipartFile[] files) throws BusinessException {
         return uploadService.store(files, destinationFolder, max);
     }
 }

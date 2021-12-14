@@ -10,13 +10,13 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      RuleException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:57:48
  */
 package mx.qbits.tienda.api.model.exceptions;
 
@@ -33,30 +33,26 @@ package mx.qbits.tienda.api.model.exceptions;
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class RuleException extends BusinessException {
     private static final long serialVersionUID = -7083159020205284484L;
 
-    /**
-     * Por medio de la excepción original se genera la nueva excepción.
-     *
-     * @param e excepción lanzada en un inicio
+    /*
+     * TODO: esta es una fuente de conflictos en el proceso de internacionalización.
+     * Quizá convenga tener subclases de esta con la especialización en los
+     * mensajes; algo similar a lo que se hace con UserAlreadyExistsException.
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
 
     /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
+     * Generalización de una violación a las reglas de negocio.
      *
-     * @param msg detalles del problema
+     * @param msg mensaje descriptivo
      */
-    public TransactionException(String msg) {
+    public RuleException(String msg) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
+            "Se ha detectado una violación a alguna regla de negocio.",
             msg,
-            1019,
-            "CVE_1019",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+            1015,
+            "CVE_1015",
+            HttpStatus.PRECONDITION_FAILED);
     }
-
 }

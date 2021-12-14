@@ -10,41 +10,44 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      BusinessException
+ * Nombre:      BitcoinTransactionException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia:
- *              Creación: 5 Sep 2021 @ 07:54:37
+ *              Creación: 5 Sep 2021 @ 07:54:23
  */
 package mx.qbits.tienda.api.model.exceptions;
 
-import mx.qbits.tienda.api.model.enumerations.EnumMessage;
-
 /**
  * <p>Descripción:</p>
- * Excepción general que define que se ha violado una regla de la lógica de negocio.
+ * Excepción que es lanzada cuando ocurre un problema al procesar una orden de compra
+ * pagada con bitcoin.
+ *
+ * <p>Tal y como ocurre en la mayoría de "custom exceptions", solo contiene
+ * constructores con la definición necesaria, que incluye en algunos caos el
+ * código HTTP que será devuelto.</p>
  *
  * @author  fhernanda
- * @see     mx.CustomException.tienda.api.model.exceptions.NegocioException
+ * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class CustomException extends BusinessException {
-    private static final long serialVersionUID = -1218087669509474484L;
-    
-    public CustomException(EnumMessage message, Object... messageParams) {
-        this(new Exception(), message, messageParams);
+public class BitcoinTransactionException extends BusinessException {
+    private static final long serialVersionUID = -4440655023335060611L;
+
+    /**
+     * Define que ha ocurrido un error al momento de intentar pagar con bitcoin una compra.
+     *
+     * @param msg Mensaje que describe el problema
+     */
+    public BitcoinTransactionException(String msg) {
+        super(
+            "Error al procesar bitcoin como método de pago",
+            msg,
+            1002,
+            "CVE-1002",
+            HttpStatus.BAD_REQUEST);
     }
-    
-    public CustomException(Throwable throwable, EnumMessage message, Object... messageParams) {
-        super(throwable,
-        String.format(message.getShortMessage(), messageParams),
-        String.format(message.getDetailedMessage(), messageParams),
-        message.getExceptionNumber(),
-        message.toString(),
-        message.getHttpStatus());
-    }
-    
 }

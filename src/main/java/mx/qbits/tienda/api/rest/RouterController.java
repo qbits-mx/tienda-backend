@@ -45,6 +45,7 @@ import io.swagger.annotations.Api;
 @RestController
 @Api(value = "router")
 @RequestMapping(value = "/")
+//TODO: clase que tambien tiene algunos m'etodos extranos
 public class RouterController {
 
     @GetMapping(value = "/ui/**")

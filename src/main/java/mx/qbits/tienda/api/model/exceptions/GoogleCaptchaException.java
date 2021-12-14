@@ -10,52 +10,43 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      GoogleCaptchaException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:56:31
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
- * <p>Descripción</p>
- * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
+ * <p>Descripción:</p>
+ * Excepción que modela la respuesta a una petición de Google Captcha.
  *
- * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
+ * <p>Tal y como ocurre en la mayoría de "custom exceptions", solo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
- * código HTTP que será devuelto.
+ * código HTTP que será devuelto.</p>
  *
  * @author  garellano
  * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class GoogleCaptchaException extends BusinessException {
     private static final long serialVersionUID = -7083159020205284484L;
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * Modela la respuesta de error de una petición de Google Captcha.
      *
-     * @param e excepción lanzada en un inicio
+     * @param e excepción recibida desde el servicio de captcha
      */
-    public TransactionException(Exception e) {
-        super(e);
-    }
-
-    /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
-     *
-     * @param msg detalles del problema
-     */
-    public TransactionException(String msg) {
+    public GoogleCaptchaException(Exception e) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
-            msg,
-            1019,
-            "CVE_1019",
+            "Captcha Error",
+            e.getMessage(),
+            1009,
+            "CVE_1009",
             HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

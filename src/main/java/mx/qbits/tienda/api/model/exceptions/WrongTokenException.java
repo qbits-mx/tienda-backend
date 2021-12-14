@@ -10,53 +10,54 @@
  * Paquete:     mx.qbits.tienda.api.model.exceptions
  * Proyecto:    tienda
  * Tipo:        Clase
- * Nombre:      TransactionException
+ * Nombre:      WrongTokenException
  * Autor:       Gustavo Adolfo Arellano (GAA)
  * Correo:      gustavo.arellano@metasoft.com.mx
  * Versión:     0.0.1-SNAPSHOT
  *
  * Historia: 
- *              Creación: 5 Sep 2021 @ 07:58:23
+ *              Creación: 5 Sep 2021 @ 07:59:26
  */
 package mx.qbits.tienda.api.model.exceptions;
 
 /**
- * <p>Descripción</p>
  * Excepción que modela la respuesta a una petición cuyo token fue incorrecto.
  *
  * <p>Tal y como ocurre en la mayoría de "custom exceptions", sólo contiene
  * constructores con la definición necesaria, que incluye en algunos caos el
- * código HTTP que será devuelto.
+ * código HTTP que será devuelto.</p>
  *
  * @author  garellano
  * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
-public class TransactionException extends BusinessException {
+public class WrongTokenException extends BusinessException {
+
     private static final long serialVersionUID = -7083159020205284484L;
 
     /**
-     * Por medio de la excepción original se genera la nueva excepción.
+     * <p>Constructor for WrongTokenException.</p>
      *
-     * @param e excepción lanzada en un inicio
+     * @param e a {@link java.lang.Exception} object.
      */
-    public TransactionException(Exception e) {
+    public WrongTokenException(Exception e) {
         super(e);
     }
 
+    //TODO: Aquí igualmente puede proceder tener varias especializaciones de esta clase... para evitar el "msg"
+    //Podría ser que esté duplicada esta custom exception @TokenNotExistException
     /**
-     * Cuando ocurre un problema con una transacción o se proporciona un token incorrecto.
+     * <p>Constructor for WrongTokenException.</p>
      *
-     * @param msg detalles del problema
+     * @param msg a {@link java.lang.String} object.
      */
-    public TransactionException(String msg) {
+    public WrongTokenException(String msg) {
         super(
-            "Transacción fallida. Haciendo rollback del proceso.",
+            "El token que se ha proporcionado es incorrecto.",
             msg,
-            1019,
-            "CVE_1019",
-            HttpStatus.INTERNAL_SERVER_ERROR);
+            1025,
+            "CVE_1025",
+            HttpStatus.FORBIDDEN);
     }
-
 }
