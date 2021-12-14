@@ -1,6 +1,7 @@
 package mx.qbits.tienda.api.model.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Anuncio {
@@ -18,7 +19,7 @@ public class Anuncio {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
