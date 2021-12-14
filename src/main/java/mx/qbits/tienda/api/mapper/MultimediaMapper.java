@@ -18,7 +18,7 @@ public interface MultimediaMapper{
 			@Result(property = "url",						column = "url")
 	})
 	@Insert("INSERT INTO multimedia("+CAMPOS_MULTIMEDIA+")"
-			+ " VALUES(#{id_anuncio}, #{tipo}, #{url}, #{id_catalogo_zona_entrega})")
+			+ " VALUES(#{id_anuncio}, #{tipo}, #{url})")
 	int insert(int id_anuncio, String tipo, String url) throws SQLException;
 
 }
