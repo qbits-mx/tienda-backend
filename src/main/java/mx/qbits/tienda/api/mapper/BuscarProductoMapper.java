@@ -18,7 +18,7 @@ import mx.qbits.tienda.api.model.domain.Anuncio;
  * @since 1.0-SNAPSHOT
  * @see Anuncio
  */
-public interface BuscarAnuncioMapper {
+interface BuscarAnuncioMapper {
 
     final String CAMPOS_BUSCAR_ANUNCIO = " id, id_usuario, id_comprador, id_catalogo_departamento,"
             + "id_catalogo_condicion, id_catalogo_forma_de_pago, id_catalogo_zona_de_entrega, descripcion,"
@@ -118,27 +118,24 @@ public interface BuscarAnuncioMapper {
     @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_zona_entrega=#{id}")
     List<Anuncio> getByZonaEntrega(int id_catalogo_zona_entrega) throws SQLException;
 
-    @ResultMap("BuscarAnuncioMapping")
-    @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>0")
-    List<Anuncio> getBy0Estrellas() throws SQLException;
-
-    @ResultMap("BuscarAnuncioMapping")
-    @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>1")
-    List<Anuncio> getBy1Estrellas() throws SQLException;
-
-    @ResultMap("BuscarAnuncioMapping")
-    @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>2")
-    List<Anuncio> getBy2Estrellas() throws SQLException;
-
-    @ResultMap("BuscarAnuncioMapping")
-    @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>3")
-    List<Anuncio> getBy3Estrellas() throws SQLException;
-
-    @ResultMap("BuscarAnuncioMapping")
-    @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>4")
-    List<Anuncio> getBy4Estrellas() throws SQLException;
-
-    @ResultMap("BuscarAnuncioMapping")
-    @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>5")
-    List<Anuncio> getBy5Estrellas() throws SQLException;
+    /**
+     * Dado el id del departamento,
+     * la zona de entrega,
+     * la forma de pago,
+     * la condición y las estrellas
+     * se retornan todos los anuncios que
+     * cumplan con los filtros.
+     *
+     * @param id_departamento id del departamento.
+     * @param id_zona         id de la zona de entrega.
+     * @param id_pago         id de la forma de pago.
+     * @param id_condicion    id de la condicion del producto.
+     * @param id_estrellas    id de la cantidad de estrellas.
+     * @return Lista de anuncios dependiendo a los filtros.
+     * @throws java.sql.SQLException Si ocurre un error en la consulta o en el
+     *                               sistema.
+     */
+    @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO
+            + " FROM anuncio WHERE id_catalogo_departamento=#{id_departamento} AND id_catalogo_zona_entrega=#{id_zona} AND id_catalogo_forma_pago=#{id_pago} AND id_catalogo_condicion=#{id_condicion} AND estrellas=#{id_estrellas}")
+    List<Anuncio> getByFiltros() throws SQLException;
 }
