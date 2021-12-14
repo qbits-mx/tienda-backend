@@ -18,6 +18,9 @@ public class InformacionAnuncio {
 	private int idUsuario;
 	private String descripcion;
 	private String datosContacto;
+	private boolean validado;
+	private boolean notificado;
+	
 	
 	/**
 	 * Constructor por defecto (sin parámetros)
@@ -33,11 +36,14 @@ public class InformacionAnuncio {
 	 * @param descripcion a {@link java.lang.String} object.
 	 * @param datosContacto a {@link java.lang.String} object.
 	 */
-	public InformacionAnuncio(int id, int idUsuario, String descripcion, String datosContacto) {
+	public InformacionAnuncio(int id, int idUsuario, String descripcion, String datosContacto, boolean validado,
+			boolean notificado) {
 		this.id = id;
 		this.idUsuario = idUsuario;
 		this.descripcion = descripcion;
 		this.datosContacto = datosContacto;
+		this.validado = validado;
+		this.notificado = notificado;
 	}
 
 	/*
@@ -114,6 +120,42 @@ public class InformacionAnuncio {
 	public void setDatosContacto(String datosContacto) {
 		this.datosContacto = datosContacto;
 	}
+	
+	/**
+	 * <p>Getter for the field <code>notificado</code>.</p>
+	 * 
+	 * @return a boolean.
+	 */
+	public boolean isNotificado() {
+		return notificado;
+	}
+
+	/**
+	 * <p>Setter for the field <code>notificado</code>.</p>
+	 * 
+	 * @param notificado a boolean.
+	 */
+	public void setNotificado(boolean notificado) {
+		this.notificado = notificado;
+	}
+
+	/**
+	 * <p>Getter for the field <code>validado</code>.</p>
+	 * 
+	 * @return a boolean.
+	 */
+	public boolean isValidado() {
+		return validado;
+	}
+
+	/**
+	 * <p>Setter for the field <code>validado</code>.</p>
+	 * 
+	 * @param validado a boolean.
+	 */
+	public void setValidado(boolean validado) {
+		this.validado = validado;
+	}
 
 	/**
      * Método especial (y adicional) de soporte al proceso de pruebas de regresión.
@@ -123,9 +165,8 @@ public class InformacionAnuncio {
     public long getHash() {
         return this.hashCode();
     }
-	
-	
-	/** {@inheritDoc} */
+
+    /** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -134,6 +175,8 @@ public class InformacionAnuncio {
 		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + id;
 		result = prime * result + idUsuario;
+		result = prime * result + (notificado ? 1231 : 1237);
+		result = prime * result + (validado ? 1231 : 1237);
 		return result;
 	}
 
@@ -161,6 +204,10 @@ public class InformacionAnuncio {
 			return false;
 		if (idUsuario != other.idUsuario)
 			return false;
+		if (notificado != other.notificado)
+			return false;
+		if (validado != other.validado)
+			return false;
 		return true;
 	}
 
@@ -168,6 +215,6 @@ public class InformacionAnuncio {
 	@Override
 	public String toString() {
 		return "InformacionAnuncio [id=" + id + ", idUsuario=" + idUsuario + ", descripcion=" + descripcion
-				+ ", datosContacto=" + datosContacto + "]";
+				+ ", datosContacto=" + datosContacto + ", validado=" + validado + ", notificado=" + notificado + "]";
 	}
 }

@@ -63,7 +63,7 @@ public class InformacionAnuncioServiceImpl implements InformacionAnuncioService 
 
 	/** {@inheritDoc} */
 	@Override
-	public int actualizaNotificado(int id, boolean notificado) throws BusinessException {
+	public int actualizaNotificado(int id, boolean notificado, String mensaje) throws BusinessException {
 		try {
 			InformacionAnuncio anuncio = getAnuncio(id);
 			if (anuncio == null) {
@@ -80,7 +80,7 @@ public class InformacionAnuncioServiceImpl implements InformacionAnuncioService 
 				String formato = String.format("Informacion del Usuario con identificador: %d", anuncio.getIdUsuario());
 				throw new CustomException(EnumMessage.NOT_FOUND, formato);
 			}
-			String body = String.format("<h1>Hola %s. Tu anuncio sobre %s, no cumple las normas. Favor de revisarlo</h1>", detalleU.getNickName(), anuncio.getDescripcion());
+			String body = String.format("<h1>Hola %s. Tu anuncio sobre %s, no cumple las normas por: %s. Favor de revisarlo</h1>", detalleU.getNickName(), anuncio.getDescripcion(), mensaje);
 			String enviado = mailSenderService.sendHtmlMail(usuario.getCorreo(), "Super Tienda: Anuncio Rechazado", body);
 			if (!enviado.equals("succeed")) {
 				String formato = String.format("No se pudo enviar correo a %s", usuario.getCorreo());

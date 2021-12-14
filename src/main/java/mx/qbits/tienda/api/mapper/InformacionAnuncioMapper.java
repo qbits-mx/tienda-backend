@@ -29,7 +29,7 @@ import mx.qbits.tienda.api.model.domain.InformacionMultimedia;
 public interface InformacionAnuncioMapper {
 
 	/** Constant <code>CAMPOS_ANUNCIO=" id, id_usuario, descripcion, datos_contacto "</code> */
-	String CAMPOS_ANUNCIO = " id, id_usuario, descripcion, datos_contacto ";
+	String CAMPOS_ANUNCIO = " id, id_usuario, descripcion, datos_contacto, validado, notificado ";
 
 	/** Constant <code>CAMPOS_MULTIMEDIA=" id, tipo, url "</code> */
 	String CAMPOS_MULTIMEDIA = " id, tipo, url ";
@@ -46,7 +46,9 @@ public interface InformacionAnuncioMapper {
 		@Result(property = "id", column = "id"),
 		@Result(property = "idUsuario", column = "id_usuario"),
 		@Result(property = "descripcion", column = "descripcion"),
-		@Result(property = "datosContacto", column = "datos_contacto")
+		@Result(property = "datosContacto", column = "datos_contacto"),
+		@Result(property = "validado", column = "validado"),
+		@Result(property = "notificado", column = "notificado")
 	})
 	@Select("SELECT " + CAMPOS_ANUNCIO + " FROM anuncio WHERE id = #{id} ")
 	InformacionAnuncio getById(int id) throws SQLException;

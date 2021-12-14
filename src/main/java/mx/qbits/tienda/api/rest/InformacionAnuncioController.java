@@ -33,8 +33,8 @@ public class InformacionAnuncioController {
 	}
 	
 	@GetMapping(path = "/cambia-notificado-anuncio.json", produces = "application/json; charset=utf-8")
-	public int actualizaNotificado(@RequestParam int id, @RequestParam boolean notificado) throws BusinessException {
-		return inAService.actualizaNotificado(id, notificado);
+	public int actualizaNotificado(@RequestParam int id, @RequestParam boolean notificado, @RequestParam String mensaje) throws BusinessException {
+		return inAService.actualizaNotificado(id, notificado, mensaje);
 	}
 	
 	@GetMapping(path = "/dame-multimedias.json", produces = "application/json; charset=utf-8")

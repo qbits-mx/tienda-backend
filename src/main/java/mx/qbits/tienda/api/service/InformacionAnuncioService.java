@@ -34,10 +34,11 @@ public interface InformacionAnuncioService {
 	 * 
 	 * @param id a int
 	 * @param notificado a boolean
+	 * @param mensaje a String
 	 * @return 1 si tuvo éxito, 0 en otro caso
 	 * @throws BusinessException Se dispara en caso de que hubier un problema interno
      */
-	int actualizaNotificado(int id, boolean notificado) throws BusinessException;
+	int actualizaNotificado(int id, boolean notificado, String mensaje) throws BusinessException;
 	
 	/**
      * Regresa todas las multimedias de la base de datos de un anuncio.

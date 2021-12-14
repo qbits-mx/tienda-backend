@@ -29,11 +29,11 @@ public interface GestorAdministradorMapper {
     Anuncio getById(int id) throws SQLException;
 
     @ResultMap("GestorMapping")
-    @Select("SELECT " + CAMPOS_GESTOR + " FROM anuncio WHERE validado>0")
+    @Select("SELECT " + CAMPOS_GESTOR + " FROM anuncio WHERE validado>0 AND notificado = 0")
     List<Anuncio> consultarValidados() throws SQLException;
 
     @ResultMap("GestorMapping")
-    @Select("SELECT " + CAMPOS_GESTOR + " FROM anuncio WHERE validado = 0")
+    @Select("SELECT " + CAMPOS_GESTOR + " FROM anuncio WHERE validado = 0 AND notificado = 0")
     List<Anuncio> consultarNoValidados() throws SQLException;
 
 }
