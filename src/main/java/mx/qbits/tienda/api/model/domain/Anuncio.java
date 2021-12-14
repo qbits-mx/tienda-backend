@@ -1,21 +1,18 @@
 package mx.qbits.tienda.api.model.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import java.util.Objects;
 import java.sql.Date;
 
 public class Anuncio {
-
     private int id;
     private int idUsuario;
     private int idComprador;
-    private int idCatalogoDepartamento;
     private int idCatalogoCondicion;
-    private int idCatalogoFormaDePago;
-    private int idCatalogoZonaDeEntrega;
+    private int idCatalogoFormaPago;
+    private int idCatalogoZonaEntrega;
+    private int idCatalogoDepartamento;
     private String descripcion;
-    private Date vigenciaAnuncio;
-    private String contacto;
+    private Date vigencia;
+    private String datosContacto;
     private boolean validado;
     private boolean notificado;
     private boolean revisado;
@@ -23,27 +20,27 @@ public class Anuncio {
     private boolean comprado;
     private Date fechaCompra;
     private int estrellas;
-    private int comentario;
+    private String comentario;
     private boolean comentarioAprobado;
 
     public Anuncio() {
     }
 
-    public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoDepartamento,
-            int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
-            String descripcion, Date vigenciaAnuncio, String contacto, boolean validado,
-            boolean notificado, boolean revisado, boolean activo, boolean comprado,
-            Date fechaCompra, int estrellas, int comentario, boolean comentarioAprobado) {
+    public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
+            int idCatalogoZonaEntrega, int idCatalogoDepartamento, String descripcion, Date vigencia,
+            String datosContacto, boolean validado, boolean notificado, boolean revisado, boolean activo,
+            boolean comprado, Date fechaCompra, int estrellas, String comentario, boolean comentarioAprobado) {
+        super();
         this.id = id;
         this.idUsuario = idUsuario;
         this.idComprador = idComprador;
-        this.idCatalogoDepartamento = idCatalogoDepartamento;
         this.idCatalogoCondicion = idCatalogoCondicion;
-        this.idCatalogoFormaDePago = idCatalogoFormaDePago;
-        this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
+        this.idCatalogoFormaPago = idCatalogoFormaPago;
+        this.idCatalogoZonaEntrega = idCatalogoZonaEntrega;
+        this.idCatalogoDepartamento = idCatalogoDepartamento;
         this.descripcion = descripcion;
-        this.vigenciaAnuncio = vigenciaAnuncio;
-        this.contacto = contacto;
+        this.vigencia = vigencia;
+        this.datosContacto = datosContacto;
         this.validado = validado;
         this.notificado = notificado;
         this.revisado = revisado;
@@ -55,324 +52,156 @@ public class Anuncio {
         this.comentarioAprobado = comentarioAprobado;
     }
 
-    /**
-     * @return int return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
 
-    /**
-     * @return int return the idUsuario
-     */
     public int getIdUsuario() {
         return idUsuario;
     }
 
-    /**
-     * @param idUsuario the idUsuario to set
-     */
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    /**
-     * @return int return the idComprador
-     */
     public int getIdComprador() {
         return idComprador;
     }
 
-    /**
-     * @param idComprador the idComprador to set
-     */
     public void setIdComprador(int idComprador) {
         this.idComprador = idComprador;
     }
 
-    /**
-     * @return int return the idCatalogoDepartamento
-     */
-    public int getIdCatalogoDepartamento() {
-        return idCatalogoDepartamento;
-    }
-
-    /**
-     * @param idCatalogoDepartamento the idCatalogoDepartamento to set
-     */
-    public void setIdCatalogoDepartamento(int idCatalogoDepartamento) {
-        this.idCatalogoDepartamento = idCatalogoDepartamento;
-    }
-
-    /**
-     * @return int return the idCatalogoCondicion
-     */
     public int getIdCatalogoCondicion() {
         return idCatalogoCondicion;
     }
 
-    /**
-     * @param idCatalogoCondicion the idCatalogoCondicion to set
-     */
     public void setIdCatalogoCondicion(int idCatalogoCondicion) {
         this.idCatalogoCondicion = idCatalogoCondicion;
     }
 
-    /**
-     * @return int return the idCatalogoFormaDePago
-     */
-    public int getIdCatalogoFormaDePago() {
-        return idCatalogoFormaDePago;
+    public int getIdCatalogoFormaPago() {
+        return idCatalogoFormaPago;
     }
 
-    /**
-     * @param idCatalogoFormaDePago the idCatalogoFormaDePago to set
-     */
-    public void setIdCatalogoFormaDePago(int idCatalogoFormaDePago) {
-        this.idCatalogoFormaDePago = idCatalogoFormaDePago;
+    public void setIdCatalogoFormaPago(int idCatalogoFormaPago) {
+        this.idCatalogoFormaPago = idCatalogoFormaPago;
     }
 
-    /**
-     * @return int return the idCatalogoZonaDeEntrega
-     */
-    public int getIdCatalogoZonaDeEntrega() {
-        return idCatalogoZonaDeEntrega;
+    public int getIdCatalogoZonaEntrega() {
+        return idCatalogoZonaEntrega;
     }
 
-    /**
-     * @param idCatalogoZonaDeEntrega the idCatalogoZonaDeEntrega to set
-     */
-    public void setIdCatalogoZonaDeEntrega(int idCatalogoZonaDeEntrega) {
-        this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
+    public void setIdCatalogoZonaEntrega(int idCatalogoZonaEntrega) {
+        this.idCatalogoZonaEntrega = idCatalogoZonaEntrega;
     }
 
-    /**
-     * @return String return the descripcion
-     */
+    public int getIdCatalogoDepartamento() {
+        return idCatalogoDepartamento;
+    }
+
+    public void setIdCatalogoDepartamento(int idCatalogoDepartamento) {
+        this.idCatalogoDepartamento = idCatalogoDepartamento;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
 
-    /**
-     * @param descripcion the descripcion to set
-     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    /**
-     * @return Date return the vigenciaAnuncio
-     */
-    public Date getVigenciaAnuncio() {
-        return vigenciaAnuncio;
+    public Date getVigencia() {
+        return vigencia;
     }
 
-    /**
-     * @param vigenciaAnuncio the vigenciaAnuncio to set
-     */
-    public void setVigenciaAnuncio(Date vigenciaAnuncio) {
-        this.vigenciaAnuncio = vigenciaAnuncio;
+    public void setVigencia(Date vigencia) {
+        this.vigencia = vigencia;
     }
 
-    /**
-     * @return String return the contacto
-     */
-    public String getContacto() {
-        return contacto;
+    public String getDatosContacto() {
+        return datosContacto;
     }
 
-    /**
-     * @param contacto the contacto to set
-     */
-    public void setContacto(String contacto) {
-        this.contacto = contacto;
+    public void setDatosContacto(String datosContacto) {
+        this.datosContacto = datosContacto;
     }
 
-    /**
-     * @return boolean return the validado
-     */
     public boolean isValidado() {
         return validado;
     }
 
-    /**
-     * @param validado the validado to set
-     */
     public void setValidado(boolean validado) {
         this.validado = validado;
     }
 
-    /**
-     * @return boolean return the notificado
-     */
     public boolean isNotificado() {
         return notificado;
     }
 
-    /**
-     * @param notificado the notificado to set
-     */
     public void setNotificado(boolean notificado) {
         this.notificado = notificado;
     }
 
-    /**
-     * @return boolean return the revisado
-     */
     public boolean isRevisado() {
         return revisado;
     }
 
-    /**
-     * @param revisado the revisado to set
-     */
     public void setRevisado(boolean revisado) {
         this.revisado = revisado;
     }
 
-    /**
-     * @return boolean return the activo
-     */
     public boolean isActivo() {
         return activo;
     }
 
-    /**
-     * @param activo the activo to set
-     */
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
-    /**
-     * @return boolean return the comprado
-     */
     public boolean isComprado() {
         return comprado;
     }
 
-    /**
-     * @param comprado the comprado to set
-     */
     public void setComprado(boolean comprado) {
         this.comprado = comprado;
     }
 
-    /**
-     * @return Date return the fechaCompra
-     */
     public Date getFechaCompra() {
         return fechaCompra;
     }
 
-    /**
-     * @param fechaCompra the fechaCompra to set
-     */
     public void setFechaCompra(Date fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 
-    /**
-     * @return int return the estrellas
-     */
     public int getEstrellas() {
         return estrellas;
     }
 
-    /**
-     * @param estrellas the estrellas to set
-     */
     public void setEstrellas(int estrellas) {
         this.estrellas = estrellas;
     }
 
-    /**
-     * @return int return the comentario
-     */
-    public int getComentario() {
+    public String getComentario() {
         return comentario;
     }
 
-    /**
-     * @param comentario the comentario to set
-     */
-    public void setComentario(int comentario) {
+    public void setComentario(String comentario) {
         this.comentario = comentario;
     }
 
-    /**
-     * @return boolean return the comentarioAprobado
-     */
     public boolean isComentarioAprobado() {
         return comentarioAprobado;
     }
 
-    /**
-     * @param comentarioAprobado the comentarioAprobado to set
-     */
     public void setComentarioAprobado(boolean comentarioAprobado) {
         this.comentarioAprobado = comentarioAprobado;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Anuncio)) {
-            return false;
-        }
-        Anuncio anuncio = (Anuncio) o;
-        return id == anuncio.id && idUsuario == anuncio.idUsuario && idComprador == anuncio.idComprador
-                && idCatalogoDepartamento == anuncio.idCatalogoDepartamento
-                && idCatalogoCondicion == anuncio.idCatalogoCondicion
-                && idCatalogoFormaDePago == anuncio.idCatalogoFormaDePago
-                && idCatalogoZonaDeEntrega == anuncio.idCatalogoZonaDeEntrega
-                && Objects.equals(descripcion, anuncio.descripcion)
-                && Objects.equals(vigenciaAnuncio, anuncio.vigenciaAnuncio)
-                && Objects.equals(contacto, anuncio.contacto) && validado == anuncio.validado
-                && notificado == anuncio.notificado && revisado == anuncio.revisado && activo == anuncio.activo
-                && comprado == anuncio.comprado && Objects.equals(fechaCompra, anuncio.fechaCompra)
-                && estrellas == anuncio.estrellas && comentario == anuncio.comentario
-                && comentarioAprobado == anuncio.comentarioAprobado;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, idUsuario, idComprador, idCatalogoDepartamento, idCatalogoCondicion,
-                idCatalogoFormaDePago, idCatalogoZonaDeEntrega, descripcion, vigenciaAnuncio, contacto, validado,
-                notificado, revisado, activo, comprado, fechaCompra, estrellas, comentario, comentarioAprobado);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", idUsuario='" + getIdUsuario() + "'" +
-                ", idComprador='" + getIdComprador() + "'" +
-                ", idCatalogoDepartamento='" + getIdCatalogoDepartamento() + "'" +
-                ", idCatalogoCondicion='" + getIdCatalogoCondicion() + "'" +
-                ", idCatalogoFormaDePago='" + getIdCatalogoFormaDePago() + "'" +
-                ", idCatalogoZonaDeEntrega='" + getIdCatalogoZonaDeEntrega() + "'" +
-                ", descripcion='" + getDescripcion() + "'" +
-                ", vigenciaAnuncio='" + getVigenciaAnuncio() + "'" +
-                ", contacto='" + getContacto() + "'" +
-                ", validado='" + isValidado() + "'" +
-                ", notificado='" + isNotificado() + "'" +
-                ", revisado='" + isRevisado() + "'" +
-                ", activo='" + isActivo() + "'" +
-                ", comprado='" + isComprado() + "'" +
-                ", fechaCompra='" + getFechaCompra() + "'" +
-                ", estrellas='" + getEstrellas() + "'" +
-                ", comentario='" + getComentario() + "'" +
-                ", comentarioAprobado='" + isComentarioAprobado() + "'" +
-                "}";
     }
 
 }
