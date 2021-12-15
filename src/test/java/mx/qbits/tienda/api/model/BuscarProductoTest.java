@@ -57,7 +57,7 @@ public class BuscarProductoTest {
         
         when(buscarProductoMapper.getByFiltros(buscar, "", "", "", "", "")).thenReturn(anuncios_encontrados);
 
-        if (busqueda.size() == anuncios_encontrados.size()){
+        if (busqueda.size() == 1){
             assertTrue(true);
         }else{
             assertTrue(false);
@@ -79,7 +79,7 @@ public class BuscarProductoTest {
 
         when(buscarProductoMapper.getByFiltros(buscar, "", "", "", "", "")).thenReturn(anuncios_encontrados);
 
-        if (busqueda.size() == anuncios_encontrados.size()) {
+        if (busqueda.size() ==  0) {
             assertFalse(false);
         } else {
             assertFalse(true);
