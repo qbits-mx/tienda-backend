@@ -51,7 +51,7 @@ class BuscarProductoServiceTest {
         
         busqueda = BuscarProductoService.buscarProducto(bucar,-1,-1,-1,-1,-1);
         
-        when(buscarProductoMapper.getByFiltros(buscar)).thenReturn(anuncios_encontrados);
+        when(buscarProductoMapper.getByFiltros(buscar, "", "", "", "", "")).thenReturn(anuncios_encontrados);
 
         if (busqueda.size() == anuncios_encontrados.size()){
             assertTrue(true);
