@@ -49,8 +49,10 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
         this.idCatalogoCondicion = (idCatalogoCondicion == -1) ? "" : String.valueOf(idCatalogoCondicion);
         this.estrellas = (estrellas == -1) ? "" : String.valueOf(estrellas);
 
-        List<Anuncio> coincidencias = mapper.getByFiltros(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega,
-                idCatalogoFormaPago, idCatalogoCondicion, estrellas);
+        List<Anuncio> coincidencias = mapper.getByFiltros(String.valueOf(descripcion),
+                String.valueOf(idCatalogoDepartamento),
+                String.valueOf(idCatalogoZonaEntrega),
+                String.valueOf(idCatalogoFormaPago), String.valueOf(idCatalogoCondicion), String.valueOf(estrellas));
 
         return coincidencias;
     }
