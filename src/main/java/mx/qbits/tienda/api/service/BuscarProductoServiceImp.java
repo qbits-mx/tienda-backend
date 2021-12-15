@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import mx.qbits.tienda.api.mapper.*;
 import mx.qbits.tienda.api.mapper.BuscarProductoMapper;
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
@@ -25,7 +24,7 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
  * @see Anuncio
  */
 @Service
-class BuscarProductoServiceImpl implements BuscarProductoService {
+public class BuscarProductoServiceImp implements BuscarProductoService {
 
     private BuscarProductoMapper mapper;
     String descripciones;
@@ -35,7 +34,7 @@ class BuscarProductoServiceImpl implements BuscarProductoService {
     String idCatalogoCondicion;
     String estrellas;
 
-    public BuscarProductoServiceImpl(BuscarProductoMapper mapper) {
+    public BuscarProductoServiceImp(BuscarProductoMapper mapper) {
         this.mapper = mapper;
     }
 
