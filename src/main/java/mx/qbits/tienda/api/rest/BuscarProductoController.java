@@ -23,6 +23,6 @@ public class BuscarProductoController {
 
     @GetMapping(path = "/dame-datos.json", produces = "application/json; charset=utf-8")
     public List<Anuncio> dame() throws BusinessException {
-        return buscarProductoService.dameDatos();
+        return buscarProductoService.buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) ;
     }
 }

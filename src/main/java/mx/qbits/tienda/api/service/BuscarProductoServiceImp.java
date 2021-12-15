@@ -19,6 +19,12 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 class BuscarProductoServiceImpl implements BuscarProductoService {
 
     private BuscarProductoMapper mapper;
+    String descripciones
+    String idCatalogoDepartamento
+    String idCatalogoZonaEntrega
+    String idCatalogoFormaPago
+    String idCatalogoCondicion
+    String estrellas
 
     public BuscarProductoServiceImpl(BuscarProductoMapper mapper) {
         this.mapper = mapper;
@@ -26,12 +32,12 @@ class BuscarProductoServiceImpl implements BuscarProductoService {
 
     @Override
     public List<Anuncio> buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) throws BusinessException {
-        String descripcion  =  this.descripcion;
-        String idCatalogoDepartamento =  (idCatalogoDepartamento == -1 ) ? "" :  this.idCatalogoDepartamento;
-        String idCatalogoZonaEntrega =  (idCatalogoZonaEntrega == -1 ) ? "" :  this.idCatalogoZonaEntrega;
-        String idCatalogoFormaPago =  (idCatalogoFormaPago == -1 ) ? "" :  this.idCatalogoFormaPago;
-        String idCatalogoCondicion =  (idCatalogoCondicion == -1 ) ? "" :  this.idCatalogoCondicion;
-        String estrellas =  (estrellas == -1 ) ? "" :  this.estrellas;
+        this.descripciones  =  descripcion;
+        this.idCatalogoDepartamento =  (idCatalogoDepartamento == -1 ) ? "" :  idCatalogoDepartamento;
+        this.idCatalogoZonaEntrega =  (idCatalogoZonaEntrega == -1 ) ? "" :  idCatalogoZonaEntrega;
+        this.idCatalogoFormaPago =  (idCatalogoFormaPago == -1 ) ? "" :  idCatalogoFormaPago;
+        this.idCatalogoCondicion =  (idCatalogoCondicion == -1 ) ? "" :  idCatalogoCondicion;
+        this.estrellas =  (estrellas == -1 ) ? "" :  estrellas;
         
         List<Anuncio> coincidencias = mapper.getByFiltros(descripcion,idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,idCatalogoCondicion, estrellas);
 
