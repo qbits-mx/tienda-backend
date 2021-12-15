@@ -15,6 +15,15 @@ import mx.qbits.tienda.api.mapper.BuscarProductoMapper;
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
+
+/**
+ * Implementacion de Service
+ *
+ * @author Sunflower
+ * @version 1.0-SNAPSHOT
+ * @since 1.0-SNAPSHOT
+ * @see Anuncio
+ */
 @Service
 class BuscarProductoServiceImpl implements BuscarProductoService {
 
@@ -30,6 +39,7 @@ class BuscarProductoServiceImpl implements BuscarProductoService {
         this.mapper = mapper;
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Anuncio> buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) throws BusinessException {
         this.descripciones  =  descripcion;

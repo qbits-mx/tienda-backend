@@ -19,24 +19,27 @@ import mx.qbits.tienda.api.mapper.BuscarProductoMapper;
 import mx.qbits.tienda.api.service.BuscarProductoService;
 import mx.qbits.tienda.api.service.BuscarProductoServiceImpl;
 
+/**
+ * Test para Servicio de Buscar Producto.
+ *
+ * @author Sunflower
+ * @version 1.0-SNAPSHOT
+ * @since 1.0-SNAPSHOT
+ */
 
 //@RunWith(MockitoJUnitRunner.class)
 public class BuscarProductoServiceTest {
     
     private LoginService loginService;
-    
-    //Datos a Suplantar
-
-    //Necesito la entrada de la pagina  y una consulta a la base de datos y una respuesta
-    //la consulta la hara el mapper
 
     //suplantar la llamada al mapper y la respues de la base
     @Mock
     private BuscarProductoMapper buscarProductoMapper;
     
-    
+    /**
+     * Flujo nomral de eventos, es decir se encuentran anuncios
+     */
     @Test
-    //flujo nomral de eventos, es decir se encuentran anuncios
     public void busquedaEncontrada() {
         
         //provisional hasta implementar la estructura adecuada para la busqueda
@@ -57,8 +60,10 @@ public class BuscarProductoServiceTest {
     
     }
     
+    /**
+     * Flujo alternativo de eventos, es decir no encuentra nada
+     */
     @Test
-    //flujo alternativo de eventos, es decir no encuentra nada
     public void busquedaNoEncontrada() throws SQLException {
         
         String buscar = "Bazoka"
