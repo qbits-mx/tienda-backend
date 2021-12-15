@@ -52,9 +52,8 @@ public class BuscarProductoController {
      *                               para no usar ese tipo como parametro de filtro
      *                               de busqueda
      */
-    @GetMapping(path = "/dame-datos.json", produces = "application/json; charset=utf-8")
-    public List<Anuncio> dame(String descripcion, int idCatalogoDepartamento, int idCatalogoZonaEntrega,
-            int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException {
+    @GetMapping(path = "/buscarPoducto/{descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago, idCatalogoCondicion,  estrellas}", produces = "application/json; charset=utf-8")
+    public List<Anuncio> dame(@PathVariable String descripcion, @PathVariable int idCatalogoDepartamento, @PathVariable int idCatalogoZonaEntrega, @PathVariable int idCatalogoFormaPago, @PathVariable int idCatalogoCondicion, @PathVariable int estrellas) {
         return buscarProductoService.buscarProducto(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega,
                 idCatalogoFormaPago, idCatalogoCondicion, estrellas);
     }
