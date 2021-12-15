@@ -27,7 +27,7 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 public class BuscarProductoServiceImp implements BuscarProductoService {
 
     private BuscarProductoMapper mapper;
-    String descripciones;
+    String descripcion;
     String idCatalogoDepartamento;
     String idCatalogoZonaEntrega;
     String idCatalogoFormaPago;
@@ -40,28 +40,25 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
 
     @Override
     public List<Anuncio> getByFiltros(String descripcion, String idCatalogoDepartamento, String idCatalogoZonaEntrega,
-            String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas) throws SQLException {
-        try {
-            return mapper.getByFiltros(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,
-                    idCatalogoCondicion, estrellas);
-        } catch (SQLException e) {
-            throw new BusinessException(e);
-        }
+            String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas) {
+        return mapper.getByFiltros(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,
+                idCatalogoCondicion, estrellas);
+
     }
 
     /** {@inheritDoc} */
     @Override
     public List<Anuncio> buscarProducto(String descripcion, int idCatalogoDepartamento, int idCatalogoZonaEntrega,
-            int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException {
-        this.descripciones = descripcion;
+            int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) {
         this.idCatalogoDepartamento = (idCatalogoDepartamento == -1) ? "" : String.valueOf(idCatalogoDepartamento);
         this.idCatalogoZonaEntrega = (idCatalogoZonaEntrega == -1) ? "" : String.valueOf(idCatalogoZonaEntrega);
         this.idCatalogoFormaPago = (idCatalogoFormaPago == -1) ? "" : String.valueOf(idCatalogoFormaPago);
         this.idCatalogoCondicion = (idCatalogoCondicion == -1) ? "" : String.valueOf(idCatalogoCondicion);
         this.estrellas = (estrellas == -1) ? "" : String.valueOf(estrellas);
 
-        List<Anuncio> coincidencias = mapper.getByFiltros(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega,
-                idCatalogoFormaPago, idCatalogoCondicion, estrellas);
+        List<Anuncio> coincidencias = mapper.getByFiltros(descripcion, this.idCatalogoDepartamento,
+                this.idCatalogoZonaEntrega,
+                this.idCatalogoFormaPago, this.idCatalogoCondicion, this.estrellas);
 
         return coincidencias;
     }

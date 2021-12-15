@@ -29,20 +29,24 @@ import mx.qbits.tienda.api.model.domain.Anuncio;
  */
 
 // @RunWith(MockitoJUnitRunner.class)
-class BuscarProductoServiceTest {
+public class BuscarProductoTest {
 
     // suplantar la llamada al mapper y la respues de la base
     @Mock
     private BuscarProductoMapper buscarProductoMapper;
+
+    @Mock
+    private BuscarProductoServiceImp buscarProductoService;
 
     /**
      * Flujo nomral de eventos, es decir se encuentran anuncios
      */
     @Test
     public void busquedaEncontrada() {
-        
+        long millis=System.currentTimeMillis(); 
+        java.util.Date date = new java.util.Date(millis);
         String buscar = "Telefono Celular";     
-        Anuncio anuncio = new Anuncio(1024, 2048, 01, 1, 2, 03, 06, "Telefono Celular", "11-03-2022","55 84 59 36 19", true , true, true, true, false, "11-03-2022", 4, "Telefono Celular Sony Nuevo", true);
+        Anuncio anuncio = new Anuncio(1024, 2048, 01, 1, 2, 03, 06, "Telefono Celular", date,"55 84 59 36 19", true , true, true, true, false, date, 4, "Telefono Celular Sony Nuevo", true);
         //int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
         //int idCatalogoZonaEntrega, int idCatalogoDepartamento, String descripcion, Date vigencia,
         //String datosContacto, boolean validado, boolean notificado, boolean revisado, boolean activo,

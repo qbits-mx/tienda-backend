@@ -30,7 +30,7 @@ public class Anuncio {
             int idCatalogoZonaEntrega, int idCatalogoDepartamento, String descripcion, Date vigencia,
             String datosContacto, boolean validado, boolean notificado, boolean revisado, boolean activo,
             boolean comprado, Date fechaCompra, int estrellas, String comentario, boolean comentarioAprobado) {
-        super();
+
         this.id = id;
         this.idUsuario = idUsuario;
         this.idComprador = idComprador;
