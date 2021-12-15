@@ -57,4 +57,12 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
         return coincidencias;
     }
 
+    @Override
+    public List<Anuncio>getByFiltros(String descripcion,String idCatalogoDepartamento,String idCatalogoZonaEntrega,String idCatalogoFormaPago,String idCatalogoCondicion, String estrellas) throws SQLException) throws SQLException{
+        try {
+            return mapper.getByFiltros(descripcion,idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,idCatalogoCondicion, estrellas);
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+
 }
