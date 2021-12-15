@@ -11,10 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import mx.qbits.tienda.api.mapper.*;
 import mx.qbits.tienda.api.mapper.BuscarProductoMapper;
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-
 
 /**
  * Implementacion de Service
@@ -28,12 +28,12 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 class BuscarProductoServiceImpl implements BuscarProductoService {
 
     private BuscarProductoMapper mapper;
-    String descripciones
-    String idCatalogoDepartamento
-    String idCatalogoZonaEntrega
-    String idCatalogoFormaPago
-    String idCatalogoCondicion
-    String estrellas
+    String descripciones;
+    String idCatalogoDepartamento;
+    String idCatalogoZonaEntrega;
+    String idCatalogoFormaPago;
+    String idCatalogoCondicion;
+    String estrellas;
 
     public BuscarProductoServiceImpl(BuscarProductoMapper mapper) {
         this.mapper = mapper;
@@ -41,15 +41,17 @@ class BuscarProductoServiceImpl implements BuscarProductoService {
 
     /** {@inheritDoc} */
     @Override
-    public List<Anuncio> buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) throws BusinessException {
-        this.descripciones  =  descripcion;
-        this.idCatalogoDepartamento =  (idCatalogoDepartamento == -1 ) ? "" :  idCatalogoDepartamento;
-        this.idCatalogoZonaEntrega =  (idCatalogoZonaEntrega == -1 ) ? "" :  idCatalogoZonaEntrega;
-        this.idCatalogoFormaPago =  (idCatalogoFormaPago == -1 ) ? "" :  idCatalogoFormaPago;
-        this.idCatalogoCondicion =  (idCatalogoCondicion == -1 ) ? "" :  idCatalogoCondicion;
-        this.estrellas =  (estrellas == -1 ) ? "" :  estrellas;
-        
-        List<Anuncio> coincidencias = mapper.getByFiltros(descripcion,idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,idCatalogoCondicion, estrellas);
+    public List<Anuncio> buscarProducto(String descripcion, int idCatalogoDepartamento, int idCatalogoZonaEntrega,
+            int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException {
+        this.descripciones = descripcion;
+        this.idCatalogoDepartamento = (idCatalogoDepartamento == -1) ? "" : String.valueOf(idCatalogoDepartamento);
+        this.idCatalogoZonaEntrega = (idCatalogoZonaEntrega == -1) ? "" : String.valueOf(idCatalogoZonaEntrega);
+        this.idCatalogoFormaPago = (idCatalogoFormaPago == -1) ? "" : String.valueOf(idCatalogoFormaPago);
+        this.idCatalogoCondicion = (idCatalogoCondicion == -1) ? "" : String.valueOf(idCatalogoCondicion);
+        this.estrellas = (estrellas == -1) ? "" : String.valueOf(estrellas);
+
+        List<Anuncio> coincidencias = mapper.getByFiltros(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega,
+                idCatalogoFormaPago, idCatalogoCondicion, estrellas);
 
         return coincidencias;
     }

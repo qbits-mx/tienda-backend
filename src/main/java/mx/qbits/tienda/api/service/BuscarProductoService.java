@@ -7,7 +7,8 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 public interface BuscarProductoService {
     /**
-     * Recibe un objeto de tipo 'Producto' y retorna todas las conincidencias de la base de datos
+     * Recibe un objeto de tipo 'Producto' y retorna todas las conincidencias de la
+     * base de datos
      * 
      * @param descripcion
      * @param idCatalogoDepartamento
@@ -17,7 +18,9 @@ public interface BuscarProductoService {
      * @param estrellas
      * 
      * @return la lista de Anuncios encontrada
-     * @throws BusinessException Se dispara en caso de que hubier un problema  interno
+     * @throws BusinessException Se dispara en caso de que hubier un problema
+     *                           interno
      */
-    public List<Anuncio> buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) throws BusinessException;
+    public List<Anuncio> buscarProducto(String descripcion, int idCatalogoDepartamento, int idCatalogoZonaEntrega,
+            int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException;
 }

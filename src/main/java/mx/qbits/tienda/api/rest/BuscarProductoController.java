@@ -12,7 +12,7 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.BuscarProductoService;
 
 /**
- * Implementacion  del controlador REST asociado a los endpoints
+ * Implementacion del controlador REST asociado a los endpoints
  * de gestión para BuscarProducto .
  *
  * @author Sunflower
@@ -24,7 +24,6 @@ import mx.qbits.tienda.api.service.BuscarProductoService;
 @RequestMapping(value = "/api")
 public class BuscarProductoController {
 
-    
     private BuscarProductoService buscarProductoService;
 
     /**
@@ -38,20 +37,25 @@ public class BuscarProductoController {
     }
 
     /**
-     * Controlador principal para Buscar Producto 
-     * La entrada de  
+     * Controlador principal para Buscar Producto
+     * La entrada de
      * 
-     * @param descripcion  
-     * Entrada principal de Busqueda
+     * @param descripcion
+     *                               Entrada principal de Busqueda
      * @param idCatalogoDepartamento
      * @param idCatalogoZonaEntrega
      * @param idCatalogoFormaPago
      * @param idCatalogoCondicion
      * @param estrellas
-     * Estos ultimos 5 parametros  en dado caso que no sean marcados seran dados por default como -1 para no usar ese tipo como parametro de filtro de busqueda
+     *                               Estos ultimos 5 parametros en dado caso que no
+     *                               sean marcados seran dados por default como -1
+     *                               para no usar ese tipo como parametro de filtro
+     *                               de busqueda
      */
     @GetMapping(path = "/dame-datos.json", produces = "application/json; charset=utf-8")
-    public List<Anuncio> dame() throws BusinessException {
-        return buscarProductoService.buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) ;
+    public List<Anuncio> dame(String descripcion, int idCatalogoDepartamento, int idCatalogoZonaEntrega,
+            int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException {
+        return buscarProductoService.buscarProducto(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega,
+                idCatalogoFormaPago, idCatalogoCondicion, estrellas);
     }
 }
