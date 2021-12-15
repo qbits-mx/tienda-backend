@@ -40,15 +40,14 @@ public class BuscarProductoServiceTest {
     public void busquedaEncontrada() {
         
         //provisional hasta implementar la estructura adecuada para la busqueda
-        String buscar = "Telefono Celular"
+        String buscar = "Telefono Celular"      
 
-        List<Anuncio> anuncios_encontrados = List<Anuncio> [Anuncio(1024, "Franco Escamilla", "10101", "Electronicos", "0", "3", "19", "Telefono sony", "11-03-2022", "55 84 59 36 19", true,  true, true, true, false,"03-01-2022", 4, "", true)];
+        Anuncio  anuncio =  new Anuncio(1024, 2048, 01, 1, 2, 03, 06, "Telefono Celular", "11-03-2022","55 84 59 36 19", true , true, true, true, false, "11-03-2022", 4, "Telefono Celular Sony Nuevo", true)
+        List<Anuncio> anuncios_encontrados = [anuncio];
         
+        busqueda = BuscarProductoService.buscarProducto(bucar,-1,-1,-1,-1,-1);
         
-        busqueda = BuscarProductoService.buscarProducto(buscar , 0 , 0, 0,
-        0, "", true, 0);
-        
-        when(buscarProductoMapper.getById(buscar)).thenReturn(anuncios_encontrados)
+        when(buscarProductoMapper.getByFiltros(buscar)).thenReturn(anuncios_encontrados)
 
         if (busqueda.size() == anuncios_encontrados.size()){
             assertTrue(true);
@@ -64,12 +63,11 @@ public class BuscarProductoServiceTest {
         
         String buscar = "Bazoka"
 
-        List<Anuncio> anuncios_encontrados = new List<Anuncio>;
+        List<Anuncio> anuncios_encontrados = new List<Anuncio> [];
         
-        busqueda = BuscarProductoService.buscarProducto(buscar , 0 , 0, 0,
-        0, "", true, 0);
+        busqueda = BuscarProductoService.buscarProducto(bucar,-1,-1,-1,-1,-1);
         
-        when(buscarProductoMapper.getById(buscar)).thenReturn(anuncios_encontrados)
+        when(buscarProductoMapper.getByFiltros(buscar)).thenReturn(anuncios_encontrados)
 
         if (busqueda.size() == anuncios_encontrados.size()){
             assertFalse(false);
