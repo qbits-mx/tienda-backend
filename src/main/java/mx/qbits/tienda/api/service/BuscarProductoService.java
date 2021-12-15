@@ -1,11 +1,16 @@
 package mx.qbits.tienda.api.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 public interface BuscarProductoService {
+
+    public List<Anuncio> getByFiltros(String descripcion, String idCatalogoDepartamento, String idCatalogoZonaEntrega,
+            String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas) throws SQLException;
+
     /**
      * Recibe un objeto de tipo 'Producto' y retorna todas las conincidencias de la
      * base de datos
@@ -23,4 +28,5 @@ public interface BuscarProductoService {
      */
     public List<Anuncio> buscarProducto(String descripcion, int idCatalogoDepartamento, int idCatalogoZonaEntrega,
             int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException;
+
 }

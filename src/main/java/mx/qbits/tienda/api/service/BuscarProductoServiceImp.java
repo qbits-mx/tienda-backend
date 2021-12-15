@@ -38,6 +38,17 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
         this.mapper = mapper;
     }
 
+    @Override
+    public List<Anuncio> getByFiltros(String descripcion, String idCatalogoDepartamento, String idCatalogoZonaEntrega,
+            String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas) throws SQLException {
+        try {
+            return mapper.getByFiltros(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,
+                    idCatalogoCondicion, estrellas);
+        } catch (SQLException e) {
+            throw new BusinessException(e);
+        }
+    }
+
     /** {@inheritDoc} */
     @Override
     public List<Anuncio> buscarProducto(String descripcion, int idCatalogoDepartamento, int idCatalogoZonaEntrega,
@@ -49,20 +60,10 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
         this.idCatalogoCondicion = (idCatalogoCondicion == -1) ? "" : String.valueOf(idCatalogoCondicion);
         this.estrellas = (estrellas == -1) ? "" : String.valueOf(estrellas);
 
-        List<Anuncio> coincidencias = mapper.getByFiltros(String.valueOf(descripcion),
-                String.valueOf(idCatalogoDepartamento),
-                String.valueOf(idCatalogoZonaEntrega),
-                String.valueOf(idCatalogoFormaPago), String.valueOf(idCatalogoCondicion), String.valueOf(estrellas));
+        List<Anuncio> coincidencias = mapper.getByFiltros(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega,
+                idCatalogoFormaPago, idCatalogoCondicion, estrellas);
 
         return coincidencias;
     }
-
-    @Override
-    public List<Anuncio>getByFiltros(String descripcion,String idCatalogoDepartamento,String idCatalogoZonaEntrega,String idCatalogoFormaPago,String idCatalogoCondicion, String estrellas) throws SQLException) throws SQLException{
-        try {
-            return mapper.getByFiltros(descripcion,idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,idCatalogoCondicion, estrellas);
-        } catch (SQLException e) {
-            throw new BusinessException(e);
-        }
 
 }
