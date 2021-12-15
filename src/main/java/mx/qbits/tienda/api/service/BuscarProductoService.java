@@ -24,15 +24,5 @@ public interface BuscarProductoService {
      * @throws BusinessException Se dispara en caso de que hubier un problema
      *                           interno
      */
-    int buscarProducto(int idCatalogoDepartamento, int idCatalogoCondicion, int idCatalogoFormaDePago,
-            int idCatalogoZonaDeEntrega, String descripcion, boolean activo, int estrellas) throws BusinessException;
-
-    /**
-     * regresa todos los registros de la base de datos en donde coinciden los
-     * filtros de busqueda.
-     * 
-     * @return
-     * @throws BusinessException
-     */
-    List<Anuncio> dameDatos() throws BusinessException;
+    int buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) throws BusinessException;
 }

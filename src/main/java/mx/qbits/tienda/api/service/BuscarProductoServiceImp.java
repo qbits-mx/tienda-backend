@@ -25,14 +25,17 @@ class BuscarProductoServiceImpl implements BuscarProductoService {
     }
 
     @Override
-    public int buscarProducto(int idCatalogoDepartamento, int idCatalogoCondicion, int idCatalogoFormaDePago,
-            int idCatalogoZonaDeEntrega, String descripcion, boolean activo, int estrellas) throws BusinessException {
-        return 0;
-    }
+    public List<Anuncio> buscarProducto(String descripcion,int idCatalogoDepartamento, int idCatalogoZonaEntrega, int idCatalogoFormaPago,int idCatalogoCondicion,int estrellas) throws BusinessException {
+        String descripcion  =  this.descripcion;
+        String idCatalogoDepartamento =  (idCatalogoDepartamento == -1 ) ? "" :  this.idCatalogoDepartamento;
+        String idCatalogoZonaEntrega =  (idCatalogoZonaEntrega == -1 ) ? "" :  this.idCatalogoZonaEntrega;
+        String idCatalogoFormaPago =  (idCatalogoFormaPago == -1 ) ? "" :  this.idCatalogoFormaPago;
+        String idCatalogoCondicion =  (idCatalogoCondicion == -1 ) ? "" :  this.idCatalogoCondicion;
+        String estrellas =  (estrellas == -1 ) ? "" :  this.estrellas;
+        
+        List<Anuncio> coincidencias = mapper.getByFiltros(descripcion,idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,idCatalogoCondicion, estrellas);
 
-    @Override
-    public List<Anuncio> dameDatos() throws BusinessException {
-        return 0;
+        return coincidencias;
     }
 
 }
