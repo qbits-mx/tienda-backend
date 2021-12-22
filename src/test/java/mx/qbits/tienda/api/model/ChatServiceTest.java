@@ -63,10 +63,10 @@ public class ChatServiceTest {
     public void setup() throws SQLException {
 
         
-        Chat chatAnuncio6_0 = new Chat(699,6,518,518,"cras non velit nec",new Date(1606521600));
+        Chat chatAnuncio6_0 = new Chat(699,6,518,518,"cras non velit nec","new Date(1606521600)");
 
-        Chat chatAnuncio10_0 = new Chat(107,10,741,741,"duis bibendum felis sed interdum venenatis turpis",new Date(163261440));
-        Chat chatAnuncio10_1 = new Chat(335,10,893,893,"eu tincidunt in leo",new Date(1617321600));
+        Chat chatAnuncio10_0 = new Chat(107,10,741,741,"duis bibendum felis sed interdum venenatis turpis","new Date(163261440)");
+        Chat chatAnuncio10_1 = new Chat(335,10,893,893,"eu tincidunt in leo","new Date(1617321600)");
 
 
         listaAnuncio6 = new ArrayList<>();
