@@ -11,6 +11,6 @@ public class ChatException extends Exception{
     }
 
     public ChatException(String mensaje,int idAnuncio,int idRemitente){
-        super(mensaje+idAnuncio+idRemitente+"");
+        super(mensaje+" idAnuncio: " + idAnuncio + " idRemitente: " + idRemitente+"\n");
     }
 }

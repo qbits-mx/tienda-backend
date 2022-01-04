@@ -22,7 +22,6 @@ package mx.qbits.tienda.api.model.domain;
 
 //import java.util.String;
 
-import javax.print.DocFlavor.STRING;
 
 /**
  * Implementacion del POJO de la entidad de {@link mx.qbits.tienda.api.model.domain.Chat}.

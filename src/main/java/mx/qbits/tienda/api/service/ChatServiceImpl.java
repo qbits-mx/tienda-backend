@@ -47,10 +47,11 @@ public class ChatServiceImpl implements ChatService {
     public List<List<Chat>> getConversaciones(int idAnuncio) throws ChatException {
         try {
             List<Chat> todasLasConversaciones = chatMapper.getByAnuncio(idAnuncio);
-            
+            System.out.println(todasLasConversaciones);
+
             List<List<Chat>> respuesta = new ArrayList<>();
 
-            int convActual = -1; // id hilo padre actual olis :c
+            int convActual = -1;
             int contador = 0;
             for (Chat chat : todasLasConversaciones) {
                 if (chat.getIdHiloPadre() != convActual) {
@@ -69,10 +70,11 @@ public class ChatServiceImpl implements ChatService {
             for (Chat chat : todasLasConversaciones) {
                 if (chat.getIdHiloPadre() != convActual) {
                     contador++;
+                    convActual = chat.getIdHiloPadre();
                 }
                 
                 respuesta.get(contador).add(chat);
-                System.out.println("RESPUESTA: "+ contador+"\n"+respuesta.get(contador));
+
             }
             return respuesta;
 
