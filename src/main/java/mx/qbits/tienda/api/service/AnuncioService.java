@@ -7,5 +7,5 @@ import java.util.Date;
 public interface AnuncioService{
     int salvaAnuncio(int idUsuario, int catalogoPago,
                      int catalogoCondicion, int catalogoEntrega,int catalogoDepartamento, String descripcion,
-                     Date vigencia, String datosContacto) throws BusinessException;
+                     Date vigencia, String datosContacto, String nombre, double precio) throws BusinessException;
 }

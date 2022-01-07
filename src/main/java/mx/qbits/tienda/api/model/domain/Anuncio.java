@@ -1,7 +1,4 @@
 package mx.qbits.tienda.api.model.domain;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.sql.Date;
 import java.util.List;
 
@@ -27,6 +24,8 @@ public class Anuncio {
     private int comentario;
     private boolean comentarioAprobado;
     private List<Multimedia> multimedia;
+    private String nombre;
+    private double precio;
 
     public Anuncio() {
     }
@@ -36,7 +35,7 @@ public class Anuncio {
                    String descripcion, Date vigenciaAnuncio, String contacto, boolean validado,
                    boolean notificado, boolean revisado, boolean activo, boolean comprado,
                    Date fechaCompra, int estrellas, int comentario, boolean comentarioAprobado
-            , List<Multimedia> multimedia) {
+            , List<Multimedia> multimedia, String nombre, double precio) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.idComprador = idComprador;
@@ -57,6 +56,8 @@ public class Anuncio {
         this.comentario = comentario;
         this.comentarioAprobado = comentarioAprobado;
         this.multimedia = multimedia;
+        this.nombre = nombre;
+        this.precio = precio;
     }
 
     public Anuncio(int id, int idUsuario,  int idCatalogoDepartamento,
@@ -78,9 +79,7 @@ public class Anuncio {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) {this.id = id;}
 
     public int getIdUsuario() {
         return idUsuario;
@@ -236,5 +235,21 @@ public class Anuncio {
 
     public void setMultimedia(Multimedia multimedia) {
         this.multimedia.add(multimedia);
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return this.precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 }

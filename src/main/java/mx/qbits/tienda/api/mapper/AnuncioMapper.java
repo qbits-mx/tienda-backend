@@ -10,8 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnuncioMapper{
-	final String CAMPOS_ANUNCIO = "id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, id_catalogo_departamento, descripcion, vigencia, datos_contacto, validado, notificado, revisado, activo, comprado,  comentario_aprobado";
-
+	final String CAMPOS_ANUNCIO = "id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, id_catalogo_departamento, descripcion, vigencia, datos_contacto, validado, notificado, revisado, activo, comprado,  comentario_aprobado, nombre, precio";
 	@Results(id="AnuncioMapping", value = {
 			@Result(property = "id",              					column = "id"),
 			@Result(property = "idUsuario",      					column = "id_usuario"),
@@ -31,13 +30,15 @@ public interface AnuncioMapper{
 			@Result(property = "fechaCompra",						column = "fecha_compra"),
 			@Result(property = "estrellas",							column = "estrellas"),
 			@Result(property = "comentario",						column = "comentario"),
-			@Result(property = "comentarioAprobado",				column = "comentario_aprobado")
-
+			@Result(property = "comentarioAprobado",				column = "comentario_aprobado"),
+			@Result(property = "nombre",							column = "nombre"),
+			@Result(property = "precio",							column = "precio")
 	})
+
 	@Insert("INSERT INTO anuncio("+CAMPOS_ANUNCIO+")"
-			+ " VALUES(#{id_usuario}, #{id_catalogo_condicion}, #{id_catalogo_forma_pago}, #{id_catalogo_zona_entrega}, #{id_catalogo_departamento}, #{descripcion}, #{vigencia}, #{datos_contacto},0,0,0,0,0,0)")
+			+ " VALUES(#{id_usuario}, #{id_catalogo_condicion}, #{id_catalogo_forma_pago}, #{id_catalogo_zona_entrega}, #{id_catalogo_departamento}, #{descripcion}, #{vigencia}, #{datos_contacto},0,0,0,0,0,0, #{nombre}, #{precio})")
 	int insert(int id_usuario, int id_catalogo_condicion, int id_catalogo_forma_pago,
 			   int id_catalogo_zona_entrega,int id_catalogo_departamento,  String descripcion,
-			   Date vigencia, String datos_contacto) throws SQLException;
+			   Date vigencia, String datos_contacto, String nombre, double precio) throws SQLException;
 
 }
