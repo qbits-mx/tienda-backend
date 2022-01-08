@@ -23,7 +23,17 @@ public class CatalogoJCatalogoMaestroImpl implements CatalogoJCatalogoMaestroSer
     @Override
     public List<CatalogoJCatalogoMaestro> dameTodosLosCatalogos() throws BusinessException{
         try{
-            return this.catalogoMapper.getAll();
+            List<CatalogoJCatalogoMaestro> res = this.catalogoMapper.getAll();
+            CatalogoJCatalogoMaestro aux = null;
+
+            for (CatalogoJCatalogoMaestro catalogoJCatalogoMaestro : res) {
+                if (catalogoJCatalogoMaestro.getNombre().equals("Otros")){
+                    aux=catalogoJCatalogoMaestro;
+                }
+            }
+            res.remove(aux);
+            res.add(aux);
+            return res;
         }catch (SQLException e){
             throw new BusinessException(e);
         }

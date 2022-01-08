@@ -48,6 +48,7 @@ public class CatalogoController {
     
     private CatalogoService catalogoService;
 
+
     /**
      * Constructor que realiza el setting de los servicios que serán
      * utilizados en este controlador.
@@ -57,15 +58,51 @@ public class CatalogoController {
         this.catalogoService = catalogoService;
     }
 
+    @GetMapping(path = "/buscar-catalogo-porId.json", produces = "application/json; charset=utf-8")
+    public Catalogo buscarCatalogoPorId(@RequestParam int id) throws BusinessException{
+        return catalogoService.buscarCatalogo(id);
+    }
+    @GetMapping(path = "/modificar-nombreDeCatalogo-porId.json", produces = "application/json; charset=utf-8")
+    public boolean modificarNombrePorId(
+            @RequestParam int id,
+            @RequestParam String nuevoNombre
+        ) throws BusinessException{
+        return catalogoService.modificarNombre(id, nuevoNombre);
+    }
+
+    @GetMapping(path = "/modificar-activo-porId.json", produces = "application/json; charset=utf-8")
+    public boolean modificarActivoPorId(
+            @RequestParam int id,
+            @RequestParam boolean nuevoActivo) throws BusinessException{
+        return catalogoService.modificarActivo(id, nuevoActivo);
+    }
+    @GetMapping(path = "/insertar-catalogo.json", produces = "application/json; charset=utf-8")
+    public boolean crearCatalogo(
+            @RequestParam int idCatalogoCategoria ,
+            @RequestParam boolean activo ,
+            @RequestParam String nombre) throws BusinessException {
+        return catalogoService.crearCatalogo(idCatalogoCategoria, activo, nombre);
+    }
+
+    @GetMapping(path = "/obtener-todosLosCatalogos.json", produces = "application/json; charset=utf-8")
+    public List<Catalogo> obtenerTodosLosCatalogos() throws BusinessException {
+        return catalogoService.obtenerTodosLosCatalogos();
+    }
+
+     
+    @GetMapping(path = "/eliminar-catalogo-porId.json", produces = "application/json; charset=utf-8")
+    public boolean eliminarPorId(@RequestParam int id) throws BusinessException{
+        return catalogoService.modificarActivo(id, false);
+    }
+}
+
+
+/*
     @GetMapping(path = "/eliminar-catalogo-porNombre.json", produces = "application/json; charset=utf-8")
     public boolean eliminarPorNombre(@RequestParam String nombre) throws BusinessException{
         return catalogoService.eliminarCatalogo(nombre);
     }
-    
-    @GetMapping(path = "/eliminar-catalogo-porId.json", produces = "application/json; charset=utf-8")
-    public boolean eliminarPorId(@RequestParam int id) throws BusinessException{
-        return catalogoService.eliminarCatalogo(id);
-    }
+
 
     @GetMapping(path = "/eliminar-catalogo-porNombreYIdCatalogoCategoria.json", produces = "application/json; charset=utf-8")
     public boolean eliminarPorNombreYIdCatalogoCategoria(
@@ -81,11 +118,6 @@ public class CatalogoController {
             @RequestParam int idCatalogoCategoria
         ) throws BusinessException{
         return catalogoService.eliminarCatalogo(id, idCatalogoCategoria);
-    }
-
-    @GetMapping(path = "/buscar-catalogo-porId.json", produces = "application/json; charset=utf-8")
-    public Catalogo buscarCatalogoPorId(@RequestParam int id) throws BusinessException{
-        return catalogoService.buscarCatalogo(id);
     }
 
     @GetMapping(path = "/buscar-catalogo-porNombre.json", produces = "application/json; charset=utf-8")
@@ -107,14 +139,6 @@ public class CatalogoController {
             @RequestParam int idCatalogoCategoria
         ) throws BusinessException{
         return catalogoService.buscarCatalogo(nombre, idCatalogoCategoria);
-    }
-
-    @GetMapping(path = "/modificar-nombreDeCatalogo-porId.json", produces = "application/json; charset=utf-8")
-    public boolean modificarNombrePorId(
-            @RequestParam int id,
-            @RequestParam String nuevoNombre
-        ) throws BusinessException{
-        return catalogoService.modificarNombre(id, nuevoNombre);
     }
 
     @GetMapping(path = "/modificar-nombreDeCatalogo-porNombre.json", produces = "application/json; charset=utf-8")
@@ -141,13 +165,6 @@ public class CatalogoController {
             @RequestParam String nuevoNombre
         ) throws BusinessException{
         return catalogoService.modificarNombreConNombreEIdCatalogoCategoria(nombre, idCatalogoCategoria, nuevoNombre);
-    }
-
-    @GetMapping(path = "/modificar-activo-porId.json", produces = "application/json; charset=utf-8")
-    public boolean modificarActivoPorId(
-            @RequestParam int id,
-            @RequestParam boolean nuevoActivo) throws BusinessException{
-        return catalogoService.modificarActivo(id, nuevoActivo);
     }
 
     @GetMapping(path = "/modificar-activo-porNombre.json", produces = "application/json; charset=utf-8")
@@ -203,19 +220,6 @@ public class CatalogoController {
         return catalogoService.modificarIdCatalogoCategoriaConNombreEIdCatalogoCategoria(nombre, idCatalogoCategoria, nuevoIdCatalogoCategoria);
     }
 
-    @GetMapping(path = "/insertar-catalogo.json", produces = "application/json; charset=utf-8")
-    public boolean crearCatalogo(
-            @RequestParam int idCatalogoCategoria ,
-            @RequestParam boolean activo ,
-            @RequestParam String nombre) throws BusinessException {
-        return catalogoService.crearCatalogo(idCatalogoCategoria, activo, nombre);
-    }
-
-    @GetMapping(path = "/obtener-todosLosCatalogos.json", produces = "application/json; charset=utf-8")
-    public List<Catalogo> obtenerTodosLosCatalogos() throws BusinessException {
-        return catalogoService.obtenerTodosLosCatalogos();
-    }
-
     @GetMapping(path = "/obtener-catalogos-porIdCatalogoCategoria.json", produces = "application/json; charset=utf-8")
     public List<Catalogo> obtenerCatalogosPorIdCatalogoCategoria(
             @RequestParam int idCatalogoCategoria
@@ -223,9 +227,9 @@ public class CatalogoController {
         return catalogoService.obtenerCatalogosPorIdCatalogoCategoria(idCatalogoCategoria);
     }
 
+
     @GetMapping(path = "/obtener-catalogosPorCategoria.json", produces = "application/json; charset=utf-8")
     public List<List<Catalogo>> obtenerCatalogosPorCategoria() throws BusinessException {
         return catalogoService.obtenerCatalogosPorCategoria();
     }
-
-}
+*/

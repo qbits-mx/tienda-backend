@@ -115,7 +115,7 @@ public interface CatalogoMapper {
      * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @ResultMap("CatalogoMapping")
-    @Select("SELECT " + CAMPOS_CATALOGO + " FROM catalogo")
+    @Select("SELECT " + CAMPOS_CATALOGO + " FROM catalogo ORDER BY nombre ASC")
     List<Catalogo> getAll() throws SQLException;
 
     /**
