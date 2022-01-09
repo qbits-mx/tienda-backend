@@ -21,7 +21,7 @@ public interface CatalogoJCatalogoMaestroMapper {
         @Result(property = "tipoCatalogo", column = "catalogo_maestro.tipo_catalogo"),
         @Result(property = "nombre" ,column = "nombre"),
         @Result(property = "activo", column = "activo")
-    })@Select("SELECT " + CAMPOS + " FROM catalogo inner join catalogo_maestro on catalogo.id_catalogo_categoria = catalogo_maestro.id ORDER BY nombre ASC")
+    })@Select("SELECT " + CAMPOS + " FROM catalogo inner join catalogo_maestro on catalogo.id_catalogo_categoria = catalogo_maestro.id WHERE activo = 1 ORDER BY nombre ASC")
     List<CatalogoJCatalogoMaestro> getAll() throws SQLException;
     
 
