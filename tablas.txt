@@ -38,9 +38,12 @@ CREATE TABLE `anuncio` (
   `activo` tinyint(1) NOT NULL,
   `comprado` tinyint(1) NOT NULL,
   `fecha_compra` date DEFAULT NULL,
-  `estrellas` int(11) DEFAULT NULL,
+  `estrellas_ven` int(11) DEFAULT NULL,
+  `estrellas_com` int(11) DEFAULT NULL,
+  `nombre` varchar(64) not null,
+  `precio` double(8,2) not null,
   `comentario` varchar(1024) DEFAULT NULL,
-  `comentario_aprobado` tinyint(1) NOT NULL,
+  `comentario_aprobado` tinyint(1),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -77,9 +80,80 @@ CREATE TABLE `catalogo` (
 --
 
 LOCK TABLES `catalogo` WRITE;
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (1, "Usado", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (1, "Semi nuevo", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (1, "Nuevo", 1);
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Mascotas", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Linea Blanca", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Electronica", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Deportes", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Musica", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Belleza", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Salud - Cuidado personal", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Productos del hogar", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Alimentos", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Hogar", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Otros", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Aguascalientes", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Baja California", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Baja California Sur", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Campeche", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Chiapas", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Chihuahua", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Coahuila de Zaragoza", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Colima", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Durango", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Estado de Mexico", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Guanajuato", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Guerrero", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Hidalgo", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Jalisco", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Michoacan", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Morelos", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Nayarit", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Nuevo Leon", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Oaxaca", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Puebla", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Queretaro", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Quintana Roo", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "San Luis Potosi", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Sinaloa", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Sonora", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tabasco", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tamaulipas", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tlaxcala", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Veracruz", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Yucatan", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Zacatecas", 1);
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Norte", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Sur", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Este", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Oeste", 1);
+
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (5, "Tarjeta", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (5, "Cheque", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (5, "Efectivo", 1);
+
+delimiter $$
+CREATE TRIGGER otros_lock BEFORE UPDATE ON catalogo
+FOR EACH ROW
+BEGIN 
+    IF old.nombre = "Otros" THEN
+        SET new.nombre = "Otros";
+        SET new.activo = 1;
+    END IF;
+END$$
+delimiter ;
+
+
 /*!40000 ALTER TABLE `catalogo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogo` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `catalogo_maestro`
@@ -100,6 +174,13 @@ CREATE TABLE `catalogo_maestro` (
 --
 
 LOCK TABLES `catalogo_maestro` WRITE;
+
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Condicion"); 
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Departamento");
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Estado");
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Zona de entrega");
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Forma de pago");
+
 /*!40000 ALTER TABLE `catalogo_maestro` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogo_maestro` ENABLE KEYS */;
 UNLOCK TABLES;
