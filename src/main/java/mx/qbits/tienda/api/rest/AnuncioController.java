@@ -27,14 +27,11 @@ public class AnuncioController {
             @RequestParam int idCatalogoFormaPago) throws BusinessException {
         return productoService.actualizarCompra(idProducto, idComprador, idCatalogoFormaPago);
     }
+    
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/dame-anuncio.json", produces = "application/json; charset=utf-8")
     public Anuncio dameAnuncio(
             @RequestParam int idAnuncio) throws BusinessException {
         return productoService.dameAnuncio(idAnuncio);
     }
-
-    // http://localhost:9999/api/salva.json?id=4&correo=gus@aol.com&clave=hola
-    // http://localhost:9999/api/dame-datos.json
-
 }

@@ -21,24 +21,27 @@ import mx.qbits.tienda.api.model.domain.Anuncio;
  */
 @Repository
 public interface AnuncioMapper {
-	String CAMPOS_ANUNCIO = "id, id_usuario, "
-			+ "id_comprador, "
-			+ "id_catalogo_condicion, "
-			+ "id_catalogo_forma_pago, "
-			+ "id_catalogo_zona_entrega, "
-			+ "id_catalogo_departamento, "
-			+ "descripcion, "
-			+ "vigencia, "
-			+ "datos_contacto, "
-			+ "validado, "
-			+ "notificado, "
-			+ "revisado, "
-			+ "activo, "
-			+ "comprado, "
-			+ "fecha_compra, "
-			+ "estrellas, "
-			+ "comentario, "
-			+ "comentario_aprobado";
+	String CAMPOS_ANUNCIO = "id, id_usuario, " +
+			  "id_comprador, " +
+			  "id_catalogo_condicion, " +
+			  "id_catalogo_forma_pago, " +
+			  "id_catalogo_zona_entrega, " +
+			  "descripcion, " +
+			  "vigencia, " +
+			  "datos_contacto, " +
+			  "validado, " +
+			  "notificado, " +
+			  "revisado, " +
+			  "activo, " +
+			  "comprado, " +
+			  "fecha_compra, " +
+			  "estrellas_ven, " +
+			  "estrellas_com, " + 
+			  "nombre, " +
+			  "precio, " +
+			  "comentario, " +
+			  "comentario_aprobado";
+	
 	
 	/**
      * Obtiene un objeto de tipo 'anuncio' dado el id.
@@ -54,7 +57,6 @@ public interface AnuncioMapper {
 	        @Result(property = "idCatalogoCondicion", column = "id_catalogo_condicion"),
 	        @Result(property = "idCatalogoFormaPago",  column = "id_catalogo_forma_pago"),
 	        @Result(property = "idCatalogoZonaEntrega",  column = "id_catalogo_zona_entrega"),
-	        @Result(property = "idCatalogoDepartamento", column = "id_catalogo_departamento"),
 	        @Result(property = "descripcion",         column = "descripcion"),
 	        @Result(property = "vigencia",            column = "vigencia"),
 	        @Result(property = "datosContacto",       column = "datos_contacto"),
@@ -64,7 +66,10 @@ public interface AnuncioMapper {
 	        @Result(property = "activo",              column = "activo"),
 	        @Result(property = "comprado",            column = "comprado"),
 	        @Result(property = "fechaCompra",         column = "fecha_compra"),
-	        @Result(property = "estrellas",           column = "estrellas"),
+	        @Result(property = "estrellasVen",        column = "estrellas_ven"),
+	        @Result(property = "estrellasCom",        column = "estrellas_com"),
+	        @Result(property = "nombre",              column = "nombre"),
+	        @Result(property = "precio",              column = "precio"),
 	        @Result(property = "comentario",          column = "comentario"),
 	        @Result(property = "comentarioAprobado",  column = "comentarioAprobado")
 	        })

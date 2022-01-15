@@ -28,14 +28,15 @@ public class AnuncioServiceImpl implements AnuncioService{
      * {@inheritDoc}
      */
     @Override
-    public Anuncio dameAnuncio(int idAnuncio) throws BusinessException {
+    public Anuncio dameAnuncio(int idAnuncio) throws BusinessException{
     	try{
-            Anuncio producto = productoMapper.getById(idAnuncio);
-            return producto;
+            Anuncio anuncio = productoMapper.getById(idAnuncio);
+            if (anuncio == null)
+        		throw new CustomException(EnumMessage.NOT_FOUND, idAnuncio);
+            return anuncio;
         }catch(SQLException e) {
-            throw new BusinessException(e);
+        	throw new CustomException(EnumMessage.DATABASE, "Error localizando el producto por id");
         }
-
     }
 
     /**
@@ -44,27 +45,27 @@ public class AnuncioServiceImpl implements AnuncioService{
     @Override
     public Anuncio actualizarCompra(int idAnuncio, int idComprador, int idCatalogoFormaPago)
     		throws BusinessException {
-    	Anuncio producto;
+    	Anuncio anuncio;
     	Date fechaCompra;
     	int regsActualizados;
         try {
-        	producto = productoMapper.getById(idAnuncio);
-        	if (producto == null)
+        	anuncio = productoMapper.getById(idAnuncio);
+        	if (anuncio == null)
         		throw new CustomException(EnumMessage.NOT_FOUND, idAnuncio);
 
-        	producto.setIdComprador(idComprador);
-        	producto.setActivo(false);
-            producto.setComprado(true);
-            producto.setIdCatalogoFormaPago(idCatalogoFormaPago);
+        	anuncio.setIdComprador(idComprador);
+        	anuncio.setActivo(false);
+            anuncio.setComprado(true);
+            anuncio.setIdCatalogoFormaPago(idCatalogoFormaPago);
             fechaCompra = new Date(System.currentTimeMillis());
-        	producto.setFechaCompra(fechaCompra);
+        	anuncio.setFechaCompra(fechaCompra);
 
-        	regsActualizados = productoMapper.updateDatosCompra(producto);
+        	regsActualizados = productoMapper.updateDatosCompra(anuncio);
         	if (regsActualizados < 1)
         		throw new CustomException(EnumMessage.DATABASE, "Error al actualizar registro");
         } catch(SQLException e) {
         	throw new CustomException(EnumMessage.DATABASE, "Error localizando el producto por id");
         }
-        return producto;
+        return anuncio;
     }
 }
