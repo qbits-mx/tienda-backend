@@ -47,8 +47,6 @@ public class ChatServiceImpl implements ChatService {
     public List<List<Chat>> getConversaciones(int idAnuncio) throws ChatException {
         try {
             List<Chat> todasLasConversaciones = chatMapper.getByAnuncio(idAnuncio);
-            System.out.println(todasLasConversaciones);
-
             List<List<Chat>> respuesta = new ArrayList<>();
 
             int convActual = -1;
