@@ -1,17 +1,15 @@
 package mx.qbits.tienda.api.rest;
 
+import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.AnuncioService;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.sql.Date;
 
 @RestController
 @RequestMapping(value = "/api")
+@CrossOrigin(origins="*")
 public class AnuncioController {
 	private AnuncioService anuncioService;
 
@@ -19,20 +17,20 @@ public class AnuncioController {
 		this.anuncioService = anuncioService;
 	}
 
-	@GetMapping(path = "/salva-anuncio.json", produces = "application/json; charset=utf-8")
-	public int salvaAnuncio(
-			@RequestParam int id_usuario,
-			@RequestParam int id_catalogo_condicion,
-			@RequestParam int id_catalogo_forma_pago,
-			@RequestParam int id_catalogo_zona_entrega,
-			@RequestParam int id_catalogo_departamento,
-			@RequestParam String descripcion,
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date vigencia,
-			@RequestParam String datos_contacto,
-			@RequestParam String nombre,
-			@RequestParam double precio) throws BusinessException{
-		return anuncioService.salvaAnuncio(id_usuario, id_catalogo_condicion,
-				id_catalogo_forma_pago, id_catalogo_zona_entrega,id_catalogo_departamento,
-				descripcion, vigencia, datos_contacto, nombre, precio);
+	@PostMapping(path = "/salva-anuncio.json", produces = "application/json; charset=utf-8")
+	public int salvaAnuncio(@RequestBody Anuncio anuncio) throws BusinessException{
+		int idUsuario = anuncio.getIdUsuario();
+		int idCatalogoCondicion = anuncio.getIdCatalogoCondicion();
+		int idCatalogoFormaPago = anuncio.getIdCatalogoFormaDePago();
+		int idCatalogoZonaEntrega = anuncio.getIdCatalogoZonaDeEntrega();
+		int idCatalogoDepartamento = anuncio.getIdCatalogoDepartamento();
+		String descripcion = anuncio.getDescripcion();
+		Date vigencia = anuncio.getVigenciaAnuncio();
+		String datosContacto = anuncio.getContacto();
+		String nombre = anuncio.getNombre();
+		double precio = anuncio.getPrecio();
+		return anuncioService.salvaAnuncio(idUsuario, idCatalogoCondicion,
+				idCatalogoFormaPago, idCatalogoZonaEntrega,idCatalogoDepartamento,
+				descripcion, vigencia, datosContacto, nombre, precio);
 	}
 }

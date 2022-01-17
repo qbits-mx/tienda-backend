@@ -1,4 +1,6 @@
 package mx.qbits.tienda.api.model.domain;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class Anuncio {
     private int idCatalogoFormaDePago;
     private int idCatalogoZonaDeEntrega;
     private String descripcion;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date vigenciaAnuncio;
     private String contacto;
     private boolean validado;
@@ -55,7 +58,7 @@ public class Anuncio {
         this.estrellas = estrellas;
         this.comentario = comentario;
         this.comentarioAprobado = comentarioAprobado;
-        this.multimedia = multimedia;
+        //this.multimedia = multimedia;
         this.nombre = nombre;
         this.precio = precio;
     }
@@ -72,7 +75,7 @@ public class Anuncio {
         this.descripcion = descripcion;
         this.vigenciaAnuncio = vigenciaAnuncio;
         this.contacto = contacto;
-        this.multimedia = multimedia;
+        //this.multimedia = multimedia;
     }
 
     public int getId() {
@@ -141,9 +144,7 @@ public class Anuncio {
         return vigenciaAnuncio;
     }
 
-    public void setVigenciaAnuncio(Date vigenciaAnuncio) {
-        this.vigenciaAnuncio = vigenciaAnuncio;
-    }
+    public void setVigenciaAnuncio(Date vigenciaAnuncio) { this.vigenciaAnuncio = vigenciaAnuncio; }
 
     public String getContacto() {
         return contacto;
@@ -224,7 +225,7 @@ public class Anuncio {
     public void setComentarioAprobado(boolean comentarioAprobado) {
         this.comentarioAprobado = comentarioAprobado;
     }
-
+    /*
     public List<Multimedia> getMultimedia() {
         return multimedia;
     }
@@ -236,7 +237,7 @@ public class Anuncio {
     public void setMultimedia(Multimedia multimedia) {
         this.multimedia.add(multimedia);
     }
-
+    */
     public String getNombre() {
         return this.nombre;
     }
