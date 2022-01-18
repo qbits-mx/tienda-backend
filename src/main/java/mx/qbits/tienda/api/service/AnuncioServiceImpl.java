@@ -1,5 +1,6 @@
 package mx.qbits.tienda.api.service;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class AnuncioServiceImpl implements AnuncioService{
 		this.mapper = mapper;
 	}
 	@Override
-	public int salvaAnuncio(int idUsuario, int catalogoCondicion, int catalogoPago,  int catalogoEntrega,
-							int catalogoDepartamento, String descripcion, Date vigencia, String datosContacto,
+	public int salvaAnuncio(int idUsuario, int catalogoCondicion, int catalogoPago, int catalogoEntrega,
+							int catalogoDepartamento, String descripcion, LocalDate vigencia, String datosContacto,
 							String nombre, double precio) throws BusinessException{
 
 		try{

@@ -2,6 +2,7 @@ package mx.qbits.tienda.api.model.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Anuncio {
@@ -14,8 +15,8 @@ public class Anuncio {
     private int idCatalogoFormaDePago;
     private int idCatalogoZonaDeEntrega;
     private String descripcion;
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private Date vigenciaAnuncio;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+    private LocalDate vigenciaAnuncio;
     private String contacto;
     private boolean validado;
     private boolean notificado;
@@ -31,51 +32,6 @@ public class Anuncio {
     private double precio;
 
     public Anuncio() {
-    }
-
-    public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoDepartamento,
-                   int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
-                   String descripcion, Date vigenciaAnuncio, String contacto, boolean validado,
-                   boolean notificado, boolean revisado, boolean activo, boolean comprado,
-                   Date fechaCompra, int estrellas, int comentario, boolean comentarioAprobado
-            , List<Multimedia> multimedia, String nombre, double precio) {
-        this.id = id;
-        this.idUsuario = idUsuario;
-        this.idComprador = idComprador;
-        this.idCatalogoDepartamento = idCatalogoDepartamento;
-        this.idCatalogoCondicion = idCatalogoCondicion;
-        this.idCatalogoFormaDePago = idCatalogoFormaDePago;
-        this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
-        this.descripcion = descripcion;
-        this.vigenciaAnuncio = vigenciaAnuncio;
-        this.contacto = contacto;
-        this.validado = validado;
-        this.notificado = notificado;
-        this.revisado = revisado;
-        this.activo = activo;
-        this.comprado = comprado;
-        this.fechaCompra = fechaCompra;
-        this.estrellas = estrellas;
-        this.comentario = comentario;
-        this.comentarioAprobado = comentarioAprobado;
-        //this.multimedia = multimedia;
-        this.nombre = nombre;
-        this.precio = precio;
-    }
-
-    public Anuncio(int id, int idUsuario,  int idCatalogoDepartamento,
-                   int idCatalogoCondicion, int idCatalogoFormaDePago, int idCatalogoZonaDeEntrega,
-                   String descripcion, Date vigenciaAnuncio, String contacto, List<Multimedia> multimedia) {
-        this.id = id;
-        this.idUsuario = idUsuario;
-        this.idCatalogoDepartamento = idCatalogoDepartamento;
-        this.idCatalogoCondicion = idCatalogoCondicion;
-        this.idCatalogoFormaDePago = idCatalogoFormaDePago;
-        this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
-        this.descripcion = descripcion;
-        this.vigenciaAnuncio = vigenciaAnuncio;
-        this.contacto = contacto;
-        //this.multimedia = multimedia;
     }
 
     public int getId() {
@@ -140,11 +96,11 @@ public class Anuncio {
         this.descripcion = descripcion;
     }
 
-    public Date getVigenciaAnuncio() {
+    public LocalDate getVigenciaAnuncio() {
         return vigenciaAnuncio;
     }
 
-    public void setVigenciaAnuncio(Date vigenciaAnuncio) { this.vigenciaAnuncio = vigenciaAnuncio; }
+    public void setVigenciaAnuncio(LocalDate vigenciaAnuncio) { this.vigenciaAnuncio = vigenciaAnuncio; }
 
     public String getContacto() {
         return contacto;

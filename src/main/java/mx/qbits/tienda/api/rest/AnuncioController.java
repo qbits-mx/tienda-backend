@@ -3,9 +3,10 @@ package mx.qbits.tienda.api.rest;
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.AnuncioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -25,7 +26,9 @@ public class AnuncioController {
 		int idCatalogoZonaEntrega = anuncio.getIdCatalogoZonaDeEntrega();
 		int idCatalogoDepartamento = anuncio.getIdCatalogoDepartamento();
 		String descripcion = anuncio.getDescripcion();
-		Date vigencia = anuncio.getVigenciaAnuncio();
+		LocalDate vigencia = anuncio.getVigenciaAnuncio();
+		Logger logger = LoggerFactory.getLogger(AnuncioController.class);
+		logger.info(vigencia.toString());
 		String datosContacto = anuncio.getContacto();
 		String nombre = anuncio.getNombre();
 		double precio = anuncio.getPrecio();

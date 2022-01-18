@@ -1,4 +1,5 @@
 package mx.qbits.tienda.api.mapper;
+import java.time.LocalDate;
 import java.util.Date;
 import java.sql.SQLException;
 
@@ -38,7 +39,7 @@ public interface AnuncioMapper{
 	@Insert("INSERT INTO anuncio("+CAMPOS_ANUNCIO+")"
 			+ " VALUES(#{id_usuario}, #{id_catalogo_condicion}, #{id_catalogo_forma_pago}, #{id_catalogo_zona_entrega}, #{id_catalogo_departamento}, #{descripcion}, #{vigencia}, #{datos_contacto},0,0,0,0,0,0, #{nombre}, #{precio})")
 	int insert(int id_usuario, int id_catalogo_condicion, int id_catalogo_forma_pago,
-			   int id_catalogo_zona_entrega,int id_catalogo_departamento,  String descripcion,
-			   Date vigencia, String datos_contacto, String nombre, double precio) throws SQLException;
+			   int id_catalogo_zona_entrega, int id_catalogo_departamento, String descripcion,
+			   LocalDate vigencia, String datos_contacto, String nombre, double precio) throws SQLException;
 
 }
