@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -29,7 +28,7 @@ import mx.qbits.tienda.api.model.domain.InformacionMultimedia;
 public interface InformacionAnuncioMapper {
 
 	/** Constant <code>CAMPOS_ANUNCIO=" id, id_usuario, descripcion, datos_contacto "</code> */
-	String CAMPOS_ANUNCIO = " id, id_usuario, descripcion, datos_contacto, validado, notificado ";
+	String CAMPOS_ANUNCIO = " id, id_usuario, nombre, descripcion, datos_contacto, precio, validado, notificado ";
 
 	/** Constant <code>CAMPOS_MULTIMEDIA=" id, tipo, url "</code> */
 	String CAMPOS_MULTIMEDIA = " id, tipo, url ";
@@ -45,8 +44,10 @@ public interface InformacionAnuncioMapper {
 	@Results(id="InformacionAnuncioMap", value = {
 		@Result(property = "id", column = "id"),
 		@Result(property = "idUsuario", column = "id_usuario"),
+		@Result(property = "nombre", column = "nombre"),
 		@Result(property = "descripcion", column = "descripcion"),
 		@Result(property = "datosContacto", column = "datos_contacto"),
+		@Result(property = "precio", column = "precio"),
 		@Result(property = "validado", column = "validado"),
 		@Result(property = "notificado", column = "notificado")
 	})

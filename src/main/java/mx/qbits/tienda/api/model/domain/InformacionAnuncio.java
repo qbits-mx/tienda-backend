@@ -16,8 +16,10 @@ public class InformacionAnuncio {
 	 */
 	private int id;
 	private int idUsuario;
+	private String nombre;
 	private String descripcion;
 	private String datosContacto;
+	private double precio;
 	private boolean validado;
 	private boolean notificado;
 	
@@ -33,15 +35,18 @@ public class InformacionAnuncio {
 	 * 
 	 * @param id a int.
 	 * @param idUsuario a int.
+	 * @param nombre a {@link java.lang.String} object.
 	 * @param descripcion a {@link java.lang.String} object.
 	 * @param datosContacto a {@link java.lang.String} object.
 	 */
-	public InformacionAnuncio(int id, int idUsuario, String descripcion, String datosContacto, boolean validado,
-			boolean notificado) {
+	public InformacionAnuncio(int id, int idUsuario, String nombre, String descripcion, String datosContacto,
+			double precio, boolean validado, boolean notificado) {
 		this.id = id;
 		this.idUsuario = idUsuario;
+		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.datosContacto = datosContacto;
+		this.precio = precio;
 		this.validado = validado;
 		this.notificado = notificado;
 	}
@@ -158,6 +163,42 @@ public class InformacionAnuncio {
 	}
 
 	/**
+	 * <p>Getter for the field <code>nombre</code>.</p>
+	 * 
+	 * @return a {@link java.lang.String} object.
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+
+	/**
+	 * <p>Setter for the field <code>nombre</code>.</p>
+	 * 
+	 * @param nombre a {@link java.lang.String} object.
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	/**
+	 * <p>Getter for the field <code>precio</code>.</p>
+	 * 
+	 * @return a double.
+	 */
+	public double getPrecio() {
+		return precio;
+	}
+
+	/**
+	 * <p>Setter for the field <code>precio</code>.</p>
+	 * 
+	 * @param precio a double.
+	 */
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
+	/**
      * Método especial (y adicional) de soporte al proceso de pruebas de regresión.
      *
      * @return a long.
@@ -166,7 +207,6 @@ public class InformacionAnuncio {
         return this.hashCode();
     }
 
-    /** {@inheritDoc} */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -175,12 +215,15 @@ public class InformacionAnuncio {
 		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + id;
 		result = prime * result + idUsuario;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + (notificado ? 1231 : 1237);
+		long temp;
+		temp = Double.doubleToLongBits(precio);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + (validado ? 1231 : 1237);
 		return result;
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -204,17 +247,24 @@ public class InformacionAnuncio {
 			return false;
 		if (idUsuario != other.idUsuario)
 			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
 		if (notificado != other.notificado)
+			return false;
+		if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
 			return false;
 		if (validado != other.validado)
 			return false;
 		return true;
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public String toString() {
-		return "InformacionAnuncio [id=" + id + ", idUsuario=" + idUsuario + ", descripcion=" + descripcion
-				+ ", datosContacto=" + datosContacto + ", validado=" + validado + ", notificado=" + notificado + "]";
+		return "InformacionAnuncio [id=" + id + ", idUsuario=" + idUsuario + ", nombre=" + nombre + ", descripcion="
+				+ descripcion + ", datosContacto=" + datosContacto + ", precio=" + precio + ", validado=" + validado
+				+ ", notificado=" + notificado + "]";
 	}
 }

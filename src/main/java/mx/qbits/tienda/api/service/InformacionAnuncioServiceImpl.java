@@ -70,6 +70,10 @@ public class InformacionAnuncioServiceImpl implements InformacionAnuncioService 
 				String formato = String.format("Anuncio con identificador: %d", id);
 				throw new CustomException(EnumMessage.NOT_FOUND, formato);
 			}
+			if (anuncio.isNotificado() || anuncio.isValidado()) {
+				String formato = String.format("Anuncio con identificador: %d", id);
+				throw new CustomException(EnumMessage.NOT_FOUND, formato);
+			}
 			Usuario usuario = uMapper.getById(anuncio.getIdUsuario());
 			if (usuario == null) {
 				String formato = String.format("Usuario con identificador: %d", anuncio.getIdUsuario());
