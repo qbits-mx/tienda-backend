@@ -94,7 +94,7 @@ public class CatalogoController {
     public boolean eliminarPorId(@RequestParam int id) throws BusinessException{
         return catalogoService.modificarActivo(id, false);
     }
-}
+
 
 
 /*
@@ -219,7 +219,12 @@ public class CatalogoController {
             @RequestParam int nuevoIdCatalogoCategoria) throws BusinessException{
         return catalogoService.modificarIdCatalogoCategoriaConNombreEIdCatalogoCategoria(nombre, idCatalogoCategoria, nuevoIdCatalogoCategoria);
     }
-
+    
+    
+    @GetMapping(path = "/obtener-catalogosPorCategoria.json", produces = "application/json; charset=utf-8")
+    public List<List<Catalogo>> obtenerCatalogosPorCategoria() throws BusinessException {
+        return catalogoService.obtenerCatalogosPorCategoria();
+    }*/
     @GetMapping(path = "/obtener-catalogos-porIdCatalogoCategoria.json", produces = "application/json; charset=utf-8")
     public List<Catalogo> obtenerCatalogosPorIdCatalogoCategoria(
             @RequestParam int idCatalogoCategoria
@@ -228,8 +233,5 @@ public class CatalogoController {
     }
 
 
-    @GetMapping(path = "/obtener-catalogosPorCategoria.json", produces = "application/json; charset=utf-8")
-    public List<List<Catalogo>> obtenerCatalogosPorCategoria() throws BusinessException {
-        return catalogoService.obtenerCatalogosPorCategoria();
-    }
-*/
+
+}
