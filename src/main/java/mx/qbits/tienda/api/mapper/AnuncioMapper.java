@@ -1,11 +1,8 @@
 package mx.qbits.tienda.api.mapper;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
@@ -30,9 +27,26 @@ public interface AnuncioMapper {
     /** Constant <code>CAMPOS_ANUNCIO=" id, idUsuario, idComprador, idCatalogoCondicion, idCatalogoFormaPago, 
     		,idCatalogoZonaEntrega, descripcion, vigencia, datosContacto, validado, notificado,
     		, revisado, activo, comprado, fechaCompra, estrellas, comentario, comentarioAprobado " </code> */
-    final String CAMPOS_ANUNCIO = " id, id_usuario, id_comprador, id_catalogo_condicion, id_catalogo_forma_pago, "
-    		+ " id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto, validado, notificado, "
-    		+ "revisado, activo, comprado, fecha_compra, estrellas, comentario, comentario_aprobado ";
+    final String CAMPOS_ANUNCIO = "id, id_usuario, " +
+			  "id_comprador, " +
+			  "id_catalogo_condicion, " +
+			  "id_catalogo_forma_pago, " +
+			  "id_catalogo_zona_entrega, " +
+			  "descripcion, " +
+			  "vigencia, " +
+			  "datos_contacto, " +
+			  "validado, " +
+			  "notificado, " +
+			  "revisado, " +
+			  "activo, " +
+			  "comprado, " +
+			  "fecha_compra, " +
+			  "estrellas_ven, " +
+			  "estrellas_com, " + 
+			  "nombre, " +
+			  "precio, " +
+			  "comentario, " +
+			  "comentario_aprobado";
     
     /**
      * Obtiene una lista de objetos de tipo 'usuario'.
@@ -57,7 +71,10 @@ public interface AnuncioMapper {
         @Result(property = "activo",  column = "activo"),
         @Result(property = "comprado",  column = "comprado"),
         @Result(property = "fechaCompra",  column = "fecha_compra"),
-        @Result(property = "estrellas",  column = "estrellas"),
+        @Result(property = "estrellasVen", column = "estrellas_ven"),
+        @Result(property = "estrellasCom",   column = "estrellas_com"),
+        @Result(property = "nombre",      column = "nombre"),
+        @Result(property = "precio",    column = "precio"),
         @Result(property = "comentario",  column = "comentario"),
         @Result(property = "comentarioAprobado",  column = "comentario_aprobado"),
         })
@@ -83,20 +100,31 @@ public interface AnuncioMapper {
      * @throws java.sql.SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @ResultMap("AnuncioMap")
-    @Select("SELECT " + CAMPOS_ANUNCIO + " FROM anuncio WHERE ( comentario IS NOT NULL AND "
-    		+ "comentario_aprobado = 0 ) ")
+    @Select("SELECT " + CAMPOS_ANUNCIO + " FROM anuncio WHERE comentario IS NOT NULL AND "
+    		+ "comentario_aprobado IS NULL ")
     List<Anuncio> getComentariosPendientes() throws SQLException;
     
     /**
-     * 
-     * @param idComprador
-     * @return
-     * @throws SQLException
+     * Regresa el historial de Anuncios que fueron comprados por un usuario fijo
+     * @param idComprador id del comprador a buscar sus anuncios comprados
+     * @return lista de Anuncios comprados por el usuario con el id dado
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @ResultMap("AnuncioMap")
-    @Select("SELECT " + CAMPOS_ANUNCIO + " FROM anuncio WHERE ( id_comprador = #{idComprador} "
-    		+ "AND comprado = 1 ) ")
-    List<Anuncio> getHistorial(int idComprador) throws SQLException;
+    @Select("SELECT " + CAMPOS_ANUNCIO + " FROM anuncio WHERE id_comprador = #{idUsuario} "
+    		+ " AND comprado = 1")
+    List<Anuncio> getComprados(int idUsuario) throws SQLException;
+    
+    /**
+     * Regresa el historial de Anuncios que fueron vendidos por un usuario fijo
+     * @param idUsuario id del vendedor a buscar sus anuncios vendidos
+     * @return lista de Anuncios comprados por el usuario con el id dado
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
+     */
+    @ResultMap("AnuncioMap")
+    @Select("SELECT " + CAMPOS_ANUNCIO + " FROM anuncio WHERE id_usuario = #{idUsuario} "
+    		+ " AND comprado = 1")
+    List<Anuncio> getVendidos(int idUsuario) throws SQLException;
 
 
     /**
@@ -104,23 +132,40 @@ public interface AnuncioMapper {
      * de administrador
      * 
      * @param id id del usuario a ser borrado
-     * @param aprobado booleano del comentario a ser aprobado
-     * @return id del anuncio actualizado
+     * @param aprobado byte para definir si se aprueba el comentario
+     * @return 1 si el cambio pudo hacerse en la base de datos, 0 en otro caso
      * @throws java.sql.SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
     @Update("UPDATE anuncio SET comentario_aprobado = #{aprobado} WHERE id = #{id}")
     int auditarComentario(int id, byte aprobado) throws SQLException;
     
     /**
-     * Permite crear calificaciónpor el comprador en un anuncio
-     * 
-     * @param id id del usuario a ser borrado
-     * @param aprobado booleano del comentario a ser aprobado
-     * @return id del anuncio actualizado
-     * @throws java.sql.SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
+     * Permite crear calificación por el comprador hacia un anuncio
+     * @param idAnuncio id del anuncio a calificar
+     * @param comentario comentario opcional para calificar a un producto, sujeto a ser auditado
+     * @param estrellas número de estrellas dejado como calificacion
+     * @return 1 si el cambio pudo hacerse en la base de datos, 0 en otro caso
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
-    @Update("UPDATE anuncio SET comentario = #{comentario}, estrellas = #{estrellas} WHERE id = #{id}")
-    int crearCalificacion(int id, String comentario, int estrellas) throws SQLException;
-
-
+    @Update("UPDATE anuncio SET comentario = #{comentario}, estrellas_ven = #{estrellas} WHERE id = #{idAnuncio}")
+    int crearCalificacionVendedor(int idAnuncio, String comentario, int estrellas) throws SQLException;
+    
+    /**
+     * 
+     * @param idAnuncio id del anuncio a calificar
+     * @param estrellas número de estrellas dejado como calificacion
+     * @return 1 si el cambio pudo hacerse en la base de datos, 0 en otro caso
+     * @throws SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
+     */
+    @Update("UPDATE anuncio SET estrellas_com = #{estrellas} WHERE id = #{idAnuncio}")
+    int crearCalificacionComprador(int idAnuncio, int estrellas) throws SQLException;
+    
+    /**
+	 * Calcula el promedio que un usuario ha abtenido siendo calficado como comprador
+	 * @param idComprador
+	 * @return calificacion promedio de un usuario como comprador dado su id
+	 * @throws SQLException
+	 */
+	@Select("SELECT AVG(estrellas_com) FROM anuncio WHERE id_comprador = #{idComprador}")
+	double promedioComprador (int idComprador) throws SQLException;
 }

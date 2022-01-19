@@ -40,9 +40,29 @@ public class AnuncioServiceImp implements AnuncioService {
 	}
 
 	@Override
-	public int crearCalificacion(int id, String comentario, int estrellas) throws BusinessException {
+	public List<Anuncio> getHistComprados(int idComprador) throws BusinessException {
 		try {
-            mapper.crearCalificacion(id, comentario, estrellas);
+            List <Anuncio> history = mapper.getComprados(idComprador);
+            return history;
+        } catch(SQLException e) {
+            throw new BusinessException(e);
+        }
+	}
+
+	@Override
+	public List<Anuncio> getHistVendidos(int idUsuario) throws BusinessException {
+		try {
+            List <Anuncio> history = mapper.getVendidos(idUsuario);
+            return history;
+        } catch(SQLException e) {
+            throw new BusinessException(e);
+        }
+	}
+
+	@Override
+	public int crearCalificacionAnuncio(int id, String comentario, int estrellas) throws BusinessException {
+		try {
+            mapper.crearCalificacionVendedor(id, comentario, estrellas);
             return 1;
         } catch(SQLException e) {
             throw new BusinessException(e);
@@ -50,14 +70,26 @@ public class AnuncioServiceImp implements AnuncioService {
 	}
 
 	@Override
-	public List<Anuncio> getConsulta(int idComprador) throws BusinessException {
+	public int crearCalificacionComprador(int id, int estrellas) throws BusinessException {
 		try {
-            List <Anuncio> history = mapper.getHistorial(idComprador);
-            return history;
+            mapper.crearCalificacionComprador(id, estrellas);
+            return 1;
         } catch(SQLException e) {
             throw new BusinessException(e);
         }
 	}
+
+	@Override
+	public double getCalificacionPromedio(int idUsuario) throws BusinessException {
+		try {
+            double averageRating = mapper.promedioComprador(idUsuario);
+            return averageRating;
+        } catch(SQLException e) {
+            throw new BusinessException(e);
+        }
+	}
+
+	
 	
 	
 	

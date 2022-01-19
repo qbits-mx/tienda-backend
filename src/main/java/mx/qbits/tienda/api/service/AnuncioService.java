@@ -19,12 +19,20 @@ public interface AnuncioService {
 	List <Anuncio> revisarComentarios() throws BusinessException;
 	
 	/**
-	 * 
-	 * @param id
-	 * @return
+	 * Regresa el historial de anuncios que el usuario registrado ha comprado
+	 * @param idComprador
+	 * @return lista de Anuncios donde el idComprador es el del usuario registrado
 	 * @throws BusinessException
 	 */
-	List <Anuncio> getConsulta(int idComprador) throws BusinessException;
+	List <Anuncio> getHistComprados(int idComprador) throws BusinessException;
+	
+	/**
+	 * Regresa el historial de anuncios que el usuario registrado ha vendido
+	 * @param idUsuario id del usuario registrado
+	 * @return lista de Anuncios donde el idUsuario es el del usuario registrado
+	 * @throws BusinessException
+	 */
+	List <Anuncio> getHistVendidos(int idUsuario) throws BusinessException;
 	
 	
 	/**
@@ -46,5 +54,22 @@ public interface AnuncioService {
 	 * @return 1 si tuvo éxito 0 en otro caso
 	 * @throws BusinessException
 	 */
-	int crearCalificacion(int id, String comentario, int estrellas) throws BusinessException;
+	int crearCalificacionAnuncio(int id, String comentario, int estrellas) throws BusinessException;
+
+	/**
+	 * Modifica una calificación de un comprador
+	 * @param id id de anuncio a modificar
+	 * @param estrellas calificacion de 1 - 5 estrellas
+	 * @return 1 si tuvo éxito 0 en otro caso
+	 * @throws BusinessException
+	 */
+	int crearCalificacionComprador(int id, int estrellas) throws BusinessException;
+	
+	/**
+	 * Permite saber la calificacion promedio que un comprador tiene en ese momento
+	 * @param idUsuario
+	 * @return Calificación promedio de todas las compras que ha hecho el usuario dado
+	 * @throws BusinessException
+	 */
+	double getCalificacionPromedio(int idUsuario) throws BusinessException;
 }
