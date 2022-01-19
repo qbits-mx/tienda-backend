@@ -45,6 +45,9 @@ public class AnuncioServiceImpl implements AnuncioService{
     @Override
     public Anuncio actualizarCompra(int idAnuncio, int idComprador, int idCatalogoFormaPago)
     		throws BusinessException {
+    	if (idComprador < 0 || idCatalogoFormaPago < 0)
+    		throw new BusinessException("Argumento incorrecto", "Los id's de Comprador y Catálogo deben ser positivos");
+
     	Anuncio anuncio;
     	Date fechaCompra;
     	int regsActualizados;
