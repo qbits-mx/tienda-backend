@@ -6,23 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.model.domain.Compra;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
-import mx.qbits.tienda.api.service.AnuncioService;
+import mx.qbits.tienda.api.model.response.CompraResponse;
+import mx.qbits.tienda.api.service.CompraService;
 
 @RestController
 @RequestMapping(value = "/api")
-public class AnuncioController {
+public class CompraController {
     
-    private AnuncioService productoService;
+    private CompraService productoService;
     
-    public AnuncioController(AnuncioService productoService) {
+    public CompraController(CompraService productoService) {
         this.productoService = productoService;
     }
      
     @GetMapping(path = "/actualiza-compra.json", produces = "application/json; charset=utf-8")
-    public Anuncio actualizaCompra(
+    public Compra actualizaCompra(
            @RequestParam int idProducto,
             @RequestParam int idComprador,
             @RequestParam int idCatalogoFormaPago) throws BusinessException {
@@ -31,7 +31,7 @@ public class AnuncioController {
     
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/dame-anuncio.json", produces = "application/json; charset=utf-8")
-    public CompraAnuncioResponse dameAnuncio(
+    public CompraResponse dameAnuncio(
             @RequestParam int idAnuncio) throws BusinessException {
         return productoService.dameAnuncio(idAnuncio);
     }

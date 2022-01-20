@@ -3,10 +3,10 @@ package mx.qbits.tienda.api.model.response;
 import java.sql.Date;
 import java.util.Objects;
 
-import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.model.domain.Compra;
 import mx.qbits.tienda.api.model.domain.CompraMultimedia;
 
-public class CompraAnuncioResponse {
+public class CompraResponse {
 	private int id;
 	private int idUsuario;
 	private int idComprador;
@@ -54,7 +54,7 @@ public class CompraAnuncioResponse {
 	 * @param comentarioAprobado
 	 * @param image
 	 */
-	public CompraAnuncioResponse(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
+	public CompraResponse(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
 			int idCatalogoZonaEntrega, String descripcion, Date vigencia, String datosContacto, boolean validado,
 			boolean notificado, boolean revisado, boolean activo, boolean comprado, Date fechaCompra, int estrellasVen,
 			int estrellasCom, String nombre, double precio, String comentario, boolean comentarioAprobado,
@@ -84,7 +84,7 @@ public class CompraAnuncioResponse {
 		this.image = image;
 	}
 	
-	public CompraAnuncioResponse(Anuncio anuncio, CompraMultimedia imagen) {
+	public CompraResponse(Compra anuncio, CompraMultimedia imagen) {
 		this.id = anuncio.getId();
 		this.idUsuario = anuncio.getIdUsuario();
 		this.idComprador = anuncio.getIdComprador();
@@ -386,7 +386,7 @@ public class CompraAnuncioResponse {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CompraAnuncioResponse other = (CompraAnuncioResponse) obj;
+		CompraResponse other = (CompraResponse) obj;
 		return activo == other.activo && Objects.equals(comentario, other.comentario)
 				&& comentarioAprobado == other.comentarioAprobado && comprado == other.comprado
 				&& Objects.equals(datosContacto, other.datosContacto) && Objects.equals(descripcion, other.descripcion)

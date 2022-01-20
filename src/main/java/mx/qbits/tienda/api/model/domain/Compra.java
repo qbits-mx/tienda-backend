@@ -3,7 +3,7 @@ package mx.qbits.tienda.api.model.domain;
 import java.sql.Date;
 import java.util.Objects;
 
-public class Anuncio {
+public class Compra {
 	private int id;
 	private int idUsuario;
 	private int idComprador;
@@ -26,7 +26,7 @@ public class Anuncio {
 	private String comentario;
 	private boolean comentarioAprobado;
 
-	public Anuncio() {
+	public Compra() {
 	}
 
 
@@ -54,7 +54,7 @@ public class Anuncio {
 	 * @param comentario
 	 * @param comentarioAprobado
 	 */
-	public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
+	public Compra(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
 			int idCatalogoZonaEntrega, String descripcion, Date vigencia, String datosContacto, boolean validado,
 			boolean notificado, boolean revisado, boolean activo, boolean comprado, Date fechaCompra, int estrellasVen,
 			int estrellasCom, String nombre, double precio, String comentario, boolean comentarioAprobado) {
@@ -473,7 +473,7 @@ public class Anuncio {
 			return true;
 		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
-		Anuncio other = (Anuncio) obj;
+		Compra other = (Compra) obj;
 		return activo == other.activo && Objects.equals(comentario, other.comentario)
 				&& comentarioAprobado == other.comentarioAprobado && comprado == other.comprado
 				&& Objects.equals(datosContacto, other.datosContacto) && Objects.equals(descripcion, other.descripcion)

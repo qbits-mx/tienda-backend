@@ -5,24 +5,24 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
 
-import mx.qbits.tienda.api.mapper.AnuncioMapper;
-import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.mapper.CompraMapper;
+import mx.qbits.tienda.api.model.domain.Compra;
 import mx.qbits.tienda.api.model.domain.CompraMultimedia;
 import mx.qbits.tienda.api.model.enumerations.EnumMessage;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
-import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
+import mx.qbits.tienda.api.model.response.CompraResponse;
 
 @Service
-public class AnuncioServiceImpl implements AnuncioService{
-	private AnuncioMapper productoMapper;
+public class CompraServiceImpl implements CompraService{
+	private CompraMapper productoMapper;
 
 	/**
      * Constructor de la clase.
      *
      * @param productoMapper
      */
-    public AnuncioServiceImpl(AnuncioMapper productoMapper) {
+    public CompraServiceImpl(CompraMapper productoMapper) {
         this.productoMapper = productoMapper;
     }
 
@@ -30,9 +30,9 @@ public class AnuncioServiceImpl implements AnuncioService{
      * {@inheritDoc}
      */
     @Override
-    public CompraAnuncioResponse dameAnuncio(int idAnuncio) throws BusinessException{
+    public CompraResponse dameAnuncio(int idAnuncio) throws BusinessException{
     	try{
-            Anuncio anuncio = productoMapper.getById(idAnuncio);
+            Compra anuncio = productoMapper.getById(idAnuncio);
             CompraMultimedia imagen = productoMapper.getImageByIdAnuncio(idAnuncio);
             
             if (anuncio == null)
@@ -40,7 +40,7 @@ public class AnuncioServiceImpl implements AnuncioService{
             if (imagen == null)
             	throw new CustomException(EnumMessage.NOT_FOUND, idAnuncio);
             
-            CompraAnuncioResponse anuncioResponse = new CompraAnuncioResponse(anuncio, imagen);
+            CompraResponse anuncioResponse = new CompraResponse(anuncio, imagen);
             return anuncioResponse;
         }catch(SQLException e) {
         	throw new CustomException(EnumMessage.DATABASE, "Error localizando el producto por id");
@@ -51,12 +51,12 @@ public class AnuncioServiceImpl implements AnuncioService{
      * {@inheritDoc}
      */
     @Override
-    public Anuncio actualizarCompra(int idAnuncio, int idComprador, int idCatalogoFormaPago)
+    public Compra actualizarCompra(int idAnuncio, int idComprador, int idCatalogoFormaPago)
     		throws BusinessException {
     	if (idComprador < 0 || idCatalogoFormaPago < 0)
     		throw new BusinessException("Argumento incorrecto", "Los id's de Comprador y Catálogo deben ser positivos");
 
-    	Anuncio anuncio;
+    	Compra anuncio;
     	Date fechaCompra;
     	int regsActualizados;
         try {

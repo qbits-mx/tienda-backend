@@ -1,10 +1,10 @@
 package mx.qbits.tienda.api.service;
 
-import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.model.domain.Compra;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
+import mx.qbits.tienda.api.model.response.CompraResponse;
 
-public interface AnuncioService {
+public interface CompraService {
 
 	/**
 	 * Devuelve los datos relacionados a un anuncio dado su id.
@@ -12,7 +12,7 @@ public interface AnuncioService {
 	 * @return Objeto Anuncio con los datos del anuncio obtenido
 	 * @throws BusinessException
 	 */
-    CompraAnuncioResponse dameAnuncio(int idAnuncio) throws BusinessException;
+    CompraResponse dameAnuncio(int idAnuncio) throws BusinessException;
     
     
     /**
@@ -23,5 +23,5 @@ public interface AnuncioService {
      * @return Objeto Anuncio con los datos actualizados
      * @throws BusinessException
      */
-    Anuncio actualizarCompra(int idAnuncio, int idComprador, int idCatalogoFormaPago) throws BusinessException;
+    Compra actualizarCompra(int idAnuncio, int idComprador, int idCatalogoFormaPago) throws BusinessException;
 }

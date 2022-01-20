@@ -13,21 +13,21 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import mx.qbits.tienda.api.mapper.AnuncioMapper;
-import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.mapper.CompraMapper;
+import mx.qbits.tienda.api.model.domain.Compra;
 import mx.qbits.tienda.api.model.domain.CompraMultimedia;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
-import mx.qbits.tienda.api.service.AnuncioService;
-import mx.qbits.tienda.api.service.AnuncioServiceImpl;
+import mx.qbits.tienda.api.model.response.CompraResponse;
+import mx.qbits.tienda.api.service.CompraService;
+import mx.qbits.tienda.api.service.CompraServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AnuncioServiceTest {
-	private AnuncioService anuncioService;
+public class CompraServiceTest {
+	private CompraService anuncioService;
 	private static final int id=1;
 
 	@Mock
-	private AnuncioMapper anuncioMapper;
+	private CompraMapper anuncioMapper;
 
 	@Before
 	public void setup() throws SQLException{
@@ -38,7 +38,7 @@ public class AnuncioServiceTest {
 		 * activo, comprado, fecha_compra, estrellas
 		 * comentario, comentario_aprobado)
 		*/
-		Anuncio anuncio = new Anuncio(id, 12345, 54321, 0, 1, 1, "Descripción", null, "Contacto",
+		Compra anuncio = new Compra(id, 12345, 54321, 0, 1, 1, "Descripción", null, "Contacto",
 				true, true, true, true, false, null, 0, 0, "Nombre", 10.0, "Comentario", false);
 		CompraMultimedia image = new CompraMultimedia(1, id, "imagen", "Dirección");
 		when(anuncioMapper.getById(id)).thenReturn(anuncio);
@@ -49,10 +49,10 @@ public class AnuncioServiceTest {
 	// ActualizaCompra con valores negativos
 	@Test
 	public void actualizarCompraIncorrectoTest() throws SQLException{
-		anuncioService = new AnuncioServiceImpl(anuncioMapper);
+		anuncioService = new CompraServiceImpl(anuncioMapper);
 
 		try {
-			Anuncio response = anuncioService.actualizarCompra(id, 787878, -1);
+			Compra response = anuncioService.actualizarCompra(id, 787878, -1);
 			assertFalse(true);
 		} catch(BusinessException be) {
 			assertTrue(true);
@@ -61,10 +61,10 @@ public class AnuncioServiceTest {
 
 	@Test
 	public void dameAnuncioTest1() {
-		anuncioService = new AnuncioServiceImpl(anuncioMapper);
+		anuncioService = new CompraServiceImpl(anuncioMapper);
 
 		try {
-			CompraAnuncioResponse response = anuncioService.dameAnuncio(id);
+			CompraResponse response = anuncioService.dameAnuncio(id);
 			assertTrue(response.getId() == id);
 		} catch(BusinessException be) {
 			assertTrue(false);
@@ -73,10 +73,10 @@ public class AnuncioServiceTest {
 
 	@Test
 	public void dameAnuncioTest2() {
-		anuncioService = new AnuncioServiceImpl(anuncioMapper);
+		anuncioService = new CompraServiceImpl(anuncioMapper);
 
 		try {
-			CompraAnuncioResponse response = anuncioService.dameAnuncio(2);
+			CompraResponse response = anuncioService.dameAnuncio(2);
 			assertFalse(true);
 		} catch(BusinessException be) {
 			assertTrue(true);
@@ -84,10 +84,10 @@ public class AnuncioServiceTest {
 	}
 	@Test
 	public void actualizarCompraIncorrectoTest2() throws SQLException{
-		anuncioService = new AnuncioServiceImpl(anuncioMapper);
+		anuncioService = new CompraServiceImpl(anuncioMapper);
 
 		try {
-			Anuncio response = anuncioService.actualizarCompra(id, -20, 1);
+			Compra response = anuncioService.actualizarCompra(id, -20, 1);
 			assertFalse(true);
 		} catch(BusinessException be) {
 			assertTrue(true);
@@ -96,10 +96,10 @@ public class AnuncioServiceTest {
 
 	@Test
 	public void actualizarCompraIncorrectoTest3() throws SQLException{
-		anuncioService = new AnuncioServiceImpl(anuncioMapper);
+		anuncioService = new CompraServiceImpl(anuncioMapper);
 
 		try {
-			Anuncio response = anuncioService.actualizarCompra(-1234, 20, 1);
+			Compra response = anuncioService.actualizarCompra(-1234, 20, 1);
 			assertFalse(true);
 		} catch(BusinessException be) {
 			assertTrue(true);
@@ -108,7 +108,7 @@ public class AnuncioServiceTest {
 
 	@Test
 	public void actualizarCompraCorrectoTest() throws SQLException{
-		anuncioService = new AnuncioServiceImpl(anuncioMapper);
+		anuncioService = new CompraServiceImpl(anuncioMapper);
 
 		try {
 			// Se crean los id,forma de pago entre 0-3 y actualiza la compra.
@@ -116,7 +116,7 @@ public class AnuncioServiceTest {
 			int randFormaPago = new Random().nextInt(3);
 
 
-			Anuncio response = anuncioService.actualizarCompra(id, randIdComprador, randFormaPago);
+			Compra response = anuncioService.actualizarCompra(id, randIdComprador, randFormaPago);
 
 			assertTrue(response.getIdComprador() == randIdComprador);
 			assertTrue(response.getIdCatalogoFormaPago() == randFormaPago);
