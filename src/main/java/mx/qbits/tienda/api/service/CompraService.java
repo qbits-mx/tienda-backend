@@ -9,7 +9,7 @@ public interface CompraService {
 	/**
 	 * Devuelve los datos relacionados a un anuncio dado su id.
 	 * @param idAnuncio Id del anuncio del que deseamos obtener los datos
-	 * @return Objeto Anuncio con los datos del anuncio obtenido
+	 * @return Objeto CompraResponse con los datos del anuncio obtenido
 	 * @throws BusinessException
 	 */
     CompraResponse dameAnuncio(int idAnuncio) throws BusinessException;

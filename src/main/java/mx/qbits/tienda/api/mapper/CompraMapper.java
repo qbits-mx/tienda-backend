@@ -90,10 +90,10 @@ public interface CompraMapper {
     int updateCompra(Compra anuncio) throws SQLException;
 	
 	/**
-     * Actualiza sólo datos de compra de un objeto de tipo 'anuncio' con base en la información dada por
+     * Actualiza sólo datos de compra de un objeto de tipo 'Compra' con base en la información dada por
      * 'anuncio.
      *
-     * @param anuncio a ser actualizado.
+     * @param compra a ser actualizado.
      * @return el numero de registros actualizados.
      * @throws java.sql.SQLException Se dispara en caso de que se dispare un error en esta operación desde la base de datos.
      */
@@ -103,6 +103,14 @@ public interface CompraMapper {
     int updateDatosCompra(Compra anuncio) throws SQLException;
 	
 	
+	/**
+     * Obtiene un objeto de tipo 'CompraMultimedia' dado el id del anuncio.
+     *
+     * @param idAnuncio id del anuncio.
+     * @return Un objeto de tipo Compra Multimedia con el mismo id_anuncio que el pasado como parámetro
+     * @throws java.sql.SQLException Se dispara en caso de que ocurra un error en esta operación desde la base de datos.
+     * 
+     */
 	@Results(id="MultimediaMap", value = {
 	        @Result(property = "id",                  column = "id"),
 	        @Result(property = "idAnuncio",           column = "id_anuncio"),
