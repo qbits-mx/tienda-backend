@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
-import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.model.domain.Compra;
 import mx.qbits.tienda.api.model.domain.CompraMultimedia;
 
 /**
@@ -16,12 +16,12 @@ import mx.qbits.tienda.api.model.domain.CompraMultimedia;
  * Interface 'Mapper' asociado a la entidad 'Anuncio'.
  *
  * @author  gerardomt
- * @see     mx.qbits.tienda.api.model.domain.Anuncio
+ * @see     mx.qbits.tienda.api.model.domain.Compra
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
 @Repository
-public interface AnuncioMapper {
+public interface CompraMapper {
 	String CAMPOS_ANUNCIO = "id, id_usuario, " +
 			  "id_comprador, " +
 			  "id_catalogo_condicion, " +
@@ -75,7 +75,7 @@ public interface AnuncioMapper {
 	        @Result(property = "comentarioAprobado",  column = "comentarioAprobado")
 	        })
 	@Select("SELECT " + CAMPOS_ANUNCIO + " FROM anuncio WHERE id = #{id} ")
-    Anuncio getById(int id) throws SQLException;
+    Compra getById(int id) throws SQLException;
 	
 	/**
      * Actualiza un objeto de tipo 'anuncio' con base en la información dada por el objeto de tipo 'anuncio'.
@@ -87,7 +87,7 @@ public interface AnuncioMapper {
 	@Update("UPDATE anuncio SET id_comprador = #{idComprador}, comprado = 1, id_catalogo_forma_pago= #{idCatalogoFormaPago}"
             + " fecha_compra = now()"
             + " WHERE id = #{id} ")
-    int updateCompra(Anuncio anuncio) throws SQLException;
+    int updateCompra(Compra anuncio) throws SQLException;
 	
 	/**
      * Actualiza sólo datos de compra de un objeto de tipo 'anuncio' con base en la información dada por
@@ -100,7 +100,7 @@ public interface AnuncioMapper {
 	@Update("UPDATE anuncio SET id_comprador = #{idComprador}, activo = #{activo}, comprado = #{comprado}, id_catalogo_forma_pago= #{idCatalogoFormaPago}, "
             + " fecha_compra = #{fechaCompra} "
             + " WHERE id = #{id} ")
-    int updateDatosCompra(Anuncio anuncio) throws SQLException;
+    int updateDatosCompra(Compra anuncio) throws SQLException;
 	
 	
 	@Results(id="MultimediaMap", value = {
