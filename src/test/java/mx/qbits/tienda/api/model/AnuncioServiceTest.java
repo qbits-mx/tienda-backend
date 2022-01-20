@@ -15,7 +15,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import mx.qbits.tienda.api.mapper.AnuncioMapper;
 import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.model.domain.CompraMultimedia;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
 import mx.qbits.tienda.api.service.AnuncioService;
 import mx.qbits.tienda.api.service.AnuncioServiceImpl;
 
@@ -38,8 +40,10 @@ public class AnuncioServiceTest {
 		*/
 		Anuncio anuncio = new Anuncio(id, 12345, 54321, 0, 1, 1, "Descripción", null, "Contacto",
 				true, true, true, true, false, null, 0, 0, "Nombre", 10.0, "Comentario", false);
+		CompraMultimedia image = new CompraMultimedia(1, id, "imagen", "Dirección");
 		when(anuncioMapper.getById(id)).thenReturn(anuncio);
 		when(anuncioMapper.updateDatosCompra(anuncio)).thenReturn(1);
+		when(anuncioMapper.getImageByIdAnuncio(id)).thenReturn(image);
 	}
 
 	// ActualizaCompra con valores negativos
@@ -60,7 +64,7 @@ public class AnuncioServiceTest {
 		anuncioService = new AnuncioServiceImpl(anuncioMapper);
 
 		try {
-			Anuncio response = anuncioService.dameAnuncio(id);
+			CompraAnuncioResponse response = anuncioService.dameAnuncio(id);
 			assertTrue(response.getId() == id);
 		} catch(BusinessException be) {
 			assertTrue(false);
@@ -72,7 +76,7 @@ public class AnuncioServiceTest {
 		anuncioService = new AnuncioServiceImpl(anuncioMapper);
 
 		try {
-			Anuncio response = anuncioService.dameAnuncio(2);
+			CompraAnuncioResponse response = anuncioService.dameAnuncio(2);
 			assertFalse(true);
 		} catch(BusinessException be) {
 			assertTrue(true);

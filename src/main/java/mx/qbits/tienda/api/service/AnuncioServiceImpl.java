@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 
 import mx.qbits.tienda.api.mapper.AnuncioMapper;
 import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.model.domain.CompraMultimedia;
 import mx.qbits.tienda.api.model.enumerations.EnumMessage;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
+import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
 
 @Service
 public class AnuncioServiceImpl implements AnuncioService{
@@ -28,12 +30,18 @@ public class AnuncioServiceImpl implements AnuncioService{
      * {@inheritDoc}
      */
     @Override
-    public Anuncio dameAnuncio(int idAnuncio) throws BusinessException{
+    public CompraAnuncioResponse dameAnuncio(int idAnuncio) throws BusinessException{
     	try{
             Anuncio anuncio = productoMapper.getById(idAnuncio);
+            CompraMultimedia imagen = productoMapper.getImageByIdAnuncio(idAnuncio);
+            
             if (anuncio == null)
         		throw new CustomException(EnumMessage.NOT_FOUND, idAnuncio);
-            return anuncio;
+            if (imagen == null)
+            	throw new CustomException(EnumMessage.NOT_FOUND, idAnuncio);
+            
+            CompraAnuncioResponse anuncioResponse = new CompraAnuncioResponse(anuncio, imagen);
+            return anuncioResponse;
         }catch(SQLException e) {
         	throw new CustomException(EnumMessage.DATABASE, "Error localizando el producto por id");
         }

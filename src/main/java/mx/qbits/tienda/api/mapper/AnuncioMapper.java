@@ -9,13 +9,14 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.model.domain.CompraMultimedia;
 
 /**
  * <p>Descripción:</p>
- * Interface 'Mapper' asociado a la entidad 'Producto'.
+ * Interface 'Mapper' asociado a la entidad 'Anuncio'.
  *
  * @author  gerardomt
- * @see     mx.qbits.tienda.api.model.domain.Usuario
+ * @see     mx.qbits.tienda.api.model.domain.Anuncio
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
@@ -100,5 +101,16 @@ public interface AnuncioMapper {
             + " fecha_compra = #{fechaCompra} "
             + " WHERE id = #{id} ")
     int updateDatosCompra(Anuncio anuncio) throws SQLException;
+	
+	
+	@Results(id="MultimediaMap", value = {
+	        @Result(property = "id",                  column = "id"),
+	        @Result(property = "idAnuncio",           column = "id_anuncio"),
+	        @Result(property = "tipo",                column = "tipo"),
+	        @Result(property = "url",                 column = "url")
+	        })
+	@Select("SELECT id,id_anuncio, tipo, url FROM multimedia WHERE id_anuncio = #{idAnuncio} " +
+	        "AND tipo = 'imagen' LIMIT 1;")
+    CompraMultimedia getImageByIdAnuncio(int idAnuncio) throws SQLException;
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
 import mx.qbits.tienda.api.service.AnuncioService;
 
 @RestController
@@ -30,7 +31,7 @@ public class AnuncioController {
     
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/dame-anuncio.json", produces = "application/json; charset=utf-8")
-    public Anuncio dameAnuncio(
+    public CompraAnuncioResponse dameAnuncio(
             @RequestParam int idAnuncio) throws BusinessException {
         return productoService.dameAnuncio(idAnuncio);
     }

@@ -2,6 +2,7 @@ package mx.qbits.tienda.api.service;
 
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import mx.qbits.tienda.api.model.response.CompraAnuncioResponse;
 
 public interface AnuncioService {
 
@@ -11,7 +12,7 @@ public interface AnuncioService {
 	 * @return Objeto Anuncio con los datos del anuncio obtenido
 	 * @throws BusinessException
 	 */
-    Anuncio dameAnuncio(int idAnuncio) throws BusinessException;
+    CompraAnuncioResponse dameAnuncio(int idAnuncio) throws BusinessException;
     
     
     /**
