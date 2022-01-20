@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `anuncio`;
 CREATE TABLE `anuncio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
-  `id_comprador` int(11) NOT NULL,
+  `id_comprador` int(11),
   `id_catalogo_condicion` int(11) NOT NULL,
   `id_catalogo_forma_pago` int(11) NOT NULL,
   `id_catalogo_zona_entrega` int(11) NOT NULL,
@@ -165,7 +165,7 @@ DROP TABLE IF EXISTS `catalogo_maestro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalogo_maestro` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_catalogo` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
