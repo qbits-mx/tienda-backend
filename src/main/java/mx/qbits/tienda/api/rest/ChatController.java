@@ -45,7 +45,13 @@ public class ChatController {
             return chatService.getConversaciones(idAnuncio);
     }
 
-
+    @GetMapping(path = "/soy-vendedor.json", produces = "application/json; charset=utf-8")
+    public int soyVendedor(
+        @RequestParam int idAnuncio,
+        @RequestParam int idRemitente
+        ) throws ChatException{
+            return chatService.soyVendedor(idAnuncio, idRemitente);
+    }
 
 
 }

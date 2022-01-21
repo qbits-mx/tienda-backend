@@ -35,4 +35,13 @@ public interface ChatService {
     * @return Una  de listas lista de Chat (id, idRemitente, mensaje) que contiene todas las conversaciones entre el comprador, vendedor.
     */
     List<List<Chat>> getConversaciones(int idAnuncio) throws ChatException;
+
+    /**
+     * Regresa si el idRemitente es el usuario que creo el anuncio con id idAnuncio.
+     * @param idAnuncio el id del anuncio a consultar
+     * @param idRemitente el id del usuario a verificar.
+     * @return Regresa un 1 si eres el vendedor, un 0 si no
+     * @throws ChatException
+     */
+    int soyVendedor(int idAnuncio, int idRemitente) throws ChatException;
 }

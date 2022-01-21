@@ -86,4 +86,7 @@ public interface ChatMapper {
     @Insert("INSERT INTO chat(id_anuncio, id_remitente, id_hilo_padre, mensaje, fecha) VALUES (#{idAnuncio}, #{idRemitente}, #{idHiloPadre}, #{mensaje}, CURRENT_TIMESTAMP)")
     int insertSinFecha(int idAnuncio, int idRemitente, int idHiloPadre, String mensaje) throws SQLException;
 
+
+    @Select("SELECT COUNT(id) FROM anuncio  WHERE id = #{idAnuncio} AND id_usuario = #{idRemitente} ")
+    int soyVendedor(int idAnuncio, int idRemitente) throws SQLException;
 }
