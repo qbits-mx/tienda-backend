@@ -31,14 +31,15 @@ CREATE TABLE `anuncio` (
   `id_catalogo_condicion` int(11) NOT NULL,
   `id_catalogo_forma_pago` int(11) NOT NULL,
   `id_catalogo_zona_entrega` int(11) NOT NULL,
+  `id_catalogo_departamento` int(11) NOT NULL,
   `descripcion` varchar(2048) NOT NULL,
   `vigencia` date NOT NULL,
   `datos_contacto` varchar(256) DEFAULT NULL,
   `validado` tinyint(1) NOT NULL,
   `notificado` tinyint(1) NOT NULL,
-  `revisado` int(11) NOT NULL,
+  `revisado` tinyint(1) NOT NULL,
   `activo` tinyint(1) NOT NULL,
-  `comprado` tinyint(1) NOT NULL,
+  `comprado` tinyint(1) DEFAULT NULL,
   `fecha_compra` date DEFAULT NULL,
   `estrellas_ven` int(11) DEFAULT NULL,
   `estrellas_com` int(11) DEFAULT NULL,
@@ -226,7 +227,7 @@ DROP TABLE IF EXISTS `multimedia`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `multimedia` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_anuncio` int(11) NOT NULL,
   `tipo` varchar(32) NOT NULL,
   `url` varchar(128) NOT NULL,
