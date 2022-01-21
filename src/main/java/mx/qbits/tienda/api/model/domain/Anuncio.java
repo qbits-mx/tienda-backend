@@ -1,6 +1,7 @@
 package mx.qbits.tienda.api.model.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * <p>Implementación de la clase Anuncio.</p>
@@ -382,5 +383,36 @@ public class Anuncio {
     */
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Anuncio anuncio = (Anuncio) o;
+        return getId() == anuncio.getId() && getIdUsuario() == anuncio.getIdUsuario() && getIdComprador() == anuncio.getIdComprador() && getIdCatalogoDepartamento() == anuncio.getIdCatalogoDepartamento() && getIdCatalogoCondicion() == anuncio.getIdCatalogoCondicion() && getIdCatalogoFormaDePago() == anuncio.getIdCatalogoFormaDePago() && getIdCatalogoZonaDeEntrega() == anuncio.getIdCatalogoZonaDeEntrega() && Double.compare(anuncio.getPrecio(), getPrecio()) == 0 && getDescripcion().equals(anuncio.getDescripcion()) && getVigenciaAnuncio().equals(anuncio.getVigenciaAnuncio()) && getContacto().equals(anuncio.getContacto()) && getNombre().equals(anuncio.getNombre());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getIdUsuario(), getIdComprador(), getIdCatalogoDepartamento(), getIdCatalogoCondicion(), getIdCatalogoFormaDePago(), getIdCatalogoZonaDeEntrega(), getDescripcion(), getVigenciaAnuncio(), getContacto(), getNombre(), getPrecio());
+    }
+
+    @Override
+    public String toString() {
+        return "Anuncio{" +
+                "id=" + id +
+                ", idUsuario=" + idUsuario +
+                ", idComprador=" + idComprador +
+                ", idCatalogoDepartamento=" + idCatalogoDepartamento +
+                ", idCatalogoCondicion=" + idCatalogoCondicion +
+                ", idCatalogoFormaDePago=" + idCatalogoFormaDePago +
+                ", idCatalogoZonaDeEntrega=" + idCatalogoZonaDeEntrega +
+                ", descripcion='" + descripcion + '\'' +
+                ", vigenciaAnuncio=" + vigenciaAnuncio +
+                ", contacto='" + contacto + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", precio=" + precio +
+                '}';
     }
 }

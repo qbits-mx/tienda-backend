@@ -2,17 +2,17 @@ package mx.qbits.tienda.api.rest;
 
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.exceptions.NoUnicoAnuncioException;
 import mx.qbits.tienda.api.service.AnuncioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
 @RequestMapping(value = "/api")
 public class AnuncioController {
+	private final Logger logger = LoggerFactory.getLogger(AnuncioController.class);
 	private AnuncioService anuncioService;
 
 	@Autowired
@@ -35,6 +35,7 @@ public class AnuncioController {
 		int anuncioPublicado = anuncioService.salvaAnuncio(idUsuario, idCatalogoCondicion,
 				idCatalogoFormaPago, idCatalogoZonaEntrega,idCatalogoDepartamento,
 				descripcion, vigencia, datosContacto, nombre, precio);
+		logger.info("Se ha guardado un anuncio: {}", anuncio.toString());
 		return anuncioPublicado;
 	}
 }
