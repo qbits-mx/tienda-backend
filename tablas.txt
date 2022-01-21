@@ -4,6 +4,8 @@
 -- ------------------------------------------------------
 -- Server version	10.5.7-MariaDB-1:10.5.7+maria~focal
 
+-- Miercoles 12 de Enero de 2021 20:23 (8:23 pm)
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -25,7 +27,7 @@ DROP TABLE IF EXISTS `anuncio`;
 CREATE TABLE `anuncio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
-  `id_comprador` int(11) NOT NULL,
+  `id_comprador` int(11),
   `id_catalogo_condicion` int(11) NOT NULL,
   `id_catalogo_forma_pago` int(11) NOT NULL,
   `id_catalogo_zona_entrega` int(11) NOT NULL,
@@ -38,9 +40,12 @@ CREATE TABLE `anuncio` (
   `activo` tinyint(1) NOT NULL,
   `comprado` tinyint(1) NOT NULL,
   `fecha_compra` date DEFAULT NULL,
-  `estrellas` int(11) DEFAULT NULL,
+  `estrellas_ven` int(11) DEFAULT NULL,
+  `estrellas_com` int(11) DEFAULT NULL,
+  `nombre` varchar(64) not null,
+  `precio` double(8,2) not null,
   `comentario` varchar(1024) DEFAULT NULL,
-  `comentario_aprobado` tinyint(1) NOT NULL,
+  `comentario_aprobado` tinyint(1),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -77,9 +82,60 @@ CREATE TABLE `catalogo` (
 --
 
 LOCK TABLES `catalogo` WRITE;
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (1, "Usado", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (1, "Semi nuevo", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (1, "Nuevo", 1);
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Mascotas", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Linea Blanca", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Electronica", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Deportes", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Musica", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Belleza", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Salud - Cuidado personal", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Productos del hogar", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Alimentos", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Hogar", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Otros", 1);
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Alvaro Obregon", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Azcapotzalco", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Benito Juarez", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Coyoacan", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Cuajimalpa", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Cuauhtemoc", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Gustavo A. Madero", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Iztacalco", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Iztapalapa", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Magdalena Contreras", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Miguel Hidalgo", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Milpa Alta", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tlahuac", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tlalpan", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Venustiano Carranza", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Xochimilco", 1);
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Tarjeta", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Cheque", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Efectivo", 1);
+
+delimiter $$
+CREATE TRIGGER otros_lock BEFORE UPDATE ON catalogo
+FOR EACH ROW
+BEGIN 
+    IF old.nombre = "Otros" THEN
+        SET new.nombre = "Otros";
+        SET new.activo = 1;
+    END IF;
+END$$
+delimiter ;
+
+
 /*!40000 ALTER TABLE `catalogo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogo` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `catalogo_maestro`
@@ -89,7 +145,7 @@ DROP TABLE IF EXISTS `catalogo_maestro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `catalogo_maestro` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo_catalogo` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -100,6 +156,12 @@ CREATE TABLE `catalogo_maestro` (
 --
 
 LOCK TABLES `catalogo_maestro` WRITE;
+
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Condicion"); 
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Departamento");
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Alcaldia");
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Forma de pago");
+
 /*!40000 ALTER TABLE `catalogo_maestro` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogo_maestro` ENABLE KEYS */;
 UNLOCK TABLES;
