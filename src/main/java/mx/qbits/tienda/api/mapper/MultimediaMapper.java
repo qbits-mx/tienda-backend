@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * Interface 'Mapper' MyBatis asociado a la entidad 'Multimedia'.
  *
  * @author  2 de Pastor
- * @see     mx.qbits.tienda.api.model.domain.Anuncio
+ * @see     mx.qbits.tienda.api.model.domain.Multimedia
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
