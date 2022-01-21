@@ -21,6 +21,15 @@ import mx.qbits.tienda.api.model.response.CompraResponse;
 import mx.qbits.tienda.api.service.CompraService;
 import mx.qbits.tienda.api.service.CompraServiceImpl;
 
+/**
+ * <p>Descripción:</p>
+ * Class 'AnuncioServiceTest' para servicio de compra.
+ * 
+ * @author  gerardomt
+ * @version 1.0-SNAPSHOOT
+ * @since 1.0-SNAPSHOOT
+ */
+
 @RunWith(MockitoJUnitRunner.class)
 public class CompraServiceTest {
 	private CompraService anuncioService;
@@ -31,12 +40,10 @@ public class CompraServiceTest {
 
 	@Before
 	public void setup() throws SQLException{
-		/** Anuncio(
-		 * id, id_usuario, id_comprador, id_catalogo_condicion
-		 * id_catalogo_zona_entrega, descripcion, vigencia
-		 * datos_contacto, validado, notificado, revisado
-		 * activo, comprado, fecha_compra, estrellas
-		 * comentario, comentario_aprobado)
+		/** Anuncio(id, id_usuario, id_comprador, id_catalogo_condicion, id_catalogo_forma_pago, 
+					id_catalogo_zona_entrega, descripcion, vigencia, datos_contacto, validado, 
+			  		notificado,revisado, activo, comprado, fecha_compra, estrellas_ven,
+					estrellas_com, nombre, precio, comentario, comentario_aprobado")
 		*/
 		Compra anuncio = new Compra(id, 12345, 54321, 0, 1, 1, "Descripción", null, "Contacto",
 				true, true, true, true, false, null, 0, 0, "Nombre", 10.0, "Comentario", false);
@@ -46,19 +53,7 @@ public class CompraServiceTest {
 		when(anuncioMapper.getImageByIdAnuncio(id)).thenReturn(image);
 	}
 
-	// ActualizaCompra con valores negativos
-	@Test
-	public void actualizarCompraIncorrectoTest() throws SQLException{
-		anuncioService = new CompraServiceImpl(anuncioMapper);
-
-		try {
-			Compra response = anuncioService.actualizarCompra(id, 787878, -1);
-			assertFalse(true);
-		} catch(BusinessException be) {
-			assertTrue(true);
-		}
-	}
-
+	// dameAnuncio con idUsuario válido y dado de alta.
 	@Test
 	public void dameAnuncioTest1() {
 		anuncioService = new CompraServiceImpl(anuncioMapper);
@@ -71,6 +66,7 @@ public class CompraServiceTest {
 		}
 	}
 
+	// dameAnuncio con idUsuario válido pero no dado de alta.
 	@Test
 	public void dameAnuncioTest2() {
 		anuncioService = new CompraServiceImpl(anuncioMapper);
@@ -82,6 +78,20 @@ public class CompraServiceTest {
 			assertTrue(true);
 		}
 	}
+
+	// actualizaCompra con forma de pago no válida.	@Test
+	public void actualizarCompraIncorrectoTest() throws SQLException{
+		anuncioService = new CompraServiceImpl(anuncioMapper);
+
+		try {
+			Compra response = anuncioService.actualizarCompra(id, 787878, -1);
+			assertFalse(true);
+		} catch(BusinessException be) {
+			assertTrue(true);
+		}
+	}
+
+	// actualizarCompra con idUsuario no válido.
 	@Test
 	public void actualizarCompraIncorrectoTest2() throws SQLException{
 		anuncioService = new CompraServiceImpl(anuncioMapper);
@@ -94,6 +104,7 @@ public class CompraServiceTest {
 		}
 	}
 
+	// actualizarCompra con idProducto no válido.
 	@Test
 	public void actualizarCompraIncorrectoTest3() throws SQLException{
 		anuncioService = new CompraServiceImpl(anuncioMapper);

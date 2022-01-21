@@ -4,6 +4,13 @@ import mx.qbits.tienda.api.model.domain.Compra;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.response.CompraResponse;
 
+/**
+ * interface 'CompraService'.
+ *
+ * @author pum4Developer$
+ * @version 0.1.1-SNAPSHOT
+ * @since   1.0-SNAPSHOT
+ */
 public interface CompraService {
 
 	/**

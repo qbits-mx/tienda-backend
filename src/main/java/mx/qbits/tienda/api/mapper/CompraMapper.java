@@ -22,6 +22,8 @@ import mx.qbits.tienda.api.model.domain.CompraMultimedia;
  */
 @Repository
 public interface CompraMapper {
+
+    /** Constant <code>CAMPOS_ANUNCIO=" id, id_usuario, id_comprador, id_catalogo_condicion"{trunked}</code> */
 	String CAMPOS_ANUNCIO = "id, id_usuario, " +
 			  "id_comprador, " +
 			  "id_catalogo_condicion, " +
@@ -42,8 +44,7 @@ public interface CompraMapper {
 			  "precio, " +
 			  "comentario, " +
 			  "comentario_aprobado";
-	
-	
+
 	/**
      * Obtiene un objeto de tipo 'anuncio' dado el id.
      *
@@ -101,7 +102,6 @@ public interface CompraMapper {
             + " fecha_compra = #{fechaCompra} "
             + " WHERE id = #{id} ")
     int updateDatosCompra(Compra anuncio) throws SQLException;
-	
 	
 	/**
      * Obtiene un objeto de tipo 'CompraMultimedia' dado el id del anuncio.

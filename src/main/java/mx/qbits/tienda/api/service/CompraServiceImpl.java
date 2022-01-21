@@ -13,6 +13,15 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.CustomException;
 import mx.qbits.tienda.api.model.response.CompraResponse;
 
+/**
+ * <p>Descripción:</p>
+ * class 'CompraServiceImpl'.
+ * Clase utilitaria que efectua la compra de un producto.
+ *
+ * @author pum4Developer$
+ * @version 0.1.1-SNAPSHOT
+ * @since   1.0-SNAPSHOT
+ */
 @Service
 public class CompraServiceImpl implements CompraService{
 	private CompraMapper productoMapper;
@@ -20,7 +29,7 @@ public class CompraServiceImpl implements CompraService{
 	/**
      * Constructor de la clase.
      *
-     * @param productoMapper
+     * @param productoMapper a CompraMapper mapper.
      */
     public CompraServiceImpl(CompraMapper productoMapper) {
         this.productoMapper = productoMapper;
