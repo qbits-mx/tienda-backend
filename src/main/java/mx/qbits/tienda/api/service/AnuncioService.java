@@ -1,10 +1,5 @@
 package mx.qbits.tienda.api.service;
-
-import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.exceptions.NoUnicoAnuncioException;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public interface AnuncioService{
