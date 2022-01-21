@@ -39,6 +39,7 @@ public interface AnuncioMapper{
 	
 	/**
 	* Nos devuelve el anuncio activo asociado a ese id de ususario
+	* @return el anuncio que cumpla con los criterios de búsqueda
 	* @param id del usuario asociado a ese anuncio
 	* @throws java.sql.SQLException en caso de haber algún error con esta operación en la base de datos
 	*/
