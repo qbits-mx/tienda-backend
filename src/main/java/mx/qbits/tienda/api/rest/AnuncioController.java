@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping(value = "/api")
-@CrossOrigin(origins="*")
 public class AnuncioController {
 	private AnuncioService anuncioService;
 
@@ -22,7 +21,6 @@ public class AnuncioController {
 	}
 
 	@PostMapping(path = "/salva-anuncio.json", produces = "application/json; charset=utf-8")
-	//@ResponseStatus(HttpStatus.CREATED)
 	public int salvaAnuncio(@RequestBody Anuncio anuncio) throws BusinessException{
 		int idUsuario = anuncio.getIdUsuario();
 		int idCatalogoCondicion = anuncio.getIdCatalogoCondicion();
