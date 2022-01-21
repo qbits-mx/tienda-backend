@@ -95,7 +95,14 @@ public class CatalogoServiceImpl implements CatalogoService {
     public boolean modificarNombre(int id, String nuevoNombre) throws BusinessException {
         try {
             Catalogo result = catalogoMapper.getById(id);
-            if(result == null) return false;
+            Catalogo prueba = catalogoMapper.getByNombre(nuevoNombre);
+            if(result == null || (prueba != null && prueba.isActivo())) return false;
+            if(prueba != null){
+                catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(prueba.getId(),prueba.getIdCatalogoCategoria(),true,prueba.getNombre()));
+                catalogoMapper.update(new Catalogo(result.getId(), result.getIdCatalogoCategoria(),false, result.getNombre()));
+                return true;
+            }
+            if(catalogoMapper.getByNombre(nuevoNombre) != null) return false;
             catalogoMapper.update(new Catalogo(id, result.getIdCatalogoCategoria(), result.isActivo(), nuevoNombre));
             return true;
         } catch (SQLException e) {
@@ -108,7 +115,13 @@ public class CatalogoServiceImpl implements CatalogoService {
     public boolean modificarNombre(String nombre, String nuevoNombre) throws BusinessException {
         try {
             Catalogo result = catalogoMapper.getByNombre(nombre);
-            if(result == null) return false;
+            Catalogo prueba = catalogoMapper.getByNombre(nuevoNombre);
+            if(result == null || (prueba != null && prueba.isActivo())) return false;
+            if(prueba != null){
+                catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(prueba.getId(),prueba.getIdCatalogoCategoria(),true,prueba.getNombre()));
+                catalogoMapper.update(new Catalogo(result.getId(), result.getIdCatalogoCategoria(),false, result.getNombre()));
+                return true;
+            }
             catalogoMapper.update(new Catalogo(result.getId(), result.getIdCatalogoCategoria(), result.isActivo(), nuevoNombre));
             return true;
         } catch (SQLException e) {
@@ -172,8 +185,13 @@ public class CatalogoServiceImpl implements CatalogoService {
     @Override
     public boolean crearCatalogo(int idCatalogoCategoria, boolean activo, String nombre) throws BusinessException {
         try {
-            if (catalogoMapper.getByNombre(nombre) == null) {
+            Catalogo catalogo = catalogoMapper.getByNombre(nombre);
+            if (catalogo == null) {
                 catalogoMapper.insert(idCatalogoCategoria, activo, nombre);
+                return true;
+            }
+            if ( !catalogo.isActivo() ) {
+                catalogoMapper.update(new Catalogo(catalogo.getId(), catalogo.getIdCatalogoCategoria(), true, catalogo.getNombre()) );
                 return true;
             }
             return false;
@@ -223,7 +241,12 @@ public class CatalogoServiceImpl implements CatalogoService {
             throws BusinessException {
         try {
             Catalogo result = catalogoMapper.getByIdAndIdCategoria(id, idCatalogoCategoria);
-            if (result == null) return false;
+            Catalogo prueba = catalogoMapper.getByNombre(nuevoNombre);
+            if (result == null || (prueba != null && prueba.isActivo()) ) return false;
+            if (prueba != null) {
+                catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(prueba.getId(),prueba.getIdCatalogoCategoria(),true,prueba.getNombre()));
+                return true;
+            }
             catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(id, idCatalogoCategoria, result.isActivo(), nuevoNombre));
             return true;
         } catch (SQLException e) {
@@ -236,7 +259,12 @@ public class CatalogoServiceImpl implements CatalogoService {
             String nuevoNombre) throws BusinessException {
         try {
             Catalogo result = catalogoMapper.getByNombreAndIdCategoria(nombre, idCatalogoCategoria);
-            if (result == null) return false;
+            Catalogo prueba = catalogoMapper.getByNombre(nuevoNombre);
+            if (result == null || (prueba != null && prueba.isActivo()) ) return false;
+            if (prueba != null) {
+                catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(prueba.getId(),prueba.getIdCatalogoCategoria(),true,prueba.getNombre()));
+                return true;
+            }
             catalogoMapper.updateWithIdAndIdCatalogoCategoria(new Catalogo(result.getId(), idCatalogoCategoria, result.isActivo(), nuevoNombre));
             return true;
         } catch (SQLException e) {
