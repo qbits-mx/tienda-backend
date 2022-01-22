@@ -5,7 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.qbits.tienda.api.model.domain.InfoCompraVenta;
+import mx.qbits.tienda.api.model.domain.InfoVenta;
+import mx.qbits.tienda.api.model.domain.InfoCompra;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.ConsultaService;
 
@@ -40,7 +41,7 @@ public class ConsultaController{
      * @throws BusinessException
      */
     @GetMapping(path = "/obtener-info-vendido.json", produces = "application/json; charset=utf-8")
-    public InfoCompraVenta consultarVendido(int idAnuncio) throws BusinessException {
+    public InfoVenta consultarVendido(int idAnuncio) throws BusinessException {
         return consultaService.consultaAnuncioVendido(idAnuncio);
     } 
     
@@ -51,7 +52,7 @@ public class ConsultaController{
      * @throws BusinessException
      */
     @GetMapping(path = "/obtener-info-comprado.json", produces = "application/json; charset=utf-8")
-    public InfoCompraVenta consultarComprado(int idAnuncio) throws BusinessException {
+    public InfoCompra consultarComprado(int idAnuncio) throws BusinessException {
         return consultaService.consultaAnuncioComprado(idAnuncio);
     } 
 	 

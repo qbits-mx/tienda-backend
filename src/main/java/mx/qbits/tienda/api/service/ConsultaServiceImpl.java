@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import mx.qbits.tienda.api.mapper.ConsultaMapper;
-import mx.qbits.tienda.api.model.domain.Anuncio;
-import mx.qbits.tienda.api.model.domain.InfoCompraVenta;
+import mx.qbits.tienda.api.model.domain.InfoVenta;
+import mx.qbits.tienda.api.model.domain.InfoCompra;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 @Service
@@ -20,9 +20,9 @@ public class ConsultaServiceImpl implements ConsultaService {
 	}
 
 	@Override
-	public InfoCompraVenta consultaAnuncioVendido(int idAnuncio) throws BusinessException {
+	public InfoVenta consultaAnuncioVendido(int idAnuncio) throws BusinessException {
 		try {
-            InfoCompraVenta consulta = mapper.consultaAnuncioVendido(idAnuncio);
+            InfoVenta consulta = mapper.consultaAnuncioVendido(idAnuncio);
             return consulta;
         } catch(SQLException e) {
             throw new BusinessException(e);
@@ -30,9 +30,9 @@ public class ConsultaServiceImpl implements ConsultaService {
 	}
 
 	@Override
-	public InfoCompraVenta consultaAnuncioComprado(int idAnuncio) throws BusinessException {
+	public InfoCompra consultaAnuncioComprado(int idAnuncio) throws BusinessException {
 		try {
-            InfoCompraVenta consulta = mapper.consultaAnuncioComprado(idAnuncio);
+            InfoCompra consulta = mapper.consultaAnuncioComprado(idAnuncio);
             return consulta;
         } catch(SQLException e) {
             throw new BusinessException(e);

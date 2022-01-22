@@ -7,19 +7,21 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
-import mx.qbits.tienda.api.model.domain.InfoCompraVenta;
+import mx.qbits.tienda.api.model.domain.InfoVenta;
+import mx.qbits.tienda.api.model.domain.InfoCompra;
 
 /**
  * <p>Descripción:</p>
  * Interface 'Mapper' MyBatis asociado a la entidad 'Anuncio'.
  *
  * @author  JoseRamirezRojas
- * @see     io.kebblar.petstore.api.model.domain.InfoCompraVenta
+ * @see     io.InfoVenta.petstore.api.model.domain.InfoCompraVenta
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
 @Repository
 public interface ConsultaMapper {
+	
 	
 	@Results(id="AnuncioMap", value = {
 	        @Result(property = "nick_name",     column = "nick_name"),
@@ -40,7 +42,7 @@ public interface ConsultaMapper {
 			"FROM usuario_detalle " + 
 			"LEFT JOIN anuncio ON usuario_detalle.id_usuario = anuncio.id_usuario " + 
 			"WHERE anuncio.comprado = 1 AND anuncio.id = #{idAnuncio}") 
-	InfoCompraVenta consultaAnuncioVendido (int idAnuncio) throws SQLException;
+	InfoVenta consultaAnuncioVendido (int idAnuncio) throws SQLException;
 	
 	/**
 	 * 
@@ -48,10 +50,10 @@ public interface ConsultaMapper {
 	 * @return
 	 * @throws SQLException
 	 */
-	@Select("SELECT usuario_detalle.nick_name, usuario_detalle.id_usuario, anuncio.id , anuncio.fecha_compra , anuncio.nombre , anuncio.precio " + 
+	@Select("SELECT usuario_detalle.nick_name, usuario_detalle.id_usuario, anuncio.id , anuncio.fecha_compra , anuncio.nombre , anuncio.precio, anuncio.estrellas_ven, anuncio.comentario, anuncio.comentario_aprobado  " + 
 			"FROM usuario_detalle " + 
 			"LEFT JOIN anuncio ON usuario_detalle.id_usuario = anuncio.id_comprador " + 
 			"WHERE anuncio.comprado = 1 AND anuncio.id = #{idAnuncio}") 
-	InfoCompraVenta consultaAnuncioComprado (int idAnuncio) throws SQLException;
+	InfoCompra consultaAnuncioComprado (int idAnuncio) throws SQLException;
 
 }

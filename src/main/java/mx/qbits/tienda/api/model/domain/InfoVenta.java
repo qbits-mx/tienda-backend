@@ -2,10 +2,10 @@ package mx.qbits.tienda.api.model.domain;
 
 import java.sql.Date;
 
-public class InfoCompraVenta {
+public class InfoVenta {
 	
 	/**
-	 * Implementacion del POJO de la entidad de {@link mx.qbits.tienda.api.model.domain.InfoCompraVenta}.
+	 * Implementacion del POJO de la entidad de {@link mx.qbits.tienda.api.model.domain.InfoVenta}.
 	 *
 	 * @author  JoseRamirezRojas
 	 * @version 1.0-SNAPSHOT
@@ -19,11 +19,11 @@ public class InfoCompraVenta {
 	String nombre;
 	int precio;
 	
-	public InfoCompraVenta() {
+	public InfoVenta() {
 		super();
 	}
 	
-	public InfoCompraVenta(String nick_name, int id_usuario, int id_anuncio, Date fecha, String nombre, int precio) {
+	public InfoVenta(String nick_name, int id_usuario, int id_anuncio, Date fecha, String nombre, int precio) {
 		this.nick_name = nick_name;
 		this.id_usuario = id_usuario;
 		this.id_anuncio = id_anuncio;

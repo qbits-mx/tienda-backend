@@ -1,7 +1,9 @@
 package mx.qbits.tienda.api.service;
 
-import mx.qbits.tienda.api.model.domain.InfoCompraVenta;
+import mx.qbits.tienda.api.model.domain.InfoVenta;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import mx.qbits.tienda.api.model.domain.InfoCompra;
+
 
 public interface ConsultaService {
 	
@@ -11,7 +13,7 @@ public interface ConsultaService {
 	 * @return
 	 * @throws BusinessException
 	 */
-	InfoCompraVenta consultaAnuncioVendido (int idAnuncio) throws BusinessException;
+	InfoVenta consultaAnuncioVendido (int idAnuncio) throws BusinessException;
 
 	/**
 	 * Hace una consulta con informacion relevante a la hora de dar en algun producto del historial de compras
@@ -19,5 +21,5 @@ public interface ConsultaService {
 	 * @return
 	 * @throws BusinessException
 	 */
-	InfoCompraVenta consultaAnuncioComprado (int idAnuncio) throws BusinessException;
+	InfoCompra consultaAnuncioComprado (int idAnuncio) throws BusinessException;
 }
