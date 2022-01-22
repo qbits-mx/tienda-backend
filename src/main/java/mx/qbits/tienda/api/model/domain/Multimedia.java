@@ -6,7 +6,6 @@ package mx.qbits.tienda.api.model.domain;
  * @author 2 de Pastor
  * @version 1.0-SNAPSHOT
  */
-
 public class Multimedia {
 	
 	int id;
@@ -19,7 +18,7 @@ public class Multimedia {
     */
     public Multimedia(){
     }
-
+    
     /**
     * Constructor por parámetros
     * @param int id
@@ -66,7 +65,7 @@ public class Multimedia {
     public void setIdAnuncio(int idAnuncio) {
     	this.idAnuncio= idAnuncio;
     }
-    
+     
     /**
     * Getter de url
     * @return String url

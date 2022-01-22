@@ -17,8 +17,6 @@ import org.springframework.stereotype.Repository;
  * @since   1.0-SNAPSHOT
  */
 
-
-
 @Repository
 public interface MultimediaMapper{
 	final String CAMPOS_MULTIMEDIA = "id_anuncio, tipo, url";
@@ -34,7 +32,7 @@ public interface MultimediaMapper{
 			@Result(property = "tipo",    					column = "tipo"),
 			@Result(property = "url",						column = "url")
 	})
-
+	
 	/**
 	* Inserta un objeto de tipo Multimedia a la base con base a la información de dicho objeto
 	* @param la multimedia que se va a insertar en la base de datos
