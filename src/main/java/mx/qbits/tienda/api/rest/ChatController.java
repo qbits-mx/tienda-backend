@@ -53,6 +53,13 @@ public class ChatController {
             return chatService.soyVendedor(idAnuncio, idRemitente);
     }
 
+    @GetMapping(path = "/num-chats.json", produces = "application/json; charset=utf-8")
+    public int numChats(
+        @RequestParam int idAnuncio,
+        @RequestParam int idRemitente
+        ) throws ChatException{
+            return chatService.numChats(idAnuncio, idRemitente);
+        }
 
 }
 

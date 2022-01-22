@@ -92,5 +92,14 @@ public class ChatServiceImpl implements ChatService {
             throw new ChatException(error, idAnuncio);
         }
     }
+    @Override
+    public int numChats(int idAnuncio, int idRemitente) throws ChatException{
+        try {
+            return chatMapper.numChats(idAnuncio, idRemitente);
+        } catch (SQLException e) {
+            String error = "Error al verificar al usuario" + idAnuncio + " del anuncio: " + idAnuncio;
+            throw new ChatException(error, idAnuncio);
+        }
+    }
 
 }

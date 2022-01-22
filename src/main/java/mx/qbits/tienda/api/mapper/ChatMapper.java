@@ -89,4 +89,8 @@ public interface ChatMapper {
 
     @Select("SELECT COUNT(id) FROM anuncio  WHERE id = #{idAnuncio} AND id_usuario = #{idRemitente} ")
     int soyVendedor(int idAnuncio, int idRemitente) throws SQLException;
+
+    @Select("SELECT COUNT(id) from chat WHERE id_anuncio = #{idAnuncio} AND id_remitente = #{idRemitente}")
+    int numChats(int idAnuncio, int idRemitente) throws SQLException;
+
 }

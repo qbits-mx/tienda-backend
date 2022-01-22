@@ -44,4 +44,13 @@ public interface ChatService {
      * @throws ChatException
      */
     int soyVendedor(int idAnuncio, int idRemitente) throws ChatException;
+
+    /**
+     * Regresa la cantidad de chats que tiene idRemitente dentro del idAnuncio
+     * @param idAnuncio El anuncio a revisar
+     * @param idRemitente El usuario del que se solicitan la cantidad de chats.
+     * @return El numero de chats en ese anuncio por parte del idRemitente.
+     * @throws ChatException
+     */
+    int numChats(int idAnuncio, int idRemitente) throws ChatException;
 }
