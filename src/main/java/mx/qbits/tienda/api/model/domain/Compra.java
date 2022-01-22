@@ -21,6 +21,7 @@ public class Compra {
 	private int idCatalogoCondicion;
 	private int idCatalogoFormaPago;
 	private int idCatalogoZonaEntrega;
+	private int idCatalogoDepartamento;
 	private String descripcion;
 	private Date vigencia;
 	private String datosContacto;
@@ -52,6 +53,7 @@ public class Compra {
 	 * @param idCatalogoCondicion a int.
 	 * @param idCatalogoFormaPago a int. 
 	 * @param idCatalogoZonaEntrega a int.
+	 * @param idCatalogoDepartamento a int.
 	 * @param descripcion a {@link java.lang.String} object.
 	 * @param vigencia a {@link java.sql.Date} object.
 	 * @param datosContacto a {@link java.lang.String} object.
@@ -69,7 +71,7 @@ public class Compra {
 	 * @param comentarioAprobado a boolean.
 	 */
 	public Compra(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
-			int idCatalogoZonaEntrega, String descripcion, Date vigencia, String datosContacto, boolean validado,
+			int idCatalogoZonaEntrega, int idCatalogoDepartamento, String descripcion, Date vigencia, String datosContacto, boolean validado,
 			boolean notificado, boolean revisado, boolean activo, boolean comprado, Date fechaCompra, int estrellasVen,
 			int estrellasCom, String nombre, double precio, String comentario, boolean comentarioAprobado) {
 		super();
@@ -79,6 +81,7 @@ public class Compra {
 		this.idCatalogoCondicion = idCatalogoCondicion;
 		this.idCatalogoFormaPago = idCatalogoFormaPago;
 		this.idCatalogoZonaEntrega = idCatalogoZonaEntrega;
+		this.idCatalogoDepartamento = idCatalogoDepartamento;
 		this.descripcion = descripcion;
 		this.vigencia = vigencia;
 		this.datosContacto = datosContacto;
@@ -205,6 +208,24 @@ public class Compra {
 	 */
 	public void setIdCatalogoZonaEntrega(int idCatalogoZonaEntrega) {
 		this.idCatalogoZonaEntrega = idCatalogoZonaEntrega;
+	}
+
+	/**
+	 * <p>Getter for the field <code>idCatalogoDepartamento</code>.</p>
+	 * 
+	 * @return a int.
+	 */
+	public int getIdCatalogoDepartamento() {
+		return idCatalogoDepartamento;
+	}
+
+	/**
+	 * <p>Setter for the field <code>idCatalogoZonaEntrega</code>.</p>
+	 * 
+	 * @param idCatalogoDepartamento a int.
+	 */
+	public void setIdCatalogoDepartamento(int idCatalogoDepartamento) {
+		this.idCatalogoDepartamento = idCatalogoDepartamento;
 	}
 
 	/**

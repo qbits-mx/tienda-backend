@@ -29,6 +29,7 @@ public interface CompraMapper {
 			  "id_catalogo_condicion, " +
 			  "id_catalogo_forma_pago, " +
 			  "id_catalogo_zona_entrega, " +
+			  "id_catalogo_departamento, " +
 			  "descripcion, " +
 			  "vigencia, " +
 			  "datos_contacto, " +
@@ -59,6 +60,7 @@ public interface CompraMapper {
 	        @Result(property = "idCatalogoCondicion", column = "id_catalogo_condicion"),
 	        @Result(property = "idCatalogoFormaPago",  column = "id_catalogo_forma_pago"),
 	        @Result(property = "idCatalogoZonaEntrega",  column = "id_catalogo_zona_entrega"),
+	        @Result(property = "idCatalogoDepartamento", column = "id_catalogo_departamento"),
 	        @Result(property = "descripcion",         column = "descripcion"),
 	        @Result(property = "vigencia",            column = "vigencia"),
 	        @Result(property = "datosContacto",       column = "datos_contacto"),
