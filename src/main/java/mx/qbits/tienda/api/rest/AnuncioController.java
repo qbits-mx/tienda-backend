@@ -3,16 +3,16 @@ package mx.qbits.tienda.api.rest;
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.AnuncioService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
 @RequestMapping(value = "/api")
+@CrossOrigin(origins="*")
 public class AnuncioController {
-	private final Logger logger = LoggerFactory.getLogger(AnuncioController.class);
 	private AnuncioService anuncioService;
 
 	@Autowired
@@ -21,6 +21,7 @@ public class AnuncioController {
 	}
 
 	@PostMapping(path = "/salva-anuncio.json", produces = "application/json; charset=utf-8")
+	//@ResponseStatus(HttpStatus.CREATED)
 	public int salvaAnuncio(@RequestBody Anuncio anuncio) throws BusinessException{
 		int idUsuario = anuncio.getIdUsuario();
 		int idCatalogoCondicion = anuncio.getIdCatalogoCondicion();
@@ -35,7 +36,6 @@ public class AnuncioController {
 		int anuncioPublicado = anuncioService.salvaAnuncio(idUsuario, idCatalogoCondicion,
 				idCatalogoFormaPago, idCatalogoZonaEntrega,idCatalogoDepartamento,
 				descripcion, vigencia, datosContacto, nombre, precio);
-		logger.info("Se ha guardado un anuncio: {}", anuncio.toString());
 		return anuncioPublicado;
 	}
 }
