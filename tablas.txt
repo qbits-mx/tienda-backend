@@ -99,47 +99,29 @@ INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Producto
 INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Alimentos", 1);
 INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Hogar", 1);
 INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (2, "Otros", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Aguascalientes", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Baja California", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Baja California Sur", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Campeche", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Chiapas", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Chihuahua", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Coahuila de Zaragoza", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Colima", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Durango", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Estado de Mexico", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Guanajuato", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Guerrero", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Hidalgo", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Jalisco", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Michoacan", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Morelos", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Nayarit", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Nuevo Leon", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Oaxaca", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Puebla", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Queretaro", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Quintana Roo", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "San Luis Potosi", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Sinaloa", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Sonora", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tabasco", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tamaulipas", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tlaxcala", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Veracruz", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Yucatan", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Zacatecas", 1);
 
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Norte", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Sur", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Este", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Oeste", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Alvaro Obregon", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Azcapotzalco", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Benito Juarez", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Coyoacan", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Cuajimalpa", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Cuauhtemoc", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Gustavo A. Madero", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Iztacalco", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Iztapalapa", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Magdalena Contreras", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Miguel Hidalgo", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Milpa Alta", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tlahuac", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Tlalpan", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Venustiano Carranza", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (3, "Xochimilco", 1);
+
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Tarjeta", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Cheque", 1);
+INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Efectivo", 1);
 
 
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (5, "Tarjeta", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (5, "Cheque", 1);
-INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (5, "Efectivo", 1);
 
 delimiter $$
 CREATE TRIGGER otros_lock BEFORE UPDATE ON catalogo
@@ -180,8 +162,7 @@ LOCK TABLES `catalogo_maestro` WRITE;
 
 INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Condicion"); 
 INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Departamento");
-INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Estado");
-INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Zona de entrega");
+INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Alcaldia");
 INSERT into catalogo_maestro (tipo_catalogo) VALUES ("Forma de pago");
 
 /*!40000 ALTER TABLE `catalogo_maestro` DISABLE KEYS */;
