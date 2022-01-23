@@ -77,8 +77,12 @@ public interface BuscarProductoMapper {
          * @throws java.sql.SQLException Si ocurre un error en la consulta o en el
          *                               sistema.
          */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO
-        + " FROM anuncio WHERE id_catalogo_departamento=#{id_departamento} AND id_catalogo_zona_entrega=#{id_zona} AND id_catalogo_forma_pago=#{id_pago} AND id_catalogo_condicion=#{id_condicion} AND estrellas=#{id_estrellas}")
+        @ResultMap("BuscarAnunciomapping")
+        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_departamento=#{id_departamento}"
+        		+ "AND id_catalogo_zona_entrega=#{id_zona}"
+        		+ "AND id_catalogo_forma_pago=#{id_pago}"
+        		+ "AND id_catalogo_condicion=#{id_condicion}"
+        		+ "AND estrellas=#{id_estrellas}")
         List<Anuncio> getByFiltros() throws SQLException;
 
 }
