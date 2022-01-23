@@ -334,7 +334,7 @@ public class Anuncio {
     * Setter de comentario 
     * @param String comentario
     */
-    public void setComentario(int comentario) {
+    public void setComentario(String comentario) {
         this.comentario = comentario;
     }
 

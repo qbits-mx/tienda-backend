@@ -33,25 +33,28 @@ public interface BuscarProductoMapper {
          * @param id a int.
          */
         @Results(id = "BuscarAnuncioMapping", value = {
-                @Result(property = "id", column = "id"),
-                @Result(property = "idUsuario", column = "id_usuario"),
-                @Result(property = "idComprador", column = "id_comprador"),
-                @Result(property = "idCatalogoDepartamento", column = "id_catalogo_departamento"),
-                @Result(property = "idCatalogoCondicion", column = "id_catalogo_condicion"),
-                @Result(property = "idCatalogoFormaDePago", column = "id_catalogo_forma_pago"),
-                @Result(property = "idCatalogoZonaDeEntrega", column = "id_catalogo_zona_entrega"),
-                @Result(property = "descripcion", column = "descripcion"),
-                @Result(property = "vigenciaAnuncio", column = "vigencia_anuncio"),
-                @Result(property = "contacto", column = "contacto"),
-                @Result(property = "validado", column = "validado"),
-                @Result(property = "notificado", column = "notificado"),
-                @Result(property = "revisado", column = "revisado"),
-                @Result(property = "activo", column = "activo"),
-                @Result(property = "comprado", column = "comprado"),
-                @Result(property = "fechaCompra", column = "fecha_compra"),
-                @Result(property = "estrellas", column = "estrellas"),
-                @Result(property = "comentario", column = "comentario"),
-                @Result(property = "comentarioAprobado", column = "comentario_aprobado"),
+                @Result(property = "id", 							column = "id"),
+                @Result(property = "idUsuario", 					column = "id_usuario"),
+                @Result(property = "idComprador", 					column = "id_comprador"),
+                @Result(property = "idCatalogoDepartamento", 		column = "id_catalogo_departamento"),
+                @Result(property = "idCatalogoCondicion", 			column = "id_catalogo_condicion"),
+                @Result(property = "idCatalogoFormaDePago", 		column = "id_catalogo_forma_pago"),
+                @Result(property = "idCatalogoZonaDeEntrega",		column = "id_catalogo_zona_entrega"),
+                @Result(property = "descripcion", 					column = "descripcion"),
+                @Result(property = "vigenciaAnuncio", 				column = "vigencia_anuncio"),
+                @Result(property = "contacto", 						column = "contacto"),
+                @Result(property = "validado", 						column = "validado"),
+                @Result(property = "notificado", 					column = "notificado"),
+                @Result(property = "revisado", 						column = "revisado"),
+                @Result(property = "activo", 						column = "activo"),
+                @Result(property = "comprado", 						column = "comprado"),
+                @Result(property = "fechaCompra", 					column = "fecha_compra"),
+                @Result(property = "estrellasVend", 				column = "estrellas_ven"),
+                @Result(property = "estrellasComp", 				column = "estrellas_com"),
+                @Result(property = "comentario", 					column = "comentario"),
+                @Result(property = "comentarioAprobado", 			column = "comentario_aprobado"),
+                @Result(property = "nombre", 						column = "nombre"),
+                @Result(property = "precio", 						column = "precio"),
 
         })
         @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id = #{id} ")
@@ -74,7 +77,7 @@ public interface BuscarProductoMapper {
          * @return Lista de anuncios pertenecientes al catalogo departamento recibido.
          * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
          */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_departamento=#{id}" )
+        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_departamento=#{idCatalogoDepartamento}" )
         List<Anuncio> getByDepartamento(int id_catalogo_departamento) throws SQLException;
         
         /**
@@ -84,7 +87,7 @@ public interface BuscarProductoMapper {
          * @return Lista de anuncios pertenecientes a la condicion recibido.
          * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
          */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_condicion=#{id}" )
+        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_condicion=#{idCatalogoCondicion}" )
         List<Anuncio> getByCondicion(int id_catalogo_condicion) throws SQLException;
         
         /**
@@ -94,7 +97,7 @@ public interface BuscarProductoMapper {
          * @return Lista de anuncios pertenecientes a la forma de pago recibido.
          * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
          */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_forma_pago=#{id}" )
+        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_forma_pago=#{idCatalagoFormaPago}" )
         List<Anuncio> getByFormaPago(int id_catalogo_forma_pago) throws SQLException;
         
         /**
@@ -104,7 +107,7 @@ public interface BuscarProductoMapper {
          * @return Lista de anuncios pertenecientes a la zona de entrega recibido.
          * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
          */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_zona_entrega=#{id}" )
+        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_zona_entrega=#{idCatalogoZonaDeEntrega}" )
         List<Anuncio> getByZonaEntrega(int id_catalogo_zona_entrega) throws SQLException;
                 
     
