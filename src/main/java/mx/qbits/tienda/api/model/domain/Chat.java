@@ -20,9 +20,6 @@
  */
 package mx.qbits.tienda.api.model.domain;
 
-//import java.util.String;
-
-
 /**
  * Implementacion del POJO de la entidad de {@link mx.qbits.tienda.api.model.domain.Chat}.
  * @author Juan Carlos Bautista Sandoval
@@ -62,101 +59,100 @@ public class Chat {
         this.idRemitente = idRemitente;
         this.idHiloPadre = idHiloPadre;
         this.mensaje = mensaje;
-        System.out.println("Fecha nueva: " + fecha);
         this.fecha = fecha;
     }
 
     /**
-     * Metodo que devuelce el idHIlo de la instancia chat que lo llama
-     * @return int con el idHIlo
+     * <p>Getter for the field <code>id</code>.</p>
+     * @return a int.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * 
-     * @param idHilo
+     * <p>Setter for the field <code>id</code>.</p>
+     * @param id a int.
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * 
-     * @return
+     * <p>Getter for the field <code>idAnuncio</code>.</p>
+     * @return a int.
      */
     public int getIdAnuncio() {
         return idAnuncio;
     }
 
     /**
-     * 
-     * @param idAnuncion
+     * <p>Setter for the field <code>idAnuncio</code>.</p>
+     * @param idAnuncio a int.
      */
     public void setIdAnuncio(int idAnuncio) {
         this.idAnuncio = idAnuncio;
     }
 
     /**
-     * 
-     * @return
+     * <p>Getter for the field <code>idRemitente</code>.</p>
+     * @return a int.
      */
     public int getIdRemitente() {
         return idRemitente;
     }
 
     /**
-     * 
-     * @param idRemitente
+     * <p>Setter for the field <code>idRemitente</code>.</p>
+     * @param idRemitente a int.
      */
     public void setIdRemitente(int idRemitente) {
         this.idRemitente = idRemitente;
     }
 
     /**
-     * 
-     * @return
+     * <p>Getter for the field <code>idHiloPadre</code>.</p>
+     * @return a int.
      */
     public int getIdHiloPadre() {
         return idHiloPadre;
     }
 
     /**
-     * 
-     * @param idHiloPadre
+     * <p>Setter for the field <code>idHiloPadre</code>.</p>
+     * @param idHiloPadre a int.
      */
     public void setIdHiloPadre(int idHiloPadre) {
         this.idHiloPadre = idHiloPadre;
     }
 
     /**
-     * 
-     * @return
+     * <p>Getter for the field <code>mensaje</code>.</p>
+     * @return a {@link java.lang.String} object.
      */
     public String getMensaje() {
         return mensaje;
     }
 
     /**
-     * 
-     * @param mensaje
+     * <p>Setter for the field <code>mensaje</code>.</p>
+     * @param mensaje a {@link java.lang.String} object.
      */
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
 
     /**
-     * 
-     * @return
+     * <p>Getter for the field <code>fecha</code>.</p>
+     * @return a {@link java.lang.String} object.
      */
     public String getFecha() {
         return fecha;
     }
 
     /**
-     * 
-     * @param fecha
+     * <p>Setter for the field <code>fecha</code>.</p>
+     * @param fecha a {@link java.lang.String} object.
      */
     public void setFecha(String fecha) {
         this.fecha = fecha;
@@ -175,6 +171,7 @@ public class Chat {
         return result;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -205,6 +202,7 @@ public class Chat {
         return true;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Chat [fecha=" + fecha + ", idAnuncio=" + idAnuncio + ", id=" + id + ", idHiloPadre="
