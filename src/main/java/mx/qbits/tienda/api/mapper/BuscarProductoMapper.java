@@ -57,8 +57,6 @@ public interface BuscarProductoMapper {
                 @Result(property = "precio", 						column = "precio"),
 
         })
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id = #{id} ")
-        Anuncio getById(int id) throws SQLException;
                 
         /**
          * Dado el id del departamento,
@@ -79,11 +77,17 @@ public interface BuscarProductoMapper {
          */
         @ResultMap("BuscarAnunciomapping")
         @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio"
-        		+ "WHERE id_catalogo_departamento=#{idCatalogoDepartamento}"
+        		+ "WHERE nombre=#{nombre}"
+                        + "AND id_catalogo_departamento=#{idCatalogoDepartamento}"
         		+ "AND id_catalogo_zona_entrega=#{idCatalogoZonaDeEntrega}"
         		+ "AND id_catalogo_forma_pago=#{idCatalogoFormaDePago}"
         		+ "AND id_catalogo_condicion=#{idCatalogoCondicion}"
-        		+ "AND estrellas_ven=#{estrellasVend}")
+        		+ "AND estrellas_ven=#{estrellasVend}"
+                        + "AND validado=#{TRUE}"
+                        + "AND revisado=#{TRUE}"
+                        + "AND activo=#{TRUE}"
+                        + "AND comprado=#{FALSE}"
+                        )
         List<Anuncio> getByFiltros() throws SQLException;
 
 }
