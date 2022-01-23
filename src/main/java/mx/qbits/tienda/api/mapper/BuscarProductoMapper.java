@@ -89,7 +89,7 @@ public interface BuscarProductoMapper {
                         + "AND comprado=#{FALSE}"
                         )
         List<Anuncio> getByFiltros(String nombre, String idCatalogoDepartamento,
-        String idCatalogoZonaDeEntrega,String idCatalogoFormaDePago,
-        String idCatalogoCondicion,String estrellasVend) throws SQLException;
+                String idCatalogoZonaDeEntrega,String idCatalogoFormaDePago,
+                String idCatalogoCondicion,String estrellasVend) throws SQLException;
 
 }

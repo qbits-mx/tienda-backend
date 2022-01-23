@@ -31,13 +31,15 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
 
     /** {@inheritDoc} */
     @Override
-    public List<Anuncio> buscarProducto(int idCatalogoDepartamento, int idCatalogoZonaEntrega,
-            int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException{
+    public List<Anuncio> buscarProducto(String nombre, int idCatalogoDepartamento,
+        int idCatalogoZonaDeEntrega,int idCatalogoFormaDePago,
+        int idCatalogoCondicion,int estrellasVend) throws BusinessException{
+
         this.idCatalogoDepartamento = (idCatalogoDepartamento == -1) ? "" : String.valueOf(idCatalogoDepartamento);
-        this.idCatalogoZonaEntrega = (idCatalogoZonaEntrega == -1) ? "" : String.valueOf(idCatalogoZonaEntrega);
-        this.idCatalogoFormaPago = (idCatalogoFormaPago == -1) ? "" : String.valueOf(idCatalogoFormaPago);
+        this.idCatalogoZonaEntrega = (idCatalogoZonaDeEntrega == -1) ? "" : String.valueOf(idCatalogoZonaEntrega);
+        this.idCatalogoFormaPago = (idCatalogoFormaDePago == -1) ? "" : String.valueOf(idCatalogoFormaPago);
         this.idCatalogoCondicion = (idCatalogoCondicion == -1) ? "" : String.valueOf(idCatalogoCondicion);
-        this.estrellas = (estrellas == -1) ? "" : String.valueOf(estrellas);
+        this.estrellas = (estrellasVend == -1) ? "" : String.valueOf(estrellas);
 
         try {
             List<Anuncio> coincidencias = mapper.getByFiltros(this.idCatalogoDepartamento,
@@ -52,8 +54,9 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
     }
 
     @Override
-    public List<Anuncio> getByFiltros(String idCatalogoDepartamento, String idCatalogoZonaEntrega,
-            String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas) throws BusinessException {
+    public List<Anuncio> getByFiltros(String nombre, String idCatalogoDepartamento,
+    String idCatalogoZonaDeEntrega,String idCatalogoFormaDePago,
+    String idCatalogoCondicion,String estrellasVend) throws SQLException{
         // TODO Auto-generated method stub
         return null;
     }

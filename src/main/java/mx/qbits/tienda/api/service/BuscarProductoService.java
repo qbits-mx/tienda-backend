@@ -16,7 +16,8 @@ public interface BuscarProductoService {
          * @throws BusinessException Se dispara en caso de que hubier un problema
          *                           interno
          */
-        public List<Anuncio> buscarProducto(int idCatalogoDepartamento, int idCatalogoZonaEntrega,
-        int idCatalogoFormaPago, int idCatalogoCondicion, int estrellas) throws BusinessException;
+        public List<Anuncio> buscarProducto(String nombre, int idCatalogoDepartamento,
+        int idCatalogoZonaDeEntrega,int idCatalogoFormaDePago,
+        int idCatalogoCondicion,int estrellasVend) throws BusinessException;
 
 }
