@@ -64,7 +64,6 @@ public class CatalogoJCatalogoMaestroServiceTest {
 
     @Before
     public void setup() throws SQLException{
-//        public CatalogoJCatalogoMaestro(int id, int idMaestro, String tipoCatalogo, String nombre, boolean activo) {
 
         catalogo1 = new CatalogoJCatalogoMaestro(1,1,"Condicion", "Nuevo", 1);
         catalogo2 = new CatalogoJCatalogoMaestro(3,2,"Departamento", "Mascotas", 1);
