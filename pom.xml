@@ -158,14 +158,13 @@
            <version>1.6.0</version>
         </dependency>
         <!-- Own custom libs -->
-        <!--
         <dependency>
             <groupId>io.kebblar</groupId>
             <artifactId>tienda-front</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        -->        
+        </dependency>        
      </dependencies>
+
 
     <dependencyManagement>
         <dependencies>
