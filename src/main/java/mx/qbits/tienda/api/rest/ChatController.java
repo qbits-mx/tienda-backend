@@ -16,9 +16,19 @@ import mx.qbits.tienda.api.model.domain.Chat;
 @RequestMapping(value = "/api")
 public class ChatController {
     
+
     @Autowired
     ChatService chatService;
 
+    /**
+    * Envia mensajes.
+    * @param idAnuncio el id del anuncio al que le corresponde el chat.
+    * @param idRemitente el id del usuario que envia el mensaje.
+    * @param idHiloPadre es el id del hilo de la conversacion.
+    * @param mensaje Contenido del mensaje.
+    * @return Devuelve la lista de mensaje.
+    * @throws ChatException Reporta errores al mandar mensajes.
+    */
     @GetMapping(path = "/enviar-mensaje.json", produces = "application/json; charset=utf-8")
     public List<Chat> enviarMensaje(
         @RequestParam int idAnuncio, 
@@ -29,6 +39,13 @@ public class ChatController {
             return chatService.getConversacion(idAnuncio, idHiloPadre);
     }
     
+    /**
+    * Recupera todos los mensajes relacionados a una conversacion.
+    * @param idAnuncio el id del anuncio al que le corresponde a la conversacion.
+    * @param idHiloPadre es el id del hilo de la conversacion.
+    * @return Devuelve la lista de mensaje.
+    * @throws ChatException Reporta errores al mandar mensajes.
+    */
     @GetMapping(path = "/get-conversacion.json", produces = "application/json; charset=utf-8")
     public List<Chat> getConversacion(
         @RequestParam int idAnuncio,
@@ -37,6 +54,13 @@ public class ChatController {
             return chatService.getConversacion(idAnuncio, idHiloPadre);
     }
 
+    /**
+    * Recupera todas las conversaciones de un anuncio. Regresa una lista de listas, en la que cada lista.
+    * es una conversacion que guarda los mensajes.
+    * @param idAnuncio El anuncio del que se quieren obtener las conversaciones.
+    * @return Todos los mensajes relaciones a el anuncio.
+    * @throws ChatException Reporta errores al mandar mensajes.
+    */
 
     @GetMapping(path = "/get-conversaciones.json", produces = "application/json; charset=utf-8")
     public List<List<Chat>> getConversaciones(
@@ -45,6 +69,14 @@ public class ChatController {
             return chatService.getConversaciones(idAnuncio);
     }
 
+    
+    /**
+    * Nos dice si el id pertenece al vendedor del anuncio.
+    * @param idAnuncio el id del anuncio.
+    * @param idRemitente es el id del usuario que manda el mensaje.
+    * @return Devuelve true si el usuario es el vendedor del anuncio, false en otro caso.
+    * @throws ChatException Reporta errores al mandar mensajes
+    */
     @GetMapping(path = "/soy-vendedor.json", produces = "application/json; charset=utf-8")
     public int soyVendedor(
         @RequestParam int idAnuncio,
@@ -53,6 +85,14 @@ public class ChatController {
             return chatService.soyVendedor(idAnuncio, idRemitente);
     }
 
+    /**
+    * Cuenta el numero de chats que tiene un usuario en un anuncio
+    * @param idAnuncio el id del anuncio.
+    * @param idRemitente es el id del usuario del que se quiere conocer la cantidad de mensajes.
+    * @return Devuelve el numero de chats existentes.
+    * @throws ChatException Reporta errores al mandar mensajes
+    */
+    
     @GetMapping(path = "/num-chats.json", produces = "application/json; charset=utf-8")
     public int numChats(
         @RequestParam int idAnuncio,

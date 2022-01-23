@@ -43,10 +43,6 @@ public class ChatServiceTest {
 
     @Mock
     private ChatMapper chatMapper;
-
-    private List<List<Chat>> chatAnuncio1;
-
-    private List<Chat> chat2, chat3;
     private Chat chat2_0,chat2_1,chat2_2,
                  chat3_0,chat3_1,chat3_2;
 
