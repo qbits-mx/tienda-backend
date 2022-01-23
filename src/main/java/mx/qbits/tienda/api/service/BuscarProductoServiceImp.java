@@ -29,18 +29,6 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
         this.mapper = mapper;
     }
 
-    @Override
-    public List<Anuncio> getByFiltros(String idCatalogoDepartamento, String idCatalogoZonaEntrega,
-            String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas)throws BusinessException{
-        try {
-            return mapper.getByFiltros(idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago,
-                idCatalogoCondicion, estrellas);
-        } catch (SQLException e) {
-         throw new BusinessException(e);
-        }
-                
-    }
-
     /** {@inheritDoc} */
     @Override
     public List<Anuncio> buscarProducto(int idCatalogoDepartamento, int idCatalogoZonaEntrega,

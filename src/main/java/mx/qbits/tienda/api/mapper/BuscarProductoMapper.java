@@ -61,78 +61,24 @@ public interface BuscarProductoMapper {
         Anuncio getById(int id) throws SQLException;
                 
         /**
-         * Obtiene una lista de objetos de tipo 'Anuncio'.
+         * Dado el id del departamento,
+         * la zona de entrega,
+         * la forma de pago,
+         * la condición y las estrellas
+         * se retornan todos los anuncios que
+         * cumplan con los filtros.
          *
-         * @return Lista de objetos de tipo Anuncio
-         * @throws java.sql.SQLException Se dispara en caso de que ocurra un error en esta operación desde la base de datos.
+         * @param id_departamento id del departamento.
+         * @param id_zona         id de la zona de entrega.
+         * @param id_pago         id de la forma de pago.
+         * @param id_condicion    id de la condicion del producto.
+         * @param id_estrellas    id de la cantidad de estrellas.
+         * @return Lista de anuncios dependiendo a los filtros.
+         * @throws java.sql.SQLException Si ocurre un error en la consulta o en el
+         *                               sistema.
          */
-        @ResultMap("BuscarAnuncioMapping")
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio ")
-        List<Anuncio> getAll() throws SQLException;
-        
-        /**
-         * Dado el id de catalogo departamento, se retornan todos los anuncios que pertenecen a este.
-         *
-         * @param id id del catalogo departamento que contiene a los anuncios retornados.
-         * @return Lista de anuncios pertenecientes al catalogo departamento recibido.
-         * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
-         */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_departamento=#{idCatalogoDepartamento}" )
-        List<Anuncio> getByDepartamento(int id_catalogo_departamento) throws SQLException;
-        
-        /**
-         * Dado el id de catalogo condicion, se retornan todos los anuncios que pertenecen a este.
-         *
-         * @param id id de la condicion que contiene a los anuncios retornados.
-         * @return Lista de anuncios pertenecientes a la condicion recibido.
-         * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
-         */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_condicion=#{idCatalogoCondicion}" )
-        List<Anuncio> getByCondicion(int id_catalogo_condicion) throws SQLException;
-        
-        /**
-         * Dado el id de la forma de pago, se retornan todos los anuncios que pertenecen a este.
-         *
-         * @param id id de la forma de pago que contiene a los anuncios retornados.
-         * @return Lista de anuncios pertenecientes a la forma de pago recibido.
-         * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
-         */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_forma_pago=#{idCatalagoFormaPago}" )
-        List<Anuncio> getByFormaPago(int id_catalogo_forma_pago) throws SQLException;
-        
-        /**
-         * Dado el id de la zona de entrega, se retornan todos los anuncios que pertenecen a este.
-         *
-         * @param id id de la zona de entrega que contiene a los anuncios retornados.
-         * @return Lista de anuncios pertenecientes a la zona de entrega recibido.
-         * @throws java.sql.SQLException Si ocurre un error en la consulta o en el sistema.
-         */
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE id_catalogo_zona_entrega=#{idCatalogoZonaDeEntrega}" )
-        List<Anuncio> getByZonaEntrega(int id_catalogo_zona_entrega) throws SQLException;
-                
-    
-        @ResultMap("BuscarAnuncioMapping")
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>0")
-        List<Anuncio> getBy0Estrellas() throws SQLException;
-
-        @ResultMap("BuscarAnuncioMapping")
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>1")
-        List<Anuncio> getBy1Estrellas() throws SQLException;
-
-        @ResultMap("BuscarAnuncioMapping")
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>2")
-        List<Anuncio> getBy2Estrellas() throws SQLException;
-
-        @ResultMap("BuscarAnuncioMapping")
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>3")
-        List<Anuncio> getBy3Estrellas() throws SQLException;
-
-        @ResultMap("BuscarAnuncioMapping")
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>4")
-        List<Anuncio> getBy4Estrellas() throws SQLException;
-
-        @ResultMap("BuscarAnuncioMapping")
-        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio WHERE estrellas>5")
-        List<Anuncio> getBy5Estrellas() throws SQLException;
+        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO
+        + " FROM anuncio WHERE id_catalogo_departamento=#{id_departamento} AND id_catalogo_zona_entrega=#{id_zona} AND id_catalogo_forma_pago=#{id_pago} AND id_catalogo_condicion=#{id_condicion} AND estrellas=#{id_estrellas}")
+        List<Anuncio> getByFiltros() throws SQLException;
 
 }
