@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.service.BuscarProductoService;
+//import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Implementacion del controlador REST asociado a los endpoints
@@ -40,7 +41,7 @@ public class BuscarProductoController {
      * Controlador principal para Buscar Producto
      * La entrada de
      * 
-     * @param descripcion
+     * 
      *                               Entrada principal de Busqueda
      * @param idCatalogoDepartamento
      * @param idCatalogoZonaEntrega
@@ -52,9 +53,15 @@ public class BuscarProductoController {
      *                               para no usar ese tipo como parametro de filtro
      *                               de busqueda
      */
-    @GetMapping(path = "/buscarPoducto/{descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega, idCatalogoFormaPago, idCatalogoCondicion,  estrellas}", produces = "application/json; charset=utf-8")
-    public List<Anuncio> dame(@PathVariable String descripcion, @PathVariable int idCatalogoDepartamento, @PathVariable int idCatalogoZonaEntrega, @PathVariable int idCatalogoFormaPago, @PathVariable int idCatalogoCondicion, @PathVariable int estrellas) {
-        return buscarProductoService.buscarProducto(descripcion, idCatalogoDepartamento, idCatalogoZonaEntrega,
+    
+    @GetMapping(path = "/buscar-Producto.json", produces = "application/json; charset=utf-8")
+    public List<Anuncio> dame( 
+        @RequestParam int idCatalogoDepartamento, 
+        @RequestParam int idCatalogoZonaEntrega, 
+        @RequestParam int idCatalogoFormaPago, 
+        @RequestParam int idCatalogoCondicion, 
+        @RequestParam int estrellas) throws BusinessException {
+        return buscarProductoService.buscarProducto(idCatalogoDepartamento, idCatalogoZonaEntrega,
                 idCatalogoFormaPago, idCatalogoCondicion, estrellas);
     }
 }
