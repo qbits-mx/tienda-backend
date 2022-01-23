@@ -59,26 +59,59 @@ public class CatalogoMaestroController {
         this.catalogoMaestroService = catalogoMaestroService;
     }
 
+    /**
+     * Elimina un catalogo maestro.
+     * @param tipoCatalogo el nombre del catalogo a eliminar
+     * @return true en caso de eliminarlo, false en caso de no hacerlo.
+     * @throws BusinessException Si hubo algun error con la BD
+     */
     @GetMapping(path = "/eliminar-tipo.json", produces = "application/json; charset=utf-8")
     public boolean eliminarTipo(@RequestParam String tipoCatalogo) throws BusinessException {
         return catalogoMaestroService.eliminarCatalogo(tipoCatalogo);
     }
-    
+
+    /**
+     * Elimina un catalogo maestro
+     * @param id el id del catalogo a eliminar
+     * @return true en caso de eliminarlo, false en caso de no hacerlo.
+     * @throws BusinessException Si hubo algun error con la BD
+     */
     @GetMapping(path = "/eliminar-id.json", produces = "application/json; charset=utf-8")
     public boolean eliminarId(@RequestParam int id) throws BusinessException {
         return catalogoMaestroService.eliminarCatalogo(id);
     }
+
+
+    /**
+     * Busca un catalogo maestro dentro de la BD.
+     * @param id el id del catalogo a buscar
+     * @return true en caso de eliminarlo, false en caso de no hacerlo.
+     * @throws BusinessException Si hubo algun error con la BD
+     */
 
     @GetMapping(path = "/buscar-catalogo-id.json", produces = "application/json; charset=utf-8")
     public CatalogoMaestro buscarCatalogoId(@RequestParam int id) throws BusinessException {
         return catalogoMaestroService.buscarCatalogo(id);
     }
     
+    /**
+     * Busca un catalogo maestro dentro de la BD.
+     * @param id el id del catalogo a buscar
+     * @return El catalogo que tiene el id buscado
+     * @throws BusinessException En caso de no existir
+     */
+
     @GetMapping(path = "/buscar-catalogo-tipo-catalogo.json", produces = "application/json; charset=utf-8")
     public CatalogoMaestro buscarCatalogoTipoCatalogo(@RequestParam String tipoCatalogo) throws BusinessException {
         return catalogoMaestroService.buscarCatalogo(tipoCatalogo);
     }
-
+    /**
+     * Busca un catalogo maestro dentro de la BD y le cambia el nombre.
+     * @param id el id del catalogo a buscar
+     * @param nuevoTipoCatalogo el nuevo nombre del catalogo maestro
+     * @return true en caso de cambiarlo, false en caso de no hacerlo.
+     * @throws BusinessException Si hubo algun error con la BD
+     */
     @GetMapping(path = "/modificar-tipo-catalogo-id.json", produces = "application/json; charset=utf-8")
     public boolean modificarTipoCatalogoId(
             @RequestParam int id,
@@ -86,6 +119,13 @@ public class CatalogoMaestroController {
         return catalogoMaestroService.modificarTipoCatalogo(id, nuevoTipoCatalogo);
     }
     
+    /**
+     * Busca un catalogo maestro dentro de la BD y le cambia el tipo.
+     * @param id el id del catalogo a buscar
+     * @param nuevoTipoCatalogo el nuevo tipo del catalogo maestro
+     * @return true en caso de cambiarlo, false en caso de no hacerlo.
+     * @throws BusinessException Si hubo algun error con la BD
+     */
     @GetMapping(path = "/modificar-tipo-catalogo-tipo-catalogo.json", produces = "application/json; charset=utf-8")
     public boolean modificarTipoCatalogoTipoCatalogo(
             @RequestParam int tipoCatalogo,
@@ -93,10 +133,23 @@ public class CatalogoMaestroController {
         return catalogoMaestroService.modificarTipoCatalogo(tipoCatalogo, nuevoTipoCatalogo);
     }
 
+    /**
+     * Crea un nuevo catalogo maestro
+     * @param tipoCatalogo el nombre del catalogo maestro nuevo
+     * @return true en caso de cambiarlo, false en caso de no hacerlo.
+     * @throws BusinessException Si hubo algun error con la BD
+     */
     @GetMapping(path = "/crear-catalogo.json", produces = "application/json; charset=utf-8")
     public boolean crearCatalogo(@RequestParam String tipoCatalogo) throws BusinessException {
         return catalogoMaestroService.crearCatalogo(tipoCatalogo);
     }
+
+
+    /**
+     * Regresa todos los catalogos maestros
+     * @return Una lista de todos los catalogos
+     * @throws BusinessException Si hubo algun error con la BD
+     */
 
     @GetMapping(path = "/obtener-todos-catalogosMaestros.json", produces = "application/json; charset=utf-8")
     public List<CatalogoMaestro> dameTodo() throws BusinessException {

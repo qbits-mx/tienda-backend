@@ -5,6 +5,15 @@ import java.util.List;
 import mx.qbits.tienda.api.model.exceptions.ChatException;
 import mx.qbits.tienda.api.model.domain.Chat;
 
+
+/**
+ * Class 'ChatService' que implementa a la interfaz CatalogoMaestroService.
+ * @author Juan Carlos Bautista Sandoval/ Jose Angel Correa Garcia / Ricardo Ruben Gonzalez Garcia
+ * @version 1.0-SNAPSHOT
+ * @since 1.0-SNAPSHOT
+ * @see mx.qbits.tienda.api.service.chatService
+ */
+
 public interface ChatService {
 
 

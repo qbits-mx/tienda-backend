@@ -18,7 +18,7 @@ import mx.qbits.tienda.api.service.CatalogoJCatalogoMaestroService;
 public class CatalogoJCatalogoMaestroController {
     private CatalogoJCatalogoMaestroService catalogoService;
 
-        /**
+    /**
      * Constructor que realiza el setting de los servicios que serán
      * utilizados en este controlador.
      * @param catalogoService Servicios de CatalogoService
@@ -26,6 +26,12 @@ public class CatalogoJCatalogoMaestroController {
     public CatalogoJCatalogoMaestroController(CatalogoJCatalogoMaestroService catalogoService) {
         this.catalogoService = catalogoService;
     }
+
+    /**
+     * Obtiene todos los catalogos con su join en su respectivo catalogo maestro
+     * @return Una lista de los catalogos, donde aparece su catalogo maestro.
+     * @throws BusinessException Si hubo algun problema con la BD
+     */
 
     @GetMapping(path = "/obtener-catalogos-join.json", produces = "application/json; charset=utf-8")
     public List<CatalogoJCatalogoMaestro> obtenerCatalogos(
