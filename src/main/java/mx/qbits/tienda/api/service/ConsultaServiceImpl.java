@@ -29,13 +29,4 @@ public class ConsultaServiceImpl implements ConsultaService {
         }
 	}
 
-	@Override
-	public InfoCompra consultaAnuncioComprado(int idAnuncio) throws BusinessException {
-		try {
-            InfoCompra consulta = mapper.consultaAnuncioComprado(idAnuncio);
-            return consulta;
-        } catch(SQLException e) {
-            throw new BusinessException(e);
-        }
-	}
 }

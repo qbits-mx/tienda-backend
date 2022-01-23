@@ -15,11 +15,4 @@ public interface ConsultaService {
 	 */
 	InfoVenta consultaAnuncioVendido (int idAnuncio) throws BusinessException;
 
-	/**
-	 * Hace una consulta con informacion relevante a la hora de dar en algun producto del historial de compras
-	 * @param idAnuncio
-	 * @return
-	 * @throws BusinessException
-	 */
-	InfoCompra consultaAnuncioComprado (int idAnuncio) throws BusinessException;
 }

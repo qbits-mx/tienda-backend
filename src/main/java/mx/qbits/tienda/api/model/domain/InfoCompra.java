@@ -17,7 +17,7 @@ public class InfoCompra {
 	int id_anuncio;
 	Date fecha;
 	String nombre;
-	int precio;
+	double precio;
 	int estrellas;
 	String comentario;
 	boolean comentario_aprobado;
@@ -78,11 +78,11 @@ public class InfoCompra {
 		this.nombre = nombre;
 	}
 
-	public int getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 

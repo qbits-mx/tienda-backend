@@ -45,17 +45,6 @@ public class ConsultaController{
         return consultaService.consultaAnuncioVendido(idAnuncio);
     } 
     
-    /**
-     * 
-     * @param idComprador
-     * @return
-     * @throws BusinessException
-     */
-    @GetMapping(path = "/obtener-info-comprado.json", produces = "application/json; charset=utf-8")
-    public InfoCompra consultarComprado(int idAnuncio) throws BusinessException {
-        return consultaService.consultaAnuncioComprado(idAnuncio);
-    } 
-	 
 	 
 
 }
