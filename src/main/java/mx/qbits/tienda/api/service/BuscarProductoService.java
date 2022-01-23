@@ -6,10 +6,7 @@ import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 public interface BuscarProductoService {
-        public List<Anuncio> getByFiltros(String idCatalogoDepartamento,
-                        String idCatalogoZonaEntrega,
-                        String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas) throws BusinessException;
-
+	
         /**
          * Recibe un objeto de tipo 'Producto' y retorna todas las conincidencias de la
          * base de datos
