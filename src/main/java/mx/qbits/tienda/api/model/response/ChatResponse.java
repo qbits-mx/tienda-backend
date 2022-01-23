@@ -5,35 +5,7 @@ import java.util.List;
 import mx.qbits.tienda.api.model.domain.Chat;
 
 public class ChatResponse {
-    /**
-     *  
-     * 
-     * 
-     json = {
-         bla = bal 
-         bla2 = bal2
-         bla3 = [
-             {
-                 mensaje = "hola mundo",
-                 idHiloPadre = 1,
-                 id = 14
-             },
-             {
-                 mensaje = "hola ruka",
-                 idHiloPadre = 1,
-                 id = 14
-             }
-         ]
-     }
 
-     
-    
-     // Si el comprador quiere ver sus chats, entonces mensajes sería una lista con solo una lista.
-     // Si el vendedor quiere ver sus chats, entonces mensajes podría tener más de una lista adentro.
-     // Cada Lista de Chats es una conversación completa entre comprador y vendedor.
-
-
-     */
     private List <List<Chat>> mensajes;
 
     public ChatResponse(List<List<Chat>> mensajes) {

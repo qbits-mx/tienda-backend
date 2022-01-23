@@ -20,6 +20,7 @@
  */
 package mx.qbits.tienda.api.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -43,7 +44,7 @@ import mx.qbits.tienda.api.service.CatalogoJCatalogoMaestroService;
 /**
  * <p>Descripción:</p>
  * Class 'CatalogoJMaestroServiceTest' asociado a la entidad CatalogoJCatalogoMaestro.
- * @author Juan Carlos Bautista Sandoval
+ * @author Juan Carlos Bautista Sandoval / Gonzalez Garcia Ricardo Ruben
  * @version 1.0-SNAPSHOT
  * @since 1.0-SNAPSHOT
  * @see mx.qbits.tienda.api.model.domain.CatalogoJCatalogoMaestroServiceTest
@@ -51,28 +52,34 @@ import mx.qbits.tienda.api.service.CatalogoJCatalogoMaestroService;
 @RunWith(MockitoJUnitRunner.class)
 public class CatalogoJCatalogoMaestroServiceTest {
 
-    private CatalogoJCatalogoMaestroService catalogoJCatalogoMaestroService;
+    private CatalogoJCatalogoMaestroService service;
     
     @Mock
-    private CatalogoJCatalogoMaestroMapper catalogoJCatalogoMaestroMapper;
+    private CatalogoJCatalogoMaestroMapper mapper;
+
+    private List<CatalogoJCatalogoMaestro> res;
+    private CatalogoJCatalogoMaestro catalogo1, catalogo2, catalogo3, catalogo4;
 
     @Before
     public void setup() throws SQLException {
-        CatalogoJCatalogoMaestro catalogoJCatalogoMaestro = new CatalogoJCatalogoMaestro(1, 1, "tipo", "nombre", true);
-        CatalogoJCatalogoMaestro catalogoJCatalogoMaestro2 = new CatalogoJCatalogoMaestro(2, 2, "tipoCatalogo", "nombre", false);
 
-        List<CatalogoJCatalogoMaestro> result = new ArrayList<>();
-        result.add(catalogoJCatalogoMaestro);
-        result.add(catalogoJCatalogoMaestro2);
+        catalogo1 = new CatalogoJCatalogoMaestro(1,1,"Condicion", "Nuevo", true);
+        catalogo2 = new CatalogoJCatalogoMaestro(3,2,"Departamento", "Mascotas", true);
+        catalogo3 = new CatalogoJCatalogoMaestro(3,2,"Departamento", "Deportes", true);
+        catalogo4 = new CatalogoJCatalogoMaestro(4,2,"Departamento", "Otros", true);
 
-        when(catalogoJCatalogoMaestroMapper.getAll()).thenReturn(result);
+        res = new ArrayList<>();
+            res.add(catalogo1);res.add(catalogo3);res.add(catalogo4);res.add(catalogo2);
+        when(mapper.getAll()).thenReturn(res);
+
     }
 
     @Test
     public void dameTodosLosCatalogosCorrectAndIncorrectTest () {
-        catalogoJCatalogoMaestroService = new CatalogoJCatalogoMaestroImpl(catalogoJCatalogoMaestroMapper);
+        service = new CatalogoJCatalogoMaestroImpl(mapper);
         try {
-            assertNotNull(catalogoJCatalogoMaestroService.dameTodosLosCatalogos());
+            assertNotNull(service.dameTodosLosCatalogos());
+            assertEquals(catalogo4, res.get(3));
         } catch (BusinessException e) {
             assertTrue(false);
         }
