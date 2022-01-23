@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 @EnableScheduling
 @EnableTransactionManagement
+
 public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
     public static void main(String[] args) {
