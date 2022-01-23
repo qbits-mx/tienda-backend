@@ -51,4 +51,11 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
         
     }
 
+    @Override
+    public List<Anuncio> getByFiltros(String idCatalogoDepartamento, String idCatalogoZonaEntrega,
+            String idCatalogoFormaPago, String idCatalogoCondicion, String estrellas) throws BusinessException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

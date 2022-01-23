@@ -84,6 +84,8 @@ public interface BuscarProductoMapper {
         		+ "AND id_catalogo_forma_pago=#{idCatalogoFormaDePago}"
         		+ "AND id_catalogo_condicion=#{idCatalogoCondicion}"
         		+ "AND estrellas_ven=#{estrellasVend}")
+        @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO
+        + " FROM anuncio WHERE id_catalogo_departamento=#{id_departamento} AND id_catalogo_zona_entrega=#{id_zona} AND id_catalogo_forma_pago=#{id_pago} AND id_catalogo_condicion=#{id_condicion} AND estrellas=#{id_estrellas}")
         List<Anuncio> getByFiltros() throws SQLException;
 
 }
