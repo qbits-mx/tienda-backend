@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.AssertTrue;
+
 import org.junit.Before;
 
 import org.junit.Test;
@@ -32,71 +34,44 @@ public class ChatServiceTest {
     @Mock
     private ChatMapper chatMapper;
 
-    private List<List<Chat>> listaAnuncio6, listaAnuncio10;
+    private List<List<Chat>> chatAnuncio1;
 
-    private List<Chat> listaAnuncio10T;
+    private List<Chat> chat2, chat3;
+    private Chat chat2_0,chat2_1,chat2_2,
+                 chat3_0,chat3_1,chat3_2;
 
-    /**
-     * En total tenemos 4 chats.
-     *chat1 = {
-     * anuncio = 1,
-     * vendedor = 333,
-     * comprador = 1001,
-     * idHiloPadre = 1001
-     *}
-     *chat2 ={
-         anuncio = 2,
-         vendedor = 528,
-         comprador = 4,
-         idHiloPadre = 4,
-     }
-     *chat3 = {
-         anuncio = 3,
-         vendedor = 817,
-         comprador = 5,
-         idHiloPadre = 5,
-     }
-     */
-
-    
     @Before
     public void setup() throws SQLException {
 
         
-        Chat chatAnuncio6_0 = new Chat(699,6,518,518,"cras non velit nec","1606521600");
+        chat2_0 = new Chat(1,1,2,2,"Hola!","2022-01-10");
+        chat2_1 = new Chat(2,1,1,2,"Buenas tardes!","2022-01-10");
+        chat2_2 = new Chat(3,1,2,2,"Tiene los audifinos en azul?","2022-01-10");
+        
+        chat3_0 = new Chat(4,1,3,2,"Hola!","2022-01-10");
+        chat3_1 = new Chat(5,1,3,2,"Ya es lo menos?","2022-01-10");
+        chat3_2 = new Chat(6,1,1,2,"Si, ya es lo menos","2022-01-10");
 
-        Chat chatAnuncio10_0 = new Chat(107,10,741,741,"duis bibendum felis sed interdum venenatis turpis","163261440");
-        Chat chatAnuncio10_1 = new Chat(335,10,893,893,"eu tincidunt in leo","1617321600");
 
+        chatAnuncio1 = new ArrayList<>();
+            List<Chat> chat2 = new ArrayList<>();
+            chat2.add(chat2_0);
+            chat2.add(chat2_1);
+            chat2.add(chat2_2);
 
-        listaAnuncio6 = new ArrayList<>();
-            List<Chat> listaAnuncio6Conv0 = new ArrayList<>();
-            listaAnuncio6Conv0.add(chatAnuncio6_0);
-            listaAnuncio6.add(listaAnuncio6Conv0);
+            List<Chat> chat3 = new ArrayList<>();
+            chat3.add(chat3_0);
+            chat3.add(chat3_1);
+            chat3.add(chat3_2);
 
-        listaAnuncio10 = new ArrayList<>();
-            List<Chat> listaAnuncio10Conv0 = new ArrayList<>();
-            listaAnuncio10Conv0.add(chatAnuncio10_0);
-            List<Chat> listaAnuncio10Conv1 = new ArrayList<>();
-            listaAnuncio10Conv1.add(chatAnuncio10_1);
-            listaAnuncio10.add(listaAnuncio10Conv0);listaAnuncio10.add(listaAnuncio10Conv1);
+        chatAnuncio1.add(chat2); chatAnuncio1.add(chat3);
 
-        listaAnuncio10T = new ArrayList<>();
-        listaAnuncio10T.add(chatAnuncio10_0);listaAnuncio10T.add(chatAnuncio10_1);
+        when(chatMapper.getByConversacion(1, 2)).thenReturn(chat2);
 
-        when(chatMapper.getByConversacion(6, 518)).thenReturn(listaAnuncio6Conv0);
+        when(chatMapper.getByConversacion(1,3)).thenReturn(chat3);
 
-        when(chatMapper.getByConversacion(10,741)).thenReturn(listaAnuncio10Conv0);
-        when(chatMapper.getByConversacion(10,893)).thenReturn(listaAnuncio10Conv1);
+        when(chatMapper.getByAnuncio(1)).thenReturn(chatAnuncio1);
 
-        when(chatMapper.getByAnuncio(10)).thenReturn(listaAnuncio10T);
-
-        try{
-            when(chatService.getConversaciones(10)).thenReturn(listaAnuncio10);
-        }catch(ChatException e){
-            System.out.println("No se pudo crear el chatServiceGetConversaciones");
-            assertTrue(false);
-        } 
     }
 
 
@@ -117,29 +92,15 @@ public class ChatServiceTest {
         }
     }
 
-    @Test
-    public void enviarMensajeIncorrectTest(){
-        chatService = new ChatServiceImpl(chatMapper);
-        try{
-            int idAnuncio=-11;
-            int idRemitente=1;
-            int idHiloPadre=2;
-            String mensaje="Chat 1: Vendedor Mensaje";
-            chatService.enviarMensaje(idAnuncio, idRemitente, idHiloPadre, mensaje);
-            assertTrue(true);
-        } catch(ChatException e){
-            assertTrue(false);
-        }
-    }
 
     // Verifica si 
     @Test 
-    public void getConversacionCorrectTest1(){
+    public void getConversacionCorrectTest(){
         chatService = new ChatServiceImpl(chatMapper);
         try {
         	
-            List<Chat> res = chatService.getConversacion(10, 741);
-            if (res.size()== 1) {
+            List<Chat> res = chatService.getConversacion(1, 2);
+            if (res.size()== 3) {
                 assertTrue(true);
             }else{
                 assertTrue(false);
@@ -156,46 +117,36 @@ public class ChatServiceTest {
     public void getConversacionesCorrectTest(){
         chatService = new ChatServiceImpl(chatMapper);
         try{
-            chatService.getConversaciones(6);
-            assertTrue(true);
-
-        } catch(ChatException e){
-
-            assertTrue(false);
-        }
-    }
-
-    @Test 
-    public void getConversacionesIncorrectTest1(){
-        chatService = new ChatServiceImpl(chatMapper);
-        try{
-            int idAnuncio=-11;
-
-            chatService.getConversaciones(idAnuncio);
-            assertTrue(false);
-        } catch(ChatException e){
-            assertTrue(true);
-        }
-    }
-
-    @Test 
-    public void getConversacionesIncorrectTest2(){
-        chatService = new ChatServiceImpl(chatMapper);
-        try{
-            int idAnuncio= 10;
-            List<List<Chat>> res = chatService.getConversaciones(idAnuncio);
-            if (res == listaAnuncio6 ) {
+            List<List<Chat>> res = chatService.getConversaciones(1);
+            if (res.size() != 2) {
                 assertTrue(false);
             }
-//            System.out.println(res);
-            if (res.size() != 2 ) {
+            if (res.get(0).get(0) != chat2_0) {
                 assertTrue(false);
             }
-
+            if (res.get(0).get(1) != chat2_1) {
+                assertTrue(false);
+            }
+            if (res.get(0).get(2) != chat2_2) {
+                assertTrue(false);
+            }
+            if (res.get(1).get(0) != chat3_0) {
+                assertTrue(false);
+            }
+            if (res.get(1).get(1) != chat3_1) {
+                assertTrue(false);
+            }
+            if (res.get(1).get(2) != chat3_2) {
+                assertTrue(false);
+            }
+            
             assertTrue(true);
+
         } catch(ChatException e){
+
             assertTrue(false);
         }
     }
-    
+
+     
 }
