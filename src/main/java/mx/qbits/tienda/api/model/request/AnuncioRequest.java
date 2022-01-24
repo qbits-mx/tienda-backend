@@ -36,6 +36,8 @@ public class AnuncioRequest {
     * @param String descripcion
     * @param Date vigencia
     * @param String contacto
+    * @param int precio
+    * @param String nombre
     */
     public AnuncioRequest(int idUsuario,
                           int idCatalogoCondicion,
@@ -44,7 +46,9 @@ public class AnuncioRequest {
                           int idCatalogoDepartamento,
                           String descripcion,
                           Date vigencia,
-                          String contacto
+                          String contacto,
+                          int precio,
+                          String nombre
     ) {
 
         this.idUsuario = idUsuario;
