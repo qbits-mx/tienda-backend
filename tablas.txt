@@ -121,8 +121,6 @@ INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Tarjeta"
 INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Cheque", 1);
 INSERT INTO catalogo (id_catalogo_categoria,nombre, activo) VALUES (4, "Efectivo", 1);
 
-
-
 delimiter $$
 CREATE TRIGGER otros_lock BEFORE UPDATE ON catalogo
 FOR EACH ROW

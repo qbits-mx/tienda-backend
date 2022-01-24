@@ -1,0 +1,2 @@
+INSERT INTO tienda.anuncio (id_usuario,id_comprador,id_catalogo_condicion,id_catalogo_forma_pago,id_catalogo_zona_entrega,id_catalogo_departamento,descripcion,vigencia,datos_contacto,validado,notificado,revisado,activo,comprado,fecha_compra,estrellas,comentario,comentario_aprobado,nombre,precio) VALUES
+	 (1,0,2,3,2,2,'erat quisque erat eros viverra eget congue eget','2021-09-12',NULL,0,1,0,1,1,NULL,NULL,NULL,0,'anuncio',150.0);
