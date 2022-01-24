@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Implementacion  del controlador REST asociado a los endpoints de MultimediaService.
+ * @author  2 de Pastor
+ * @see     mx.qbits.tienda.api.service.MultimediaService
+ * @version 1
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class MultimediaController {
@@ -16,6 +22,10 @@ public class MultimediaController {
 	private final Logger logger = LoggerFactory.getLogger(MultimediaController.class);
 
 
+	/**
+	* Constructor que recibe el servicio que será utilizado por este controller
+	* @param MultimediaService multimediaService
+	*/
 	public MultimediaController(MultimediaService multimediaService) {
 		this.multimediaService = multimediaService;
 	}

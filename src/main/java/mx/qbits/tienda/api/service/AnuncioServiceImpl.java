@@ -13,17 +13,40 @@ import mx.qbits.tienda.api.mapper.AnuncioMapper;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 
+/**
+* Clase que implementa la interface AnuncioService
+* @author 2 de Pastor
+* @version 1
+*/
 @Service
 public class AnuncioServiceImpl implements AnuncioService{
 	AnuncioMapper mapper;
 	private final Logger logger = LoggerFactory.getLogger(AnuncioServiceImpl.class);
 
 
+	/**
+	* Constructor por parámetro
+	* @param AnuncioMapper anuncioMapper
+	*/
 	@Autowired
 	public AnuncioServiceImpl(AnuncioMapper mapper){
 		this.mapper = mapper;
 	}
 
+    /**
+    * Metodo para salvar el anuncio en la base da datos
+    * @param int idUsuario
+    * @param int catalogoPago
+    * @param int catalogoCondicion
+    * @param int catalogoEntrega
+    * @param int catalogoDepartamento
+    * @param String descripcion
+    * @param LocalDate vigencia
+    * @param String datosContacto
+    * @param String nombre
+    * @param int precio
+    * @throws Bussines Exception
+    */
 	@Override
 	public int salvaAnuncio(int idUsuario, int catalogoCondicion, int catalogoPago, int catalogoEntrega,
 							int catalogoDepartamento, String descripcion, LocalDate vigencia, String datosContacto,

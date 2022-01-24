@@ -19,11 +19,28 @@ public class AnuncioRequest {
     private String descripcion;
     private Date vigencia;
     private String contacto;
+    private int precio;
+    private String nombre;
 
-
+    /**
+    * Constructor por omisión
+    */
     public AnuncioRequest() {
     }
-
+    
+    /**
+    * Constructor con parametros
+    * @param int idUsuario
+    * @param int idCatalogoCondicion
+    * @param int idCatalogoFormaDePago
+    * @param int idCatalogoZonaDeEntrega
+    * @param int idCatalogoDepartamento
+    * @param String descripcion
+    * @param Date vigencia
+    * @param String contacto
+    * @param int precio
+    * @param String nombre
+    */
     public AnuncioRequest(int idUsuario,
                           int idCatalogoCondicion,
                           int idCatalogoFormaDePago,
@@ -31,7 +48,9 @@ public class AnuncioRequest {
                           int idCatalogoDepartamento,
                           String descripcion,
                           Date vigencia,
-                          String contacto
+                          String contacto,
+                          int precio,
+                          String nombre
     ) {
 
         this.idUsuario = idUsuario;
@@ -173,6 +192,38 @@ public class AnuncioRequest {
         this.vigencia = vigenciaAnuncio;
     }
 
+    /**
+    * Getter de precio
+    * @return int precio
+    */
+    public int getPrecio(){
+        return precio;
+    }
+    
+    /**
+    * Setter de precio
+    * @param int precio
+    */
+    public void setPrecio(int precio){
+        this.precio = precio;
+    }
+    
+    /**
+    * Getter de nombre
+    * @return String nombre
+    */
+    public String getNombre(){
+        return nombre;
+    }
+    
+    /**
+    * Setter de nombre
+    * @param String nombre
+    */
+    public void setNombre(String nombre){
+        this.nombre = nombre
+    }
+    
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
