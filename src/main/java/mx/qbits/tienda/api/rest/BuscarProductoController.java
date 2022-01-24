@@ -55,13 +55,14 @@ public class BuscarProductoController {
      */
     
     @GetMapping(path = "/buscar-Producto.json", produces = "application/json; charset=utf-8")
-    public List<Anuncio> dame( 
+    public List<Anuncio> dame(
+    	@RequestParam String nombre,
         @RequestParam int idCatalogoDepartamento, 
         @RequestParam int idCatalogoZonaEntrega, 
         @RequestParam int idCatalogoFormaPago, 
         @RequestParam int idCatalogoCondicion, 
         @RequestParam int estrellas) throws BusinessException {
-        return buscarProductoService.buscarProducto(idCatalogoDepartamento, idCatalogoZonaEntrega,
+        return buscarProductoService.buscarProducto(nombre, idCatalogoDepartamento, idCatalogoZonaEntrega,
                 idCatalogoFormaPago, idCatalogoCondicion, estrellas);
     }
 }

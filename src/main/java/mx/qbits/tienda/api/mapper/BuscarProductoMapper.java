@@ -23,7 +23,7 @@ public interface BuscarProductoMapper {
 	final String CAMPOS_BUSCAR_ANUNCIO = " id, id_usuario, id_comprador, id_catalogo_departamento,"
 			+ "id_catalogo_condicion, id_catalogo_forma_de_pago, id_catalogo_zona_de_entrega, descripcion,"
 			+ "vigencia_anuncio, contacto, validado, notificado, revisado, activo, comprado, fecha_compra,"
-			+ "estrellas, comentario, comentario_aprobado ";
+			+ "estrellas_ven, estrelas_com, comentario, comentario_aprobado, nombre, precio ";
 
         /**
          * Obtiene un objeto de tipo 'Producto' dado su id.
@@ -78,18 +78,20 @@ public interface BuscarProductoMapper {
         @ResultMap("BuscarAnunciomapping")
         @Select("SELECT " + CAMPOS_BUSCAR_ANUNCIO + " FROM anuncio"
         		+ "WHERE nombre=#{nombre}"
-                        + "AND id_catalogo_departamento=#{idCatalogoDepartamento}"
+                + "AND id_catalogo_departamento=#{idCatalogoDepartamento}"
         		+ "AND id_catalogo_zona_entrega=#{idCatalogoZonaDeEntrega}"
         		+ "AND id_catalogo_forma_pago=#{idCatalogoFormaDePago}"
         		+ "AND id_catalogo_condicion=#{idCatalogoCondicion}"
         		+ "AND estrellas_ven=#{estrellasVend}"
-                        + "AND validado=#{TRUE}"
-                        + "AND revisado=#{TRUE}"
-                        + "AND activo=#{TRUE}"
-                        + "AND comprado=#{FALSE}"
-                        )
-        List<Anuncio> getByFiltros(String nombre, String idCatalogoDepartamento,
-                String idCatalogoZonaDeEntrega,String idCatalogoFormaDePago,
-                String idCatalogoCondicion,String estrellasVend) throws SQLException;
+                + "AND validado=#{TRUE}"
+                + "AND revisado=#{TRUE}"
+                + "AND activo=#{TRUE}"
+                + "AND comprado=#{FALSE}")
+        List<Anuncio> getByFiltros(String nombre,
+        							int idCatalogoDepartamento,
+        							int idCatalogoZonaDeEntrega,
+        							int idCatalogoFormaDePago,
+        							int idCatalogoCondicion,
+        							int estrellasVend) throws SQLException;
 
 }

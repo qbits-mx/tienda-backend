@@ -18,12 +18,12 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 public class BuscarProductoServiceImp implements BuscarProductoService {
 
     private BuscarProductoMapper mapper;
-    String descripcion;
-    String idCatalogoDepartamento;
-    String idCatalogoZonaEntrega;
-    String idCatalogoFormaPago;
-    String idCatalogoCondicion;
-    String estrellas;
+    private String nombre;
+    private int idCatalogoDepartamento;
+    private int idCatalogoZonaEntrega;
+    private int idCatalogoFormaPago;
+    private int idCatalogoCondicion;
+    private int estrellas;
 
     public BuscarProductoServiceImp(BuscarProductoMapper mapper) {
         this.mapper = mapper;
@@ -31,18 +31,22 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
 
     /** {@inheritDoc} */
     @Override
-    public List<Anuncio> buscarProducto(String nombre, int idCatalogoDepartamento,
-        int idCatalogoZonaDeEntrega,int idCatalogoFormaDePago,
-        int idCatalogoCondicion,int estrellasVend) throws BusinessException{
-
+    public List<Anuncio> buscarProducto(String nombre,
+    									int idCatalogoDepartamento,
+    									int idCatalogoZonaDeEntrega,
+    									int idCatalogoFormaDePago,
+    									int idCatalogoCondicion,
+    									int estrellasVend) throws BusinessException{
+    	/*
         this.idCatalogoDepartamento = (idCatalogoDepartamento == -1) ? "" : String.valueOf(idCatalogoDepartamento);
         this.idCatalogoZonaEntrega = (idCatalogoZonaDeEntrega == -1) ? "" : String.valueOf(idCatalogoZonaEntrega);
         this.idCatalogoFormaPago = (idCatalogoFormaDePago == -1) ? "" : String.valueOf(idCatalogoFormaPago);
         this.idCatalogoCondicion = (idCatalogoCondicion == -1) ? "" : String.valueOf(idCatalogoCondicion);
         this.estrellas = (estrellasVend == -1) ? "" : String.valueOf(estrellas);
+        */
 
         try {
-            List<Anuncio> coincidencias = mapper.getByFiltros(this.idCatalogoDepartamento,
+            List<Anuncio> coincidencias = mapper.getByFiltros(this.nombre, this.idCatalogoDepartamento,
                 this.idCatalogoZonaEntrega,
                 this.idCatalogoFormaPago, this.idCatalogoCondicion, this.estrellas);
 
@@ -51,14 +55,6 @@ public class BuscarProductoServiceImp implements BuscarProductoService {
             throw new BusinessException(e);
         }
         
-    }
-
-    @Override
-    public List<Anuncio> getByFiltros(String nombre, String idCatalogoDepartamento,
-    String idCatalogoZonaDeEntrega,String idCatalogoFormaDePago,
-    String idCatalogoCondicion,String estrellasVend) throws SQLException{
-        // TODO Auto-generated method stub
-        return null;
     }
 
 }
