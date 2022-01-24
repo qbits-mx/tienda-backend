@@ -47,7 +47,7 @@ public class CompraServiceImpl implements CompraService{
             if (anuncio == null)
         		throw new CustomException(EnumMessage.NOT_FOUND, idAnuncio);
             if (imagen == null)
-            	throw new CustomException(EnumMessage.NOT_FOUND, idAnuncio);
+            	throw new CustomException(EnumMessage.NOT_FOUND, "'Imagen asociada al id'");
             
             CompraResponse anuncioResponse = new CompraResponse(anuncio, imagen);
             return anuncioResponse;

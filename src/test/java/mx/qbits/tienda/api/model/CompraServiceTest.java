@@ -45,7 +45,7 @@ public class CompraServiceTest {
 			  		notificado,revisado, activo, comprado, fecha_compra, estrellas_ven,
 					estrellas_com, nombre, precio, comentario, comentario_aprobado")
 		*/
-		Compra anuncio = new Compra(id, 12345, 54321, 0, 1, 1, "Descripción", null, "Contacto",
+		Compra anuncio = new Compra(id, 12345, 54321, 0, 1, 1, 1, "Descripción", null, "Contacto",
 				true, true, true, true, false, null, 0, 0, "Nombre", 10.0, "Comentario", false);
 		CompraMultimedia image = new CompraMultimedia(1, id, "imagen", "Dirección");
 		when(anuncioMapper.getById(id)).thenReturn(anuncio);
