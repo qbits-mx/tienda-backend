@@ -20,10 +20,23 @@ public class AnuncioRequest {
     private Date vigencia;
     private String contacto;
 
-
+    /**
+    * Constructor por omisión
+    */
     public AnuncioRequest() {
     }
-
+    
+    /**
+    * Constructor con parametros
+    * @param int idUsuario
+    * @param int idCatalogoCondicion
+    * @param int idCatalogoFormaDePago
+    * @param int idCatalogoZonaDeEntrega
+    * @param int idCatalogoDepartamento
+    * @param String descripcion
+    * @param Date vigencia
+    * @param String contacto
+    */
     public AnuncioRequest(int idUsuario,
                           int idCatalogoCondicion,
                           int idCatalogoFormaDePago,
