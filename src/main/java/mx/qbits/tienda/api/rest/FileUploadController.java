@@ -89,7 +89,7 @@ public class FileUploadController {
         String s = String.valueOf(uno);
         logger.info(s);
         logger.info(dos);
-        return uploadService.storeOne(file, destinationFolder, max);
+        return uploadService.storeOne(file, destinationFolder, max,1);
     }
     // https://stackoverflow.com/questions/54683075/how-to-implement-multiple-files-upload-with-extra-fields-per-each-file-in-spring
     // https://github.com/ozkanpakdil/spring-examples/tree/master/demoMultiFileUpload
@@ -101,7 +101,7 @@ public class FileUploadController {
             consumes = { "multipart/*" }
             )
     public List<UploadModel> handleFileUploadWithKDMCopyPut(@RequestParam("files") MultipartFile[] files) throws ControllerException {
-        return uploadService.store(files, destinationFolder, max);
+        return uploadService.store(files, destinationFolder, max,1);
     }
     // https://stackoverflow.com/questions/54683075/how-to-implement-multiple-files-upload-with-extra-fields-per-each-file-in-spring
 
@@ -111,7 +111,7 @@ public class FileUploadController {
             consumes = { "multipart/*" }
             )
     public UploadModel upload2(@RequestParam("files") MultipartFile files) throws ControllerException {
-        return uploadService.storeOne(files, destinationFolder, max);
+        return uploadService.storeOne(files, destinationFolder, max,1);
     }
 
     @PostMapping(
@@ -122,7 +122,7 @@ public class FileUploadController {
     @RequestHeader("idAnuncio") int idAnuncio,
     @ApiParam(name = "file", value = "Imagen a guardar.")
     @RequestParam("file") MultipartFile file) throws ControllerException {
-        return uploadService.storeOne(file, destinationFolder, max);
+        return uploadService.storeOne(file, destinationFolder, max,1);
     }
 
     @PostMapping(
@@ -133,7 +133,7 @@ public class FileUploadController {
     @RequestHeader("idAnuncio") int idAnuncio,
     @ApiParam(name = "file", value = "Imagen a guardar.")
     @RequestParam("file") MultipartFile[] files) throws ControllerException {
-        return uploadService.store(files, destinationFolder, max);
+        return uploadService.store(files, destinationFolder, max,1);
     }
 }
 /*
