@@ -22,7 +22,7 @@ public class AnuncioController {
 	private AnuncioService anuncioService;
 
 	/**
-	* Constructor que recibe el servicio que será controlado por este controller
+	* Constructor que recibe el servicio que será utilizado por este controller
 	* @param AnuncioService anuncioService
 	*/
 	@Autowired
