@@ -100,7 +100,6 @@ public class UploadServiceImpl implements UploadService {
     public UploadModel storeOne(MultipartFile mpf, String destinationFolder, long max , int idUsuario) throws BusinessException {
         UUID uuid = UUID.randomUUID();
         String newName = uuid.toString() + "."+(FilenameUtils.getExtension(mpf.getOriginalFilename()));
-       // int idUsuario;
         valida(mpf, max);
         UploadModel uploadModel = new UploadModel(
         		idUsuario,
