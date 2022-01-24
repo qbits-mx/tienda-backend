@@ -7,11 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Implementacion  del controlador REST asociado a los endpoints de MultimediaService.
+ * @author  2 de Pastor
+ * @see     mx.qbits.tienda.api.service.MultimediaService
+ * @version 1
+ */
 @RestController
 @RequestMapping(value = "/api")
 public class MultimediaController {
 	private MultimediaService multimediaService;
 
+	/**
+	* Constructor que recibe el servicio que será utilizado por este controller
+	* @param MultimediaService multimediaService
+	*/
 	public MultimediaController(MultimediaService multimediaService) {
 		this.multimediaService = multimediaService;
 	}
