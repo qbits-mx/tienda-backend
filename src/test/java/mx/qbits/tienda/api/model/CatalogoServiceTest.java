@@ -82,11 +82,11 @@ public class CatalogoServiceTest {
         when(catalogoMapper.getByNombreAndIdCategoria("Yucatan", 6)).thenReturn(catalogo2);
         when(catalogoMapper.getByIdAndIdCategoria(6, 6)).thenReturn(catalogo2);
         when(catalogoMapper.getAll()).thenReturn(result1);
-        when(catalogoMapper.getByIdCatalogoCategoria(22)).thenReturn(result2);
     }
 
     @Test
     public void eliminarCatalogoNombreCorrectTest(){
+
         catalogoService = new CatalogoServiceImpl(catalogoMapper, catalogoMaestroMapper);
         try {
             assertTrue(catalogoService.eliminarCatalogo("Jalisco"));

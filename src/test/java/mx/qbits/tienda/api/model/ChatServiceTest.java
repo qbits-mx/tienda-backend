@@ -129,6 +129,12 @@ public class ChatServiceTest {
             }else{
                 assertTrue(false);
             }
+            List<Chat> res2 = chatService.getConversacion(1, 3);
+            if (res2.size()== 3) {
+                assertTrue(true);
+            }else{
+                assertTrue(false);
+            }
         }catch (ChatException e){
             assertTrue(false);
         }
