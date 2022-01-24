@@ -29,7 +29,8 @@ public interface ConsultaMapper {
 	        @Result(property = "id_anuncio",  column = "id"),
 	        @Result(property = "fecha", column = "fecha_compra"),
 	        @Result(property = "nombre", column = "nombre"),
-	        @Result(property = "precio",column = "precio")
+	        @Result(property = "precio",column = "precio"),
+	        @Result(property = "estrellas", column = "estrellas_com")
 	})
 	
 	/**
@@ -38,22 +39,10 @@ public interface ConsultaMapper {
 	 * @return
 	 * @throws SQLException
 	 */
-	@Select("SELECT usuario_detalle.nick_name, usuario_detalle.id_usuario, anuncio.id , anuncio.fecha_compra , anuncio.nombre , anuncio.precio " + 
-			"FROM usuario_detalle " + 
-			"LEFT JOIN anuncio ON usuario_detalle.id_usuario = anuncio.id_usuario " + 
-			"WHERE anuncio.comprado = 1 AND anuncio.id = #{idAnuncio}") 
-	InfoVenta consultaAnuncioVendido (int idAnuncio) throws SQLException;
-	
-	/**
-	 * 
-	 * @param idAnuncio
-	 * @return
-	 * @throws SQLException
-	 */
-	@Select("SELECT usuario_detalle.nick_name, usuario_detalle.id_usuario, anuncio.id , anuncio.fecha_compra , anuncio.nombre , anuncio.precio, anuncio.estrellas_ven, anuncio.comentario, anuncio.comentario_aprobado  " + 
+	@Select("SELECT usuario_detalle.nick_name, usuario_detalle.id_usuario, anuncio.id , anuncio.fecha_compra , anuncio.nombre , anuncio.precio , anuncio.estrellas_com " + 
 			"FROM usuario_detalle " + 
 			"LEFT JOIN anuncio ON usuario_detalle.id_usuario = anuncio.id_comprador " + 
 			"WHERE anuncio.comprado = 1 AND anuncio.id = #{idAnuncio}") 
-	InfoCompra consultaAnuncioComprado (int idAnuncio) throws SQLException;
-
+	InfoVenta consultaAnuncioVendido (int idAnuncio) throws SQLException;
+	
 }

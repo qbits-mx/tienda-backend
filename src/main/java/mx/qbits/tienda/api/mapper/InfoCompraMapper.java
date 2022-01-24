@@ -29,7 +29,7 @@ public interface InfoCompraMapper {
 	 */
 	@Select("SELECT usuario_detalle.nick_name, usuario_detalle.id_usuario, anuncio.id , anuncio.fecha_compra , anuncio.nombre , anuncio.precio, anuncio.estrellas_ven, anuncio.comentario, anuncio.comentario_aprobado  " + 
 			"FROM usuario_detalle " + 
-			"LEFT JOIN anuncio ON usuario_detalle.id_usuario = anuncio.id_comprador " + 
+			"LEFT JOIN anuncio ON usuario_detalle.id_usuario = anuncio.id_usuario " + 
 			"WHERE anuncio.comprado = 1 AND anuncio.id = #{idAnuncio}") 
 	InfoCompra consultaAnuncioComprado (int idAnuncio) throws SQLException;
 

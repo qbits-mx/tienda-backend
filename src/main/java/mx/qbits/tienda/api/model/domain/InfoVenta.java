@@ -17,19 +17,21 @@ public class InfoVenta {
 	int id_anuncio;
 	Date fecha;
 	String nombre;
-	int precio;
+	double precio;
+	int estrellas;
 	
 	public InfoVenta() {
 		super();
 	}
 	
-	public InfoVenta(String nick_name, int id_usuario, int id_anuncio, Date fecha, String nombre, int precio) {
+	public InfoVenta(String nick_name, int id_usuario, int id_anuncio, Date fecha, String nombre, double precio, int estrellas) {
 		this.nick_name = nick_name;
 		this.id_usuario = id_usuario;
 		this.id_anuncio = id_anuncio;
 		this.fecha = fecha;
 		this.nombre = nombre;
 		this.precio = precio;
+		this.estrellas = estrellas;
 	}
 
 	public String getNick_name() {
@@ -72,12 +74,20 @@ public class InfoVenta {
 		this.nombre = nombre;
 	}
 
-	public int getPrecio() {
+	public double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(int precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+
+	public int getEstrellas() {
+		return estrellas;
+	}
+
+	public void setEstrellas(int estrellas) {
+		this.estrellas = estrellas;
 	}
 	
 }
