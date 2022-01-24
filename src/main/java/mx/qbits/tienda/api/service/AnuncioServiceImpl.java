@@ -59,13 +59,28 @@ public class AnuncioServiceImpl implements AnuncioService{
 					return -1;
 				}
 			}
+			
+			if(vigencia == null) {
+                		LocalDate fecha = LocalDate.now();
+                		LocalDate vig = fecha.plusDays(30);
+                		mapper.insert(idUsuario, catalogoCondicion, catalogoPago,  catalogoEntrega,
+                        		catalogoDepartamento, descripcion, vig, datosContacto, nombre, precio);
+				anuncioActivo = mapper.getAnuncioActivo(idUsuario);
+				Anuncio ultimo = anuncioActivo.get(anuncioActivo.size() - 1);
+				logger.info("Se ha creado un anuncio: {}", anuncioActivo.toString());
+				return anuncioActivo.get(anuncioActivo.size() - 1).getId();
+            		}else {
 
-			mapper.insert(idUsuario, catalogoCondicion, catalogoPago,  catalogoEntrega,
-					catalogoDepartamento, descripcion, vigencia, datosContacto, nombre, precio);
-			anuncioActivo = mapper.getAnuncioActivo(idUsuario);
-			Anuncio ultimo = anuncioActivo.get(anuncioActivo.size() - 1);
-			logger.info("Se ha creado un anuncio: {}", anuncioActivo.toString());
-			return anuncioActivo.get(anuncioActivo.size() - 1).getId();
+				mapper.insert(idUsuario, catalogoCondicion, catalogoPago,  catalogoEntrega,
+                        		catalogoDepartamento, descripcion, vigencia, datosContacto, nombre, precio);
+				anuncioActivo = mapper.getAnuncioActivo(idUsuario);
+				Anuncio ultimo = anuncioActivo.get(anuncioActivo.size() - 1);
+				logger.info("Se ha creado un anuncio: {}", anuncioActivo.toString());
+				return anuncioActivo.get(anuncioActivo.size() - 1).getId();
+				
+            		}
+
+			
 		} catch(SQLException e){
 			throw new BusinessException(e);
 		}
