@@ -9,12 +9,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
+/**
+ * Implementacion  del controlador REST asociado a los endpoints de AnuncioService.
+ * @author  2 de Pastor
+ * @see     mx.qbits.tienda.api.service.AnuncioService
+ * @version 1
+ */
 @RestController
 @RequestMapping(value = "/api")
 @CrossOrigin(origins="*")
 public class AnuncioController {
 	private AnuncioService anuncioService;
 
+	/**
+	* Constructor que recibe el servicio que será controlado por este controller
+	* @param AnuncioService anuncioService
+	*/
 	@Autowired
 	public AnuncioController(AnuncioService anuncioService) {
 		this.anuncioService = anuncioService;
