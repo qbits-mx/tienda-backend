@@ -1,21 +1,23 @@
 package mx.qbits.tienda.api.service;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-
 import mx.qbits.tienda.api.model.domain.Anuncio;
+import mx.qbits.tienda.api.rest.MultimediaController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import mx.qbits.tienda.api.mapper.AnuncioMapper;
-
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 @Service
 public class AnuncioServiceImpl implements AnuncioService{
 	AnuncioMapper mapper;
+	private final Logger logger = LoggerFactory.getLogger(AnuncioServiceImpl.class);
+
 
 	@Autowired
 	public AnuncioServiceImpl(AnuncioMapper mapper){
@@ -29,13 +31,18 @@ public class AnuncioServiceImpl implements AnuncioService{
 
 		try{
 			List<Anuncio> anuncioActivo = mapper.getAnuncioActivo(idUsuario);
-			if(anuncioActivo.size() > 0) {
-				return -1;
+			for(Anuncio anuncio : anuncioActivo) {
+				if(anuncio.isActivo()) {
+					return -1;
+				}
 			}
 
 			mapper.insert(idUsuario, catalogoCondicion, catalogoPago,  catalogoEntrega,
 					catalogoDepartamento, descripcion, vigencia, datosContacto, nombre, precio);
-			return 1;
+			anuncioActivo = mapper.getAnuncioActivo(idUsuario);
+			Anuncio ultimo = anuncioActivo.get(anuncioActivo.size() - 1);
+			logger.info("Se ha creado un anuncio: {}", anuncioActivo.toString());
+			return anuncioActivo.get(anuncioActivo.size() - 1).getId();
 		} catch(SQLException e){
 			throw new BusinessException(e);
 		}

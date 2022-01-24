@@ -21,10 +21,10 @@ public class Multimedia {
     
     /**
     * Constructor por parámetros
-    * @param int id
-    * @param int idAnuncio
-    * @param String url
-    * @param String tipo
+    * @param id
+    * @param idAnuncio
+    * @param url
+    * @param  tipo
     */
     public Multimedia(int id, int idAnuncio, String url, String tipo) {
     	
@@ -44,7 +44,7 @@ public class Multimedia {
     
     /**
     * Setter de id
-    * @param int id
+    * @param id
     */
     public void setId(int id) {
     	this.id = id;
@@ -60,7 +60,7 @@ public class Multimedia {
     
     /**
     * Setter de idAnuncio
-    * @param int idAnuncio
+    * @param idAnuncio
     */
     public void setIdAnuncio(int idAnuncio) {
     	this.idAnuncio= idAnuncio;
@@ -92,10 +92,19 @@ public class Multimedia {
 
     /**
     * Setter de tipo
-    * @param String tipo
+    * @param tipo
     */
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
+    @Override
+    public String toString() {
+        return "Multimedia{" +
+                "id=" + id +
+                ", idAnuncio=" + idAnuncio +
+                ", url='" + url + '\'' +
+                ", tipo='" + tipo + '\'' +
+                '}';
+    }
 }

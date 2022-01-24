@@ -1,15 +1,12 @@
 package mx.qbits.tienda.api.mapper;
+
 import java.time.LocalDate;
-import java.util.Date;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
-
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
-
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 /**
@@ -28,7 +25,7 @@ public interface AnuncioMapper{
 	
 	/**
 	* Inserta un objeto de tipo anuncio a la base de datos con base a la información del objeto anuncio
-	* @param anuncio a ser insertado
+	* @param  id_usuario del anuncio a ser insertado
 	* @throws java.sql.SQLException en caso de haber algún error con esta operación en la base de datos
 	*/
 	@Insert("INSERT INTO anuncio("+CAMPOS_ANUNCIO+")"
@@ -40,12 +37,14 @@ public interface AnuncioMapper{
 	/**
 	* Nos devuelve el anuncio activo asociado a ese id de ususario
 	* @return el anuncio que cumpla con los criterios de búsqueda
-	* @param id del usuario asociado a ese anuncio
+	* @param  idUsuario usuario asociado a ese anuncio
 	* @throws java.sql.SQLException en caso de haber algún error con esta operación en la base de datos
 	*/
 	@Results(id="AnuncioMapping", value = {
-			@Result(property = "activo",              					column = "activo")})
-	@Select("SELECT activo FROM anuncio WHERE id_usuario = #{idUsuario}")
+			@Result(property = "id", 									column = "id"),
+			@Result(property = "activo",              					column = "activo")
+	})
+	@Select("SELECT id, activo FROM anuncio WHERE id_usuario = #{idUsuario}")
 	List<Anuncio> getAnuncioActivo(int idUsuario) throws SQLException;
 
 }

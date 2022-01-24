@@ -1,8 +1,11 @@
 package mx.qbits.tienda.api.service;
 
+import mx.qbits.tienda.api.model.domain.Multimedia;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+
+import java.util.List;
 
 
 public interface MultimediaService{
-    int salvaMultimedia(int idAnuncio, String url, String tipo) throws BusinessException;
+    int salvaMultimedia(List<Multimedia> multimedia) throws BusinessException;
 }

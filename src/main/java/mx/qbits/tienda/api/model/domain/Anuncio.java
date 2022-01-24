@@ -1,7 +1,5 @@
 package mx.qbits.tienda.api.model.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -28,7 +26,7 @@ public class Anuncio {
     private boolean revisado;
     private boolean activo;
     private boolean comprado;
-    private Date fechaCompra;
+    private LocalDate fechaCompra;
     private int estrellasVend;
     private int estrellasComp;
     private String comentario;
@@ -52,7 +50,7 @@ public class Anuncio {
 
     /**
     * Setter del id del anuncio
-    * @param int nuevo id de anuncio
+    * @param id id de anuncio
     */
     public void setId(int id) {this.id = id;}
 
@@ -66,7 +64,7 @@ public class Anuncio {
 
     /**
     * Setter de idUsuario
-    * @param int idUsuario
+    * @param idUsuario
     */
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
@@ -82,7 +80,7 @@ public class Anuncio {
 
     /**
     * Setter de idComprador
-    * @param int idComprador
+    * @param idComprador
     */
     public void setIdComprador(int idComprador) {
         this.idComprador = idComprador;
@@ -98,7 +96,7 @@ public class Anuncio {
 
     /**
     * Setter de idCatalogoDepartamento
-    * @param int idCatalogoDepartamento
+    * @param idCatalogoDepartamento
     */
     public void setIdCatalogoDepartamento(int idCatalogoDepartamento) {
         this.idCatalogoDepartamento = idCatalogoDepartamento;
@@ -114,7 +112,7 @@ public class Anuncio {
 
     /**
     * Setter de idCatalogoCondicion
-    * @param int idCatalogoCondicion
+    * @param  idCatalogoCondicion
     */
     public void setIdCatalogoCondicion(int idCatalogoCondicion) {
         this.idCatalogoCondicion = idCatalogoCondicion;
@@ -130,7 +128,7 @@ public class Anuncio {
 
     /**
     * Setter CatalogoFormaDePago
-    * @param int idCatalogoFormaDePago
+    * @param  idCatalogoFormaDePago
     */
     public void setIdCatalogoFormaDePago(int idCatalogoFormaDePago) {
         this.idCatalogoFormaDePago = idCatalogoFormaDePago;
@@ -146,7 +144,7 @@ public class Anuncio {
 
     /**
     * Setter de idCatalogoZonaDeEntrega
-    * @param int idCatalogoZonaDeEntrega
+    * @param idCatalogoZonaDeEntrega
     */
     public void setIdCatalogoZonaDeEntrega(int idCatalogoZonaDeEntrega) {
         this.idCatalogoZonaDeEntrega = idCatalogoZonaDeEntrega;
@@ -162,7 +160,7 @@ public class Anuncio {
 
     /**
     * Setter de descripcion del anuncio
-    * @param string descripcion
+    * @param descripcion
     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -178,7 +176,7 @@ public class Anuncio {
 
     /**
     * Setter de vigencia del anuncio
-    * @param LocalDate vigenciaAnuncio
+    * @param vigenciaAnuncio
     */
     public void setVigenciaAnuncio(LocalDate vigenciaAnuncio) { this.vigenciaAnuncio = vigenciaAnuncio; }
 
@@ -188,7 +186,7 @@ public class Anuncio {
 
     /**
     * Setter de datos de contacto del anuncio
-    * @param string contacto
+    * @param contacto
     */
     public void setContacto(String contacto) {
         this.contacto = contacto;
@@ -204,7 +202,7 @@ public class Anuncio {
 
     /**
     * Setter de validado de anuncio
-    * @param boolean validado
+    * @param validado
     */
     public void setValidado(boolean validado) {
         this.validado = validado;
@@ -220,7 +218,7 @@ public class Anuncio {
 
     /**
     * Setter de notificado
-    * @param boolean notificado
+    * @param notificado
     */
     public void setNotificado(boolean notificado) {
         this.notificado = notificado;
@@ -236,7 +234,7 @@ public class Anuncio {
 
     /**
     * Setter de revisado
-    * @param boolean revisado
+    * @param revisado
     */
     public void setRevisado(boolean revisado) {
         this.revisado = revisado;
@@ -252,7 +250,7 @@ public class Anuncio {
 
     /**
     * Setter de activo
-    * @param boolean activo
+    * @param activo
     */
     public void setActivo(boolean activo) {
         this.activo = activo;
@@ -268,7 +266,7 @@ public class Anuncio {
 
     /**
     * Setter de comprado
-    * @param boolean comprado
+    * @param comprado
     */
     public void setComprado(boolean comprado) {
         this.comprado = comprado;
@@ -278,15 +276,15 @@ public class Anuncio {
     * Getter de la fecha de compra
     * @return Date fechaCompra
     */
-    public Date getFechaCompra() {
+    public LocalDate getFechaCompra() {
         return fechaCompra;
     }
 
     /**
     * Setter de la fecha de compra
-    * @param Date fechaCompra
+    * @param  fechaCompra
     */
-    public void setFechaCompra(Date fechaCompra) {
+    public void setFechaCompra(LocalDate fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 
@@ -300,7 +298,7 @@ public class Anuncio {
 
     /**
     * Setter de las estrellas del vendedor
-    * @param int estrellasVend
+    * @param estrellasVend
     */
     public void setEstrellasVend(int estrellasVend) {
         this.estrellasVend = estrellasVend;
@@ -316,7 +314,7 @@ public class Anuncio {
     
     /**
     * Setter de las estrellas del comprador
-    * @param int estrellasComp
+    * @param estrellasComp
     */
     public void setEstrellasComp(int estrellasComp) {
         this.estrellasComp = estrellasComp;
@@ -332,9 +330,9 @@ public class Anuncio {
 
     /**
     * Setter de comentario 
-    * @param String comentario
+    * @param comentario
     */
-    public void setComentario(int comentario) {
+    public void setComentario(String comentario) {
         this.comentario = comentario;
     }
 
@@ -348,7 +346,7 @@ public class Anuncio {
 
     /**
     * Setter de comentarioAprobado
-    * @param String comentarioAprobado
+    * @param comentarioAprobado
     */
     public void setComentarioAprobado(boolean comentarioAprobado) {
         this.comentarioAprobado = comentarioAprobado;
@@ -364,7 +362,7 @@ public class Anuncio {
 
     /**
     * Setter del nombre del anuncio
-    * @param String nombre
+    * @param nombre
     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -380,9 +378,37 @@ public class Anuncio {
 
     /**
     * Setter de precio
-    * @param double precio
+    * @param precio
     */
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Anuncio{" +
+                "id=" + id +
+                ", idUsuario=" + idUsuario +
+                ", idComprador=" + idComprador +
+                ", idCatalogoDepartamento=" + idCatalogoDepartamento +
+                ", idCatalogoCondicion=" + idCatalogoCondicion +
+                ", idCatalogoFormaDePago=" + idCatalogoFormaDePago +
+                ", idCatalogoZonaDeEntrega=" + idCatalogoZonaDeEntrega +
+                ", descripcion='" + descripcion + '\'' +
+                ", vigenciaAnuncio=" + vigenciaAnuncio +
+                ", contacto='" + contacto + '\'' +
+                ", validado=" + validado +
+                ", notificado=" + notificado +
+                ", revisado=" + revisado +
+                ", activo=" + activo +
+                ", comprado=" + comprado +
+                ", fechaCompra=" + fechaCompra +
+                ", estrellasVend=" + estrellasVend +
+                ", estrellasComp=" + estrellasComp +
+                ", comentario='" + comentario + '\'' +
+                ", comentarioAprobado=" + comentarioAprobado +
+                ", nombre='" + nombre + '\'' +
+                ", precio=" + precio +
+                '}';
     }
 }
