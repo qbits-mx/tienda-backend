@@ -19,6 +19,8 @@ public class AnuncioRequest {
     private String descripcion;
     private Date vigencia;
     private String contacto;
+    private int precio;
+    private String nombre;
 
     /**
     * Constructor por omisión
@@ -190,6 +192,38 @@ public class AnuncioRequest {
         this.vigencia = vigenciaAnuncio;
     }
 
+    /**
+    * Getter de precio
+    * @return int precio
+    */
+    public int getPrecio(){
+        return precio;
+    }
+    
+    /**
+    * Setter de precio
+    * @param int precio
+    */
+    public void setPrecio(int precio){
+        this.precio = precio;
+    }
+    
+    /**
+    * Getter de nombre
+    * @return String nombre
+    */
+    public String getNombre(){
+        return nombre;
+    }
+    
+    /**
+    * Setter de nombre
+    * @param String nombre
+    */
+    public void setNombre(String nombre){
+        this.nombre = nombre
+    }
+    
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
