@@ -1,4 +1,3 @@
-
 package mx.qbits.tienda.api.model.request;
 
 import java.util.Date;
@@ -286,10 +285,4 @@ public class AnuncioRequest {
                 + idCatalogoZonaDeEntrega + ", idCatalogoDepartamento=" + idCatalogoDepartamento + ", descripcion="
                 + descripcion + ", contacto=" + contacto + ", vigenciaAnuncio=" + vigencia + "]";
     }
-
-
-
-
-
-
 }
