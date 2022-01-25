@@ -98,7 +98,7 @@ public class CatalogoMaestroController {
         return catalogoMaestroService.crearCatalogo(tipoCatalogo);
     }
 
-    @GetMapping(path = "/obtener-todos-catalogosMaestros", produces = "application/json; charset=utf-8")
+    @GetMapping(path = "/obtener-todos-catalogosMaestros.json", produces = "application/json; charset=utf-8")
     public List<CatalogoMaestro> dameTodo() throws BusinessException {
         return catalogoMaestroService.dameTodosLosCatalogosMaestros();
     }
