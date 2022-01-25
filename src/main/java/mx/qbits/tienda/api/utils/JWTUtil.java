@@ -1,32 +1,10 @@
-/*
- * Licencia:    Este  código y cualquier  derivado  de  el, es  propiedad de la
- *              empresa Metasoft SA de CV y no debe, bajo ninguna circunstancia
- *              ser copiado, donado,  cedido, modificado, prestado, rentado y/o 
- *              mostrado  a ninguna persona o institución sin el permiso expli-
- *              cito  y  por  escrito de  la empresa Metasoft SA de CV, que es, 
- *              bajo cualquier criterio, el único dueño de la totalidad de este 
- *              código y cualquier derivado de el.
- *              ---------------------------------------------------------------
- * Paquete:     mx.qbits.tienda.api.utils
- * Proyecto:    tienda
- * Tipo:        Clase
- * Nombre:      JWTUtil
- * Autor:       Gustavo Adolfo Arellano (GAA)
- * Correo:      gustavo.arellano@metasoft.com.mx
- * Versión:     0.0.1-SNAPSHOT
- *
- * Historia: 
- *              Creación: 5 Sep 2021 @ 08:36:01
- */
 package mx.qbits.tienda.api.utils;
 
-import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +13,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import mx.qbits.tienda.api.model.exceptions.BusinessException;
-import mx.qbits.tienda.api.model.exceptions.TokenExpiredException;
-import mx.qbits.tienda.api.model.exceptions.WrongTokenException;
+import mx.qbits.tienda.api.model.exceptions.CustomException;
+import static mx.qbits.tienda.api.model.enumerations.EnumMessage.*;
 
 /**
  * Clase JWTUtil.
@@ -55,7 +32,7 @@ public class JWTUtil {
     /**
      * <p>Getter for the field <code>instance</code>.</p>
      *
-     * @return a {@link mx.qbits.tienda.api.utils.JWTUtil} object.
+     * @return a {@link io.kebblar.petstore.api.utils.JWTUtil} object.
      */
     public static JWTUtil getInstance() {
         if(instance==null) {
@@ -65,74 +42,15 @@ public class JWTUtil {
     }
 
     /**
-     * <p>digest.</p>
-     *
-     * @param source a {@link java.lang.String} object.
-     * @param salt a {@link java.lang.String} object.
-     * @return a {@link java.lang.String} object.
-     */
-    public String digest(String source, String salt) {
-        try {
-            return toHexString(getSHA256(source, salt));
-        } catch (NoSuchAlgorithmException e) {
-            // This Wouldn't ocurr never ever...
-            return null;
-        }
-    }
-
-    /**
-     * Regresa un arreglo de bytes que es la digestión de un input dado y un 'salt' dado.
-     * Generalmente, el 'salt' va a ser el usuario, para este caso de uso. (Auth)
-     *
-     * @param source Cadena a digestar (Generalmente el password)
-     * @param salt Cadena a incluir como 'salt' (Generalmente el Usuaio)
-     * @return Areeglo de bytes con la composición digestada
-     * @throws java.security.NoSuchAlgorithmException No va a pasar nunca, ya que el SHA-256 siempre exste
-     */
-    public byte[] getSHA256(String source, String salt) throws NoSuchAlgorithmException {
-        // Create the 'input' String with a 'salt', generally,
-        String input = source + salt;
-        // Static getInstance method is called with hashing SHA
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-
-        // digest() method called
-        // to calculate message digest of an input
-        // and return array of byte
-        return md.digest(input.getBytes(StandardCharsets.UTF_8));
-    }
-
-    /**
-     * Convierte un arreglo de bytes en una cadena hexadecimal.
-     *
-     * @param hash Arreglo de bytes a ser convertido a cadena.
-     * @return Cadena asociada al arreglo dado
-     */
-    public String toHexString(byte[] hash) {
-        // Convert byte array into signum representation
-        BigInteger number = new BigInteger(1, hash);
-
-        // Convert message digest into hex value
-        StringBuilder hexString = new StringBuilder(number.toString(16));
-
-        // Pad with leading zeros
-        while (hexString.length() < 32) {
-            hexString.insert(0, '0');
-        }
-
-        // Show me the result, baby
-        return hexString.toString();
-    }
-
-    /**
      * Verifica que un token sea válido y que le pertenezca al usuario
      * que le es pasado como parámetro.
      *
      * @param jwt a {@link java.lang.String} object.
      * @param user a {@link java.lang.String} object.
      * @param encryptKey a {@link java.lang.String} object.
-     * @throws mx.qbits.tienda.api.model.exceptions.BusinessException
+     * @throws io.kebblar.petstore.api.model.exceptions.CustomException
      */
-    public void verifyToken(String jwt, String user, String encryptKey) throws BusinessException {
+    public void verifyToken(String jwt, String user, String encryptKey) throws CustomException {
         try {
             Claims claims = Jwts.parser()
                .setSigningKey(encryptKey.getBytes())
@@ -145,10 +63,10 @@ public class JWTUtil {
                 logger.info("IssuedAt: " + claims.getIssuedAt());
             }
             if(!user.equals(claims.getId())) {
-                throw new WrongTokenException("issuer not verfied");
+                throw new CustomException(ISSUER_NOT_VERIFIED);
             }
         } catch(Exception e) {
-            throw new WrongTokenException(e);
+            throw new CustomException(e, WRONG_TOKEN);
         }
     }
 
@@ -160,33 +78,20 @@ public class JWTUtil {
      * @param encryptKey a {@link java.lang.String} object.
      * @param ahorita a long.
      * @return Cadena con el ID contenido en un Token válido
-     * @throws mx.qbits.tienda.api.model.exceptions.BusinessException
+     * @throws io.kebblar.petstore.api.model.exceptions.CustomException
      */
-    public String verifyToken(String jwt, String encryptKey, long ahorita) throws BusinessException {
+    public String verifyToken(String jwt, String encryptKey, long ahorita) throws CustomException {
         try {
             Claims claims = Jwts.parser()
                .setSigningKey(encryptKey.getBytes())
                .parseClaimsJws(jwt).getBody();
             long expiration = claims.getExpiration().getTime();
-            if(expiration < ahorita) throw new TokenExpiredException();
+            if(expiration < ahorita) throw new CustomException(TOKEN_EXPIRED);
             //showInfo(claims);
             return claims.getId();
         } catch(Exception e) {
-            throw new WrongTokenException(e);
+        	throw new CustomException(e, WRONG_TOKEN);
         }
-    }
-
-    /**
-     * <p>showInfo.</p>
-     *
-     * @param claims a {@link io.jsonwebtoken.Claims} object.
-     */
-    public void showInfo(Claims claims) {
-        logger.info("ID: " + claims.getId());
-        logger.info("Subject: " + claims.getSubject());
-        logger.info("Issuer: " + claims.getIssuer());
-        logger.info("Expiration: " + claims.getExpiration());
-        logger.info("IssuedAt: " + claims.getIssuedAt());
     }
 
     /**
@@ -199,34 +104,27 @@ public class JWTUtil {
      */
     public void valida(String token, String encryptKey, long currentTime) throws Exception {
         if(token==null || token.trim().length()<1) return;
-        String estructuraInvalida = "El token posee una estructra inválida: --->"+token+"<---";
         // from: https://jwt.io/
         Base64.Decoder decoder = Base64.getDecoder();
         String[] chunks = token.split("\\.");
-        if(chunks.length<2) throw new Exception(estructuraInvalida);
+        if(chunks.length<2) throw new CustomException(TOKEN_INVALID_STRUCTURE, token);
         String payload = new String(decoder.decode(chunks[1]));
 
-        if(!payload.contains("\"exp\":")) throw new Exception(estructuraInvalida);
+        if(!payload.contains("\"exp\":")) throw new CustomException(TOKEN_INVALID_STRUCTURE, token);
         Long inst = 0L;
         String instante = "";
         for(String parte : payload.split(",")) {
             if(parte.contains("\"exp\":")) {
                 try {
                     instante = parte.substring(6, parte.length()-1)+"000";
-                    inst = new Long(instante);
+                    inst = Long.parseLong(instante);
                 } catch(Exception e) {
-                    throw new Exception(estructuraInvalida);
+                    throw new CustomException(TOKEN_INVALID_STRUCTURE, token);
                 }
-                if (inst < currentTime) throw new Exception("El token ha expirado");
+                if (inst < currentTime) throw new CustomException(TOKEN_EXPIRED);
             }
         }
     }
-
-//    public static void main(String...argv) {
-//        String token="eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjcnlwdG8tZXhlY3V0b3Itand0TWFuYWdlciIsImlhdCI6MTYyNTUyMTYyNiwic3ViIjoiQ29vbCBqd3QgVG9rZW4gb246IDE2MjU1MjE2MjYyMTIiLCJqdGkiOiJndXN0YXZvLWFyZWxsYW5vQGdtYWlsLmNvbSIsImV4cCI6MTYyNTUyMzQyNn0._Omitk0L5XDduhPGaWcmvWBArimQw4lE8qthXK6q1Ys";
-//        boolean res = isExpired(token);
-//        System.out.println(res);
-//    }
 
     /**
      * <p>createToken.</p>
@@ -257,21 +155,121 @@ public class JWTUtil {
     }
 
     /**
+     * <p>showInfo.</p>
+     *
+     * @param claims a {@link io.jsonwebtoken.Claims} object.
+     */
+    public void showInfo(Claims claims) {
+        logger.info("ID: " + claims.getId());
+        logger.info("Subject: " + claims.getSubject());
+        logger.info("Issuer: " + claims.getIssuer());
+        logger.info("Expiration: " + claims.getExpiration());
+        logger.info("IssuedAt: " + claims.getIssuedAt());
+    }
+    
+    /**
      * <p>getMail.</p>
      *
      * @param jwt a {@link java.lang.String} object.
      * @param encryptKey a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws mx.qbits.tienda.api.model.exceptions.BusinessException if any.
+     * @throws io.kebblar.petstore.api.model.exceptions.CustomException if any.
      */
-    public String getMail(String jwt, String encryptKey) throws BusinessException {
+    public String getMail(String jwt, String encryptKey) throws CustomException {
         Claims claim;
         try{
             claim = Jwts.parser().setSigningKey(encryptKey.getBytes()).parseClaimsJws(jwt).getBody();
         } catch (Exception e){
-            throw new WrongTokenException(e);
+            throw new CustomException(e, TOKEN_INVALID_STRUCTURE, jwt);
         }
         return claim.getId();
     }
+    
+    public String decodeJwt(String jwt) {
+        String[] chunks = jwt.split("\\.");
+        if(chunks.length<3) throw new RuntimeException("Bad jwt");
+        Base64.Decoder decoder = Base64.getDecoder();
 
+        try {
+            //String header = new String(decoder.decode(chunks[0]));
+            //System.out.println(header);
+            String payload = new String(decoder.decode(chunks[1]));
+            
+            //String signature = new String(chunks[2]);
+            //System.out.println(signature);
+            
+            return payload;
+        } catch(IllegalArgumentException e) {
+            throw new RuntimeException("Bad jwt");
+        }
+    }
+    
+    public String getCorreo(String decodedJwt) {
+        return getValueFromDecodedJwtString(decodedJwt, "jti");
+    }
+    
+    public long getExpiration(String decodedJwt) {
+        String expStr = getValueFromDecodedJwtString(decodedJwt, "exp");
+        return new Long(expStr);
+    }
+    
+    public String getValueFromDecodedJwtString(String decodedJwt, String field) {
+        String[] partes = decodedJwt.substring(1, decodedJwt.length()-1).replaceAll("\"", "").split(",");
+        Map<String, String> mapa = new HashMap<>();
+        for(String parte : partes) {
+            String[] d = parte.split(":");
+            mapa.put(d[0], d[1]);
+        }
+        return mapa.get(field);
+    }
+    
+    /**
+     * Checa si un token dado (con estructira correcta) ha sido firmado adecuadamente.
+     * En caso de que sea un token con una estructira inválida o no esté firmado de una 
+     * manera adecuada, dispara una excepción. Si todo esta bien, retorna "true".
+     * <p> Es interesante mencionar que si a cadena jwt es verificada exitosamente, entonces
+     * es posible parsear (hacer decode) al jwt de manera simple y confiar en la decodificación.
+     * Ver decodeJwt para un decode en forma de cadena json.
+     * 
+     * @param jwt Cadena jwt a verificar
+     * @param encryptKey Clave de encripción
+     * 
+     * @return true, si la cadena jwt es correcta y se verifica la clave
+     * @throws CustomException
+     */
+    public boolean revisaToken(String jwt, String encryptKey) throws CustomException {
+        try {
+            Jwts
+               .parser()
+               .setSigningKey(encryptKey.getBytes())
+               .parseClaimsJws(jwt).getBody();
+            return true;
+        } catch(Exception e) {
+            throw new CustomException(e, WRONG_TOKEN);
+        }
+    }
+    
+    public boolean revisaExpiracion(String decodedJwt) throws CustomException {
+        long now = System.currentTimeMillis();
+        long someFutureDay = this.getExpiration(decodedJwt);
+        if(someFutureDay< now) throw new CustomException(TOKEN_EXPIRED);
+        return true;
+    }
+    
+    public boolean revisaSender(String decodedJwt, String sender) throws CustomException {
+        String correo = this.getCorreo(decodedJwt);
+        if(!sender.equals(correo)) throw new CustomException(TOKEN_INVALID);
+        return true;
+    }
+    
 }
+
+/*
+{
+"iss":"crypto-executor-jwtManager",
+"iat":1637609469,
+"sub":"Cool jwt Token on: 1637609469452",
+"jti":"gustavi",
+"exp":1637615469
+}
+*/

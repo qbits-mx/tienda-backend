@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     mx.qbits.tienda.api.support
- * Proyecto:    tienda
+ * Paquete:     io.kebblar.petstore.api.support
+ * Proyecto:    petstore-back
  * Tipo:        Interface
  * Nombre:      UploadService
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -24,7 +24,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import mx.qbits.tienda.api.model.domain.UploadModel;
-import mx.qbits.tienda.api.model.exceptions.UploadException;
+import mx.qbits.tienda.api.model.exceptions.BusinessException;
 
 /**
  * Interface UploadService.
@@ -41,9 +41,9 @@ public interface UploadService {
      * @param destinationFolder String path to file destination
      * @param max long max size allowed for the file
      * @return Lista de objetos de tipo UploadModel
-     * @throws mx.qbits.tienda.api.model.exceptions.UploadException Se dispara en caso de que el proceso de upload falle
+     * @throws io.kebblar.petstore.api.model.exceptions.BusinessException Se dispara en caso de que el proceso de upload falle
      */
-    public List<UploadModel> store(MultipartFile[] mpfArray, String destinationFolder, long max) throws UploadException;
+    public List<UploadModel> store(MultipartFile[] mpfArray, String destinationFolder, long max, int idUsuario) throws BusinessException;
 
     /**
      * Procesa un archivos que le es enviado desde el front.
@@ -52,7 +52,7 @@ public interface UploadService {
      * @param destinationFolder String path to file destination
      * @param max long max size allowed for the file
      * @return Objetos de tipo UploadModel
-     * @throws mx.qbits.tienda.api.model.exceptions.UploadException Se dispara en caso de que el proceso de upload falle
+     * @throws io.kebblar.petstore.api.model.exceptions.BusinessException Se dispara en caso de que el proceso de upload falle
      */
-    public UploadModel storeOne(MultipartFile mpf, String destinationFolder, long max) throws UploadException;
+    public UploadModel storeOne(MultipartFile mpf, String destinationFolder, long max , int idUsuario) throws BusinessException;
 }

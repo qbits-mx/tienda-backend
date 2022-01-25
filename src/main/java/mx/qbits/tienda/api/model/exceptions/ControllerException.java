@@ -18,9 +18,12 @@
  */
 package mx.qbits.tienda.api.model.exceptions;
 
-import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import mx.qbits.tienda.api.model.enumerations.HttpStatus;
+import mx.qbits.tienda.api.utils.StringUtils;
+
 
 /**
  * <p>Descripción:</p>
@@ -28,8 +31,6 @@ import org.slf4j.LoggerFactory;
  *
  * @author  fhernanda
  * @version 1.0-SNAPSHOT
- * @version 1.0-SNAPSHOT
- * @since   1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
  */
@@ -38,26 +39,34 @@ public class ControllerException extends Exception {
     private static final long serialVersionUID = -5047974256813565913L;
     private static final Logger LOGGER = LoggerFactory.getLogger(ControllerException.class);
 
-    private final Exception rootException;
+    private final Throwable rootException;
     private final String shortMessage;
     private final String detailedMessage;
     private final int localExceptionNumber;
     private final String localExceptionKey;
     private final HttpStatus httpStatus;
-
-    /**
-     * Genera una excepción por default con clave 1000, dada otra excepción pasada como parámetro.
-     * Convierte la excepción recibida en una excepción ControllerException.
-     *
-     * @param rootException excepción recibida
-     */
-    public ControllerException(Exception rootException) {
+    
+    public ControllerException(
+            Throwable rootException, 
+            String shortMessage, 
+            String detailedMessage,
+            int localExceptionNumber, 
+            String localExceptionKey, 
+            HttpStatus httpStatus) {
         this.rootException = rootException;
-        this.httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        this.localExceptionNumber = 1000;
-        this.localExceptionKey = "cve_1000";
-        this.shortMessage = rootException.getMessage();
-        this.detailedMessage = rootException.getMessage();
+        this.localExceptionNumber = localExceptionNumber;
+        this.localExceptionKey = localExceptionKey;
+        this.httpStatus = httpStatus;
+        String genericMsg = "CONSULTE A SU ADMINISTRADOR ID DE MENSAJE:";
+        if(localExceptionNumber>1000) {
+            this.shortMessage = shortMessage;
+            this.detailedMessage = detailedMessage;
+        } else {
+            this.shortMessage = buildMessage(genericMsg, shortMessage);
+            this.detailedMessage = buildMessage(genericMsg ,detailedMessage);
+        }
+        String str = this.toString();
+        LOGGER.error(str);
     }
 
     /**
@@ -75,14 +84,7 @@ public class ControllerException extends Exception {
             int localExceptionNumber,
             String localExceptionKey,
             HttpStatus httpStatus) {
-        this.shortMessage = shortMessage;
-        this.detailedMessage = detailedMessage;
-        this.localExceptionNumber = localExceptionNumber;
-        this.localExceptionKey = localExceptionKey;
-        this.httpStatus = httpStatus;
-        String str = this.toString();
-        LOGGER.error(str);
-        rootException = null;
+        this(new Exception(""), shortMessage, detailedMessage, localExceptionNumber, localExceptionKey, httpStatus);
     }
 
     /**
@@ -101,6 +103,16 @@ public class ControllerException extends Exception {
         this(shortMessage, detailedMessage, localExceptionNumber, localExceptionKey, HttpStatus.ACCEPTED);
     }
 
+    
+    /**
+     * Genera una excepción por default con clave 1000, dada otra excepción pasada como parámetro.
+     * Convierte la excepción recibida en una excepción ControllerException.
+     *
+     * @param rootException excepción recibida
+     */
+    public ControllerException(Exception rootException) {
+        this(rootException, rootException.getMessage(), rootException.getMessage(), 1000, "cve_1000", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     /*
      * Getter.
      */
@@ -143,7 +155,7 @@ public class ControllerException extends Exception {
     /**
      * <p>Getter for the field <code>httpStatus</code>.</p>
      *
-     * @return a {@link mx.qbits.tienda.api.model.exceptions.HttpStatus} object.
+     * @return a {@link io.kebblar.petstore.api.model.enumerations.qbits.tienda.api.model.exceptions.HttpStatus} object.
      */
     public HttpStatus getHttpStatus() {
         return httpStatus;
@@ -154,7 +166,7 @@ public class ControllerException extends Exception {
      *
      * @return a {@link java.lang.Exception} object.
      */
-    public Exception getRootException() {
+    public Throwable getRootException() {
         return rootException;
     }
 
@@ -185,7 +197,7 @@ public class ControllerException extends Exception {
      * @return Cadena con el ID genérico
      */
     public static String buildMessage(String msg, String desc) {
-        String uid = UUID.randomUUID().toString();
+        String uid = StringUtils.getRandomString(8);
         LOGGER.error("UID: {} Description: {}", uid, desc);
         return String.format(msg,  uid);
     }

@@ -7,8 +7,8 @@
  *              bajo cualquier criterio, el único dueño de la totalidad de este 
  *              código y cualquier derivado de el.
  *              ---------------------------------------------------------------
- * Paquete:     mx.qbits.tienda.api.model.exceptions
- * Proyecto:    tienda
+ * Paquete:     io.kebblar.petstore.api.model.exceptions
+ * Proyecto:    petstore-back
  * Tipo:        Clase
  * Nombre:      StrengthPasswordValidatorException
  * Autor:       Gustavo Adolfo Arellano (GAA)
@@ -22,6 +22,8 @@ package mx.qbits.tienda.api.model.exceptions;
 
 import java.util.List;
 
+import mx.qbits.tienda.api.model.enumerations.HttpStatus;
+
 /**
  * <p>Descripción</p>
  * Excepción que determina cuando existe un problema con la fortaleza de una clave.
@@ -31,7 +33,7 @@ import java.util.List;
  * código HTTP que será devuelto.
  *
  * @author  garellano
- * @see     mx.qbits.tienda.api.model.exceptions.BusinessException
+ * @see     io.kebblar.petstore.api.model.exceptions.BusinessException
  * @version 1.0-SNAPSHOT
  * @since   1.0-SNAPSHOT
  */
