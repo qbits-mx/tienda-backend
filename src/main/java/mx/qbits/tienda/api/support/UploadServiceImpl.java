@@ -99,7 +99,7 @@ public class UploadServiceImpl implements UploadService {
      */
     public UploadModel storeOne(MultipartFile mpf, String destinationFolder, long max , int idUsuario) throws BusinessException {
         UUID uuid = UUID.randomUUID();
-        String newName = uuid.toString() + "."+(FilenameUtils.getExtension(mpf.getOriginalFilename()));
+        String newName = "_"+uuid.toString() + "."+(FilenameUtils.getExtension(mpf.getOriginalFilename()));
         valida(mpf, max);
         UploadModel uploadModel = new UploadModel(
         		idUsuario,
@@ -115,7 +115,7 @@ public class UploadServiceImpl implements UploadService {
         //Path filepath = Paths.get("/Users/garellano/Desktop/peliculas", newName);
         try {
             mpf.transferTo(filepath);
-            WaterMark.getInstance().addWatermarkOnImage(destinationFolder, newName, "logo.png", "_"+newName);
+            //WaterMark.getInstance().addWatermarkOnImage(destinationFolder, newName, "logo.png", "_"+newName);
             // AQUI EN ESTA LINEA HAY QUE GUARDAR EL OBJETO "uploadModel" en la base...
             // Algo asi como la siguiente linea:
             // poner: storageMapper.insert(uploadModel)
