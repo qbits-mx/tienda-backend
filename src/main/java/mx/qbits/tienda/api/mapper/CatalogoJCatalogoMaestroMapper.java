@@ -25,4 +25,5 @@ public interface CatalogoJCatalogoMaestroMapper {
     List<CatalogoJCatalogoMaestro> getAll() throws SQLException;
     
 
+
 }

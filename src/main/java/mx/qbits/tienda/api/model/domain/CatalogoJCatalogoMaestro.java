@@ -82,7 +82,5 @@ public class CatalogoJCatalogoMaestro {
             return false;
         return true;
     }
-    
-    
 
 }

@@ -355,5 +355,4 @@ public class CatalogoServiceImpl implements CatalogoService {
             throw new BusinessException(e);
         }
     }
-    
 }
