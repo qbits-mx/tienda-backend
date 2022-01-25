@@ -11,11 +11,11 @@ import java.util.List;
 
 
 @Service
-public class AnuncioServiceImp implements AnuncioService {
+public class AnuncioServiceImpl implements AnuncioService {
 
 	private AnuncioMapper mapper;
 	
-	public AnuncioServiceImp(AnuncioMapper mapper) {
+	public AnuncioServiceImpl(AnuncioMapper mapper) {
 		this.mapper = mapper;
 	}
 
