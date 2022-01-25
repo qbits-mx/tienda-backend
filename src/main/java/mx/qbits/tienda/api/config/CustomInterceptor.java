@@ -95,7 +95,7 @@ public class CustomInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
-        if (uri.startsWith("/api/")) {
+        if (uri.startsWith("/api/") && !uri.contains("get-conversacion")) {
             Enumeration<String> headerNames = request.getHeaderNames();
             ArrayList<String> lista = Collections.list(headerNames);
             for (String headerName : lista) {
