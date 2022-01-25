@@ -61,10 +61,10 @@ public class UploadServiceImpl implements UploadService {
 
     /** {@inheritDoc} */
     @Override
-    public List<UploadModel> store(MultipartFile[] mpfArray, String destinationFolder, long max) throws BusinessException {
+    public List<UploadModel> store(MultipartFile[] mpfArray, String destinationFolder, long max,int idUsuario) throws BusinessException {
         List<UploadModel> lista = new ArrayList<>();
         for (MultipartFile mpf : mpfArray) {
-            lista.add(storeOne(mpf, destinationFolder, max));
+            lista.add(storeOne(mpf, destinationFolder, max,idUsuario));
         }
         return lista;
     }
@@ -97,13 +97,12 @@ public class UploadServiceImpl implements UploadService {
      *
      * Store one.
      */
-    public UploadModel storeOne(MultipartFile mpf, String destinationFolder, long max) throws BusinessException {
+    public UploadModel storeOne(MultipartFile mpf, String destinationFolder, long max , int idUsuario) throws BusinessException {
         UUID uuid = UUID.randomUUID();
         String newName = uuid.toString() + "."+(FilenameUtils.getExtension(mpf.getOriginalFilename()));
-        int autoIncremental = 0;
         valida(mpf, max);
         UploadModel uploadModel = new UploadModel(
-                autoIncremental,
+        		idUsuario,
                 mpf.getOriginalFilename(),
                 newName,
                 getMd5(mpf),
