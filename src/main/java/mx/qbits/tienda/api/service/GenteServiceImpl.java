@@ -1,9 +1,15 @@
 package mx.qbits.tienda.api.service;
 
-import java.awt.List;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import mx.qbits.tienda.api.mapper.GenteMapper;
 import mx.qbits.tienda.api.model.domain.Gente;
@@ -68,4 +74,5 @@ public class GenteServiceImpl implements GenteService {
         ResponseEntity<String> s = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         System.out.println(s.getBody());
     }
+
 }

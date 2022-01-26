@@ -16,18 +16,20 @@ public class Anuncio {
 	private int id;
 	private int idUsuario;
 	private int idComprador;
+	private int idCatalogoDepartamento;
 	private int idCatalogoCondicion;
 	private int idCatalogoFormaPago;
 	private int idCatalogoZonaEntrega;
 	private String descripcion;
-	private Date vigencia;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private LocalDate vigencia;
 	private String datosContacto;
 	private boolean validado;
 	private boolean notificado;
 	private boolean revisado;
 	private boolean activo;
 	private boolean comprado;
-	private Date fechaCompra;
+	private LocalDate fechaCompra;
 	private int estrellasVen;
 	private int estrellasCom;
 	private String nombre;
@@ -64,8 +66,8 @@ public class Anuncio {
 	 * @param comentarioAprobado
 	 */
 	public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
-			int idCatalogoZonaEntrega, String descripcion, Date vigencia, String datosContacto, boolean validado,
-			boolean notificado, boolean revisado, boolean activo, boolean comprado, Date fechaCompra, int estrellasVen,
+			int idCatalogoZonaEntrega, String descripcion, LocalDate vigencia, String datosContacto, boolean validado,
+			boolean notificado, boolean revisado, boolean activo, boolean comprado, LocalDate fechaCompra, int estrellasVen,
 			int estrellasCom, String nombre, double precio, String comentario, boolean comentarioAprobado) {
 		super();
 		this.id = id;
@@ -164,7 +166,7 @@ public class Anuncio {
 	/**
 	 * @return the idCatalogoFormaPago
 	 */
-	public int getIdCatalogoFormaPago() {
+	public int getIdCatalogoFormaDePago() {
 		return idCatalogoFormaPago;
 	}
 
@@ -173,7 +175,7 @@ public class Anuncio {
 	/**
 	 * @param idCatalogoFormaPago the idCatalogoFormaPago to set
 	 */
-	public void setIdCatalogoFormaPago(int idCatalogoFormaPago) {
+	public void setIdCatalogoFormaDePago(int idCatalogoFormaPago) {
 		this.idCatalogoFormaPago = idCatalogoFormaPago;
 	}
 
@@ -182,7 +184,7 @@ public class Anuncio {
 	/**
 	 * @return the idCatalogoZonaEntrega
 	 */
-	public int getIdCatalogoZonaEntrega() {
+	public int getIdCatalogoZonaDeEntrega() {
 		return idCatalogoZonaEntrega;
 	}
 
@@ -191,7 +193,7 @@ public class Anuncio {
 	/**
 	 * @param idCatalogoZonaEntrega the idCatalogoZonaEntrega to set
 	 */
-	public void setIdCatalogoZonaEntrega(int idCatalogoZonaEntrega) {
+	public void setIdCatalogoZonaDeEntrega(int idCatalogoZonaEntrega) {
 		this.idCatalogoZonaEntrega = idCatalogoZonaEntrega;
 	}
 
@@ -218,7 +220,7 @@ public class Anuncio {
 	/**
 	 * @return the vigencia
 	 */
-	public Date getVigencia() {
+	public LocalDate getVigenciaAnuncio() {
 		return vigencia;
 	}
 
@@ -227,7 +229,7 @@ public class Anuncio {
 	/**
 	 * @param vigencia the vigencia to set
 	 */
-	public void setVigencia(Date vigencia) {
+	public void setVigenciaAnuncio(LocalDate vigencia) {
 		this.vigencia = vigencia;
 	}
 
@@ -236,7 +238,7 @@ public class Anuncio {
 	/**
 	 * @return the datosContacto
 	 */
-	public String getDatosContacto() {
+	public String getContacto() {
 		return datosContacto;
 	}
 
@@ -245,7 +247,7 @@ public class Anuncio {
 	/**
 	 * @param datosContacto the datosContacto to set
 	 */
-	public void setDatosContacto(String datosContacto) {
+	public void setContacto(String datosContacto) {
 		this.datosContacto = datosContacto;
 	}
 
@@ -344,7 +346,7 @@ public class Anuncio {
 	/**
 	 * @return the fechaCompra
 	 */
-	public Date getFechaCompra() {
+	public LocalDate getFechaCompra() {
 		return fechaCompra;
 	}
 
@@ -353,7 +355,7 @@ public class Anuncio {
 	/**
 	 * @param fechaCompra the fechaCompra to set
 	 */
-	public void setFechaCompra(Date fechaCompra) {
+	public void setFechaCompra(LocalDate fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 
@@ -463,6 +465,19 @@ public class Anuncio {
 	 */
 	public void setComentarioAprobado(boolean comentarioAprobado) {
 		this.comentarioAprobado = comentarioAprobado;
+	}
+
+	
+	
+
+	public int getIdCatalogoDepartamento() {
+		return idCatalogoDepartamento;
+	}
+
+
+
+	public void setIdCatalogoDepartamento(int idCatalogoDepartamento) {
+		this.idCatalogoDepartamento = idCatalogoDepartamento;
 	}
 
 

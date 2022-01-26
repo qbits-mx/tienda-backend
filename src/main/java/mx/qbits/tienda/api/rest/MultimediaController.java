@@ -33,7 +33,7 @@ public class MultimediaController {
 	@GetMapping(path = "/conseguir-multimedia.json", produces = "application/json; charset=utf-8")
 	public List<Multimedia> getMultimedia(int idAnuncio) throws BusinessException{
 		return multimediaService.getMultimedia(idAnuncio);
-
+	}
 	
 
 	@PostMapping(path = "/salva-multimedia.json", produces = "application/json; charset=utf-8")

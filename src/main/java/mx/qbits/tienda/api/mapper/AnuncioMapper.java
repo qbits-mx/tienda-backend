@@ -177,16 +177,14 @@ public interface AnuncioMapper {
  * @since   1.0-SNAPSHOT
  */
 
-@Repository
-public interface AnuncioMapper{
-	final String CAMPOS_ANUNCIO = "id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, id_catalogo_departamento, descripcion, vigencia, datos_contacto, validado, notificado, revisado, activo, comprado,  comentario_aprobado, nombre, precio";
+	final String CAMPOS_ANUNCIO_INSERT = "id_usuario, id_catalogo_condicion, id_catalogo_forma_pago, id_catalogo_zona_entrega, id_catalogo_departamento, descripcion, vigencia, datos_contacto, validado, notificado, revisado, activo, comprado,  comentario_aprobado, nombre, precio";
 	
 	/**
 	* Inserta un objeto de tipo anuncio a la base de datos con base a la información del objeto anuncio
 	* @param  id_usuario del anuncio a ser insertado
 	* @throws java.sql.SQLException en caso de haber algún error con esta operación en la base de datos
 	*/
-	@Insert("INSERT INTO anuncio("+CAMPOS_ANUNCIO+")"
+	@Insert("INSERT INTO anuncio("+CAMPOS_ANUNCIO_INSERT+")"
 			+ " VALUES(#{id_usuario}, #{id_catalogo_condicion}, #{id_catalogo_forma_pago}, #{id_catalogo_zona_entrega}, #{id_catalogo_departamento}, #{descripcion}, #{vigencia}, #{datos_contacto},0,0,0,0,0,0, #{nombre}, #{precio})")
 	int insert(int id_usuario, int id_catalogo_condicion, int id_catalogo_forma_pago,
 			   int id_catalogo_zona_entrega, int id_catalogo_departamento, String descripcion,
