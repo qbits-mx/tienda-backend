@@ -3,22 +3,25 @@ package mx.qbits.tienda.api.model.domain;
 import java.sql.Date;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import java.time.LocalDate;
-
 /**
- * <p>Implementación de la clase Anuncio.</p>
+ * Implementación del POJO de la entidad 'Compra'
  *
- * @author 2 de Pastor
- * @version 1.0-SNAPSHOT
+ * @author pum4Developer$
+ * @version 0.1.1-SNAPSHOT
+ * @since   1.0-SNAPSHOT
  */
-public class Anuncio {
+public class Compra {
+
+	/*
+     * Atributos de la clase.
+     */
 	private int id;
 	private int idUsuario;
 	private int idComprador;
 	private int idCatalogoCondicion;
 	private int idCatalogoFormaPago;
 	private int idCatalogoZonaEntrega;
+	private int idCatalogoDepartamento;
 	private String descripcion;
 	private Date vigencia;
 	private String datosContacto;
@@ -35,36 +38,40 @@ public class Anuncio {
 	private String comentario;
 	private boolean comentarioAprobado;
 
-	public Anuncio() {
+	/**
+     * Constructor por defecto (sin parámetros).
+     */
+	public Compra() {
 	}
 
-
-
 	/**
-	 * @param id
-	 * @param idUsuario
-	 * @param idComprador
-	 * @param idCatalogoCondicion
-	 * @param idCatalogoFormaPago
-	 * @param idCatalogoZonaEntrega
-	 * @param descripcion
-	 * @param vigencia
-	 * @param datosContacto
-	 * @param validado
-	 * @param notificado
-	 * @param revisado
-	 * @param activo
-	 * @param comprado
-	 * @param fechaCompra
-	 * @param estrellasVen
-	 * @param estrellasCom
-	 * @param nombre
-	 * @param precio
-	 * @param comentario
-	 * @param comentarioAprobado
+	 * Constructor basado en los atributos del objeto 'Anuncio'.
+	 * 
+	 * @param id a int.
+	 * @param idUsuario a int.
+	 * @param idComprador a int.
+	 * @param idCatalogoCondicion a int.
+	 * @param idCatalogoFormaPago a int. 
+	 * @param idCatalogoZonaEntrega a int.
+	 * @param idCatalogoDepartamento a int.
+	 * @param descripcion a {@link java.lang.String} object.
+	 * @param vigencia a {@link java.sql.Date} object.
+	 * @param datosContacto a {@link java.lang.String} object.
+	 * @param validado a boolean.
+	 * @param notificado a boolean.
+	 * @param revisado a boolean.
+	 * @param activo a boolean.
+	 * @param comprado a boolean.
+	 * @param fechaCompra a {@link java.sql.Date} object.
+	 * @param estrellasVen a int.
+	 * @param estrellasCom a int.
+	 * @param nombre a {@link java.lang.String} object.
+	 * @param precio a double.
+	 * @param comentario a {@link java.lang.String} object.
+	 * @param comentarioAprobado a boolean.
 	 */
-	public Anuncio(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
-			int idCatalogoZonaEntrega, String descripcion, Date vigencia, String datosContacto, boolean validado,
+	public Compra(int id, int idUsuario, int idComprador, int idCatalogoCondicion, int idCatalogoFormaPago,
+			int idCatalogoZonaEntrega, int idCatalogoDepartamento, String descripcion, Date vigencia, String datosContacto, boolean validado,
 			boolean notificado, boolean revisado, boolean activo, boolean comprado, Date fechaCompra, int estrellasVen,
 			int estrellasCom, String nombre, double precio, String comentario, boolean comentarioAprobado) {
 		super();
@@ -74,6 +81,7 @@ public class Anuncio {
 		this.idCatalogoCondicion = idCatalogoCondicion;
 		this.idCatalogoFormaPago = idCatalogoFormaPago;
 		this.idCatalogoZonaEntrega = idCatalogoZonaEntrega;
+		this.idCatalogoDepartamento = idCatalogoDepartamento;
 		this.descripcion = descripcion;
 		this.vigencia = vigencia;
 		this.datosContacto = datosContacto;
@@ -91,382 +99,409 @@ public class Anuncio {
 		this.comentarioAprobado = comentarioAprobado;
 	}
 
+	/*
+     * Setter y Getter.
+     */
 	/**
-	 * @return the id
+	 * <p>Getter for the field <code>id</code>.</p>
+	 * 
+	 * @return a int.
 	 */
 	public int getId() {
 		return id;
 	}
 
 	/**
-	 * @param id the id to set
+     * <p>Setter for the field <code>id</code>.</p>
+	 * 
+	 * @param id a int.
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
-
 	/**
-	 * @return the idUsuario
+	 * <p>Getter for the field <code>idUsuario</code>.</p>
+	 * 
+	 * @return the idUsuario.
 	 */
 	public int getIdUsuario() {
 		return idUsuario;
 	}
 
-
-
 	/**
-	 * @param idUsuario the idUsuario to set
+     * <p>Setter for the field <code>idUsuario</code>.</p>
+	 * 
+	 * @param idUsuario a int.
 	 */
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
-
-
 	/**
-	 * @return the idComprador
+	 * <p>Getter for the field <code>idComprador</code>.</p>
+	 * 
+	 * @return a int.
 	 */
 	public int getIdComprador() {
 		return idComprador;
 	}
 
-
-
 	/**
-	 * @param idComprador the idComprador to set
+     * <p>Setter for the field <code>idComprador</code>.</p>
+	 * 
+	 * @param idComprador a int.
 	 */
 	public void setIdComprador(int idComprador) {
 		this.idComprador = idComprador;
 	}
 
-
-
 	/**
-	 * @return the idCatalogoCondicion
+     * <p>Getter for the field <code>idCatalogoCondicion</code>.</p>
+	 * 
+	 * @return a int.
 	 */
 	public int getIdCatalogoCondicion() {
 		return idCatalogoCondicion;
 	}
 
-
-
 	/**
-	 * @param idCatalogoCondicion the idCatalogoCondicion to set
+     * <p>Setter for the field <code>idCatalogoCondicion</code>.</p>
+	 * 
+	 * @param idCatalogoCondicion a int.
 	 */
 	public void setIdCatalogoCondicion(int idCatalogoCondicion) {
 		this.idCatalogoCondicion = idCatalogoCondicion;
 	}
 
-
-
 	/**
-	 * @return the idCatalogoFormaPago
+     * <p>Getter for the field <code>idCatalogoFormaPago</code>.</p>
+	 * 
+	 * @return a int.
 	 */
 	public int getIdCatalogoFormaPago() {
 		return idCatalogoFormaPago;
 	}
 
-
-
 	/**
-	 * @param idCatalogoFormaPago the idCatalogoFormaPago to set
+     * <p>Setter for the field <code>idCatalogoFormaPago</code>.</p>
+	 * 
+	 * @param idCatalogoFormaPago a int.
 	 */
 	public void setIdCatalogoFormaPago(int idCatalogoFormaPago) {
 		this.idCatalogoFormaPago = idCatalogoFormaPago;
 	}
 
-
-
 	/**
-	 * @return the idCatalogoZonaEntrega
+     * <p>Getter for the field <code>idCatalogoZonaEntrega</code>.</p>
+	 * 
+	 * @return a int.
 	 */
 	public int getIdCatalogoZonaEntrega() {
 		return idCatalogoZonaEntrega;
 	}
 
-
-
 	/**
-	 * @param idCatalogoZonaEntrega the idCatalogoZonaEntrega to set
+     * <p>Setter for the field <code>idCatalogoZonaEntrega</code>.</p>
+	 * 
+	 * @param idCatalogoZonaEntrega a int.
 	 */
 	public void setIdCatalogoZonaEntrega(int idCatalogoZonaEntrega) {
 		this.idCatalogoZonaEntrega = idCatalogoZonaEntrega;
 	}
 
-
+	/**
+	 * <p>Getter for the field <code>idCatalogoDepartamento</code>.</p>
+	 * 
+	 * @return a int.
+	 */
+	public int getIdCatalogoDepartamento() {
+		return idCatalogoDepartamento;
+	}
 
 	/**
-	 * @return the descripcion
+	 * <p>Setter for the field <code>idCatalogoZonaEntrega</code>.</p>
+	 * 
+	 * @param idCatalogoDepartamento a int.
+	 */
+	public void setIdCatalogoDepartamento(int idCatalogoDepartamento) {
+		this.idCatalogoDepartamento = idCatalogoDepartamento;
+	}
+
+	/**
+     * <p>Getter for the field <code>descripcion</code>.</p>
+	 * 
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-
-
 	/**
-	 * @param descripcion the descripcion to set
+     * <p>Setter for the field <code>descripcion</code>.</p>
+	 * 
+	 * @param descripcion a {@link java.lang.String} object.
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-
-
 	/**
-	 * @return the vigencia
+     * <p>Getter for the field <code>vigencia</code>.</p>
+	 * 
+	 * @return a {@link java.sql.Date} object.
 	 */
 	public Date getVigencia() {
 		return vigencia;
 	}
 
-
-
 	/**
-	 * @param vigencia the vigencia to set
+     * <p>Setter for the field <code>vigencia</code>.</p>
+	 * 
+	 * @param vigencia a {@link java.sql.Date} object.
 	 */
 	public void setVigencia(Date vigencia) {
 		this.vigencia = vigencia;
 	}
 
-
-
 	/**
-	 * @return the datosContacto
+     * <p>Getter for the field <code>datosContacto</code>.</p>
+	 * 
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String getDatosContacto() {
 		return datosContacto;
 	}
 
-
-
 	/**
-	 * @param datosContacto the datosContacto to set
+     * <p>Setter for the field <code>datosContacto</code>.</p>
+	 * 
+	 * @param datosContacto a {@link java.lang.String} object.
 	 */
 	public void setDatosContacto(String datosContacto) {
 		this.datosContacto = datosContacto;
 	}
 
-
-
 	/**
-	 * @return the validado
+     * <p>Getter for the field <code>validado</code>.</p>
+	 * 
+	 * @return a boolean.
 	 */
 	public boolean isValidado() {
 		return validado;
 	}
 
-
-
 	/**
-	 * @param validado the validado to set
+     * <p>Setter for the field <code>valido</code>.</p>
+	 * 
+	 * @param validado a boolean.
 	 */
 	public void setValidado(boolean validado) {
 		this.validado = validado;
 	}
 
-
-
 	/**
-	 * @return the notificado
+     * <p>Getter for the field <code>notificado</code>.</p>
+	 * 
+	 * @return a boolean
 	 */
 	public boolean isNotificado() {
 		return notificado;
 	}
 
-
-
 	/**
-	 * @param notificado the notificado to set
+     * <p>Setter for the field <code>notificado</code>.</p>
+	 * 
+	 * @param notificado a boolean.
 	 */
 	public void setNotificado(boolean notificado) {
 		this.notificado = notificado;
 	}
 
-
-
 	/**
-	 * @return the revisado
+     * <p>Getter for the field <code>revisado</code>.</p>
+	 * 
+	 * @return a boolean.
 	 */
 	public boolean isRevisado() {
 		return revisado;
 	}
 
-
-
 	/**
-	 * @param revisado the revisado to set
+     * <p>Setter for the field <code>revisado</code>.</p>
+	 * 
+	 * @param revisado a boolean.
 	 */
 	public void setRevisado(boolean revisado) {
 		this.revisado = revisado;
 	}
 
-
-
 	/**
-	 * @return the activo
+     * <p>Getter for the field <code>activo</code>.</p>
+	 * 
+	 * @return a boolean.
 	 */
 	public boolean isActivo() {
 		return activo;
 	}
 
-
-
 	/**
-	 * @param activo the activo to set
+     * <p>Setter for the field <code>activo</code>.</p>
+	 * 
+	 * @param activo a boolean.
 	 */
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
-
-
 	/**
-	 * @return the comprado
+     * <p>Getter for the field <code>comprado</code>.</p>
+	 * 
+	 * @return a boolean.
 	 */
 	public boolean isComprado() {
 		return comprado;
 	}
 
-
-
 	/**
-	 * @param comprado the comprado to set
+     * <p>Setter for the field <code>comprado</code>.</p>
+	 * 
+	 * @param comprado a boolean.
 	 */
 	public void setComprado(boolean comprado) {
 		this.comprado = comprado;
 	}
 
-
-
 	/**
-	 * @return the fechaCompra
+     * <p>Getter for the field <code>fechaCompra</code>.</p>
+	 * 
+	 * @return a {@link java.sql.Date} object.
 	 */
 	public Date getFechaCompra() {
 		return fechaCompra;
 	}
 
-
-
 	/**
-	 * @param fechaCompra the fechaCompra to set
+     * <p>Setter for the field <code>fechaCompra</code>.</p>
+	 * 
+	 * @param fechaCompra a {@link java.sql.Date} object.
 	 */
 	public void setFechaCompra(Date fechaCompra) {
 		this.fechaCompra = fechaCompra;
 	}
 
-
-
 	/**
-	 * @return the estrellasVen
+     * <p>Getter for the field <code>estrellasVen</code>.</p>
+	 * 
+	 * @return a int.
 	 */
 	public int getEstrellasVen() {
 		return estrellasVen;
 	}
 
-
-
 	/**
-	 * @param estrellasVen the estrellasVen to set
+     * <p>Setter for the field <code>estrellasVen</code>.</p>
+	 * 
+	 * @param estrellasVen a int.
 	 */
 	public void setEstrellasVen(int estrellasVen) {
 		this.estrellasVen = estrellasVen;
 	}
 
-
-
 	/**
-	 * @return the estrellasCom
+     * <p>Getter for the field <code>estrellasCom</code>.</p>
+	 * 
+	 * @return a int.
 	 */
 	public int getEstrellasCom() {
 		return estrellasCom;
 	}
 
-
-
 	/**
-	 * @param estrellasCom the estrellasCom to set
+     * <p>Setter for the field <code>estrellasCom</code>.</p>
+	 * 
+	 * @param estrellasCom a int.
 	 */
 	public void setEstrellasCom(int estrellasCom) {
 		this.estrellasCom = estrellasCom;
 	}
 
-
-
 	/**
-	 * @return the nombre
+     * <p>Getter for the field <code>nombre</code>.</p>
+	 * 
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String getNombre() {
 		return nombre;
 	}
 
-
-
 	/**
-	 * @param nombre the nombre to set
+     * <p>Setter for the field <code>nombre</code>.</p>
+	 * @param nombre a {@link java.lang.String} object.
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
 	/**
-	 * @return the precio
+     * <p>Getter for the field <code>precio</code>.</p>
+	 * 
+	 * @return a double.
 	 */
 	public double getPrecio() {
 		return precio;
 	}
 
-
-
 	/**
-	 * @param precio the precio to set
+     * <p>Setter for the field <code>precio</code>.</p>
+	 * 
+	 * @param precio a double.
 	 */
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
-
-
 	/**
-	 * @return the comentario
+     * <p>Getter for the field <code>comentario</code>.</p>
+	 * 
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String getComentario() {
 		return comentario;
 	}
 
-
-
 	/**
-	 * @param comentario the comentario to set
+     * <p>Setter for the field <code>comentario</code>.</p>
+	 * 
+	 * @param comentario a {@link java.lang.String} object.
 	 */
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
 
-
-
 	/**
-	 * @return the comentarioAprobado
+     * <p>Getter for the field <code>comentarioAprobado</code>.</p>
+	 * 
+	 * @return comentarioAprobado a boolean.
 	 */
 	public boolean isComentarioAprobado() {
 		return comentarioAprobado;
 	}
 
-
-
 	/**
-	 * @param comentarioAprobado the comentarioAprobado to set
+     * <p>Setter for the field <code>comentarioAprobado</code>.</p>
+	 * 
+	 * @param comentarioAprobado a boolean.
 	 */
 	public void setComentarioAprobado(boolean comentarioAprobado) {
 		this.comentarioAprobado = comentarioAprobado;
 	}
 
-
-
+    /**
+     * Método especial (y adicional) de soporte al proceso de pruebas de regresión.
+     *
+     * @return a int.
+     */
 	@Override
 	public int hashCode() {
 		return Objects.hash(activo, comentario, comentarioAprobado, comprado, datosContacto, descripcion, estrellasCom,
@@ -474,15 +509,14 @@ public class Anuncio {
 				idComprador, idUsuario, nombre, notificado, precio, revisado, validado, vigencia);
 	}
 
-
-
+    /** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
-		Anuncio other = (Anuncio) obj;
+		Compra other = (Compra) obj;
 		return activo == other.activo && Objects.equals(comentario, other.comentario)
 				&& comentarioAprobado == other.comentarioAprobado && comprado == other.comprado
 				&& Objects.equals(datosContacto, other.datosContacto) && Objects.equals(descripcion, other.descripcion)
@@ -496,8 +530,7 @@ public class Anuncio {
 				&& revisado == other.revisado && validado == other.validado && Objects.equals(vigencia, other.vigencia);
 	}
 
-
-
+    /** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return "Anuncio [id=" + id + ", idUsuario=" + idUsuario + ", idComprador=" + idComprador
@@ -509,5 +542,4 @@ public class Anuncio {
 				+ ", nombre=" + nombre + ", precio=" + precio + ", comentario=" + comentario + ", comentarioAprobado="
 				+ comentarioAprobado + "]";
 	}
-
 }

@@ -24,4 +24,14 @@ public interface MultimediaMapper {
 	})
 	@Select("SELECT * FROM multimedia WHERE id_anuncio = #{idAnuncio}" )
 	List<Multimedia> getMultimedia(int idAnuncio) throws SQLException;
+
+	/**
+	* Inserta un objeto de tipo Multimedia a la base con base a la información de dicho objeto
+	* @param la multimedia que se va a insertar en la base de datos
+	* @throws java.sql.SQLException en caso de haber un error en la operación en la base de datos
+	*/
+	@Insert("INSERT INTO multimedia("+CAMPOS_MULTIMEDIA+")"
+			+ " VALUES(#{id_anuncio}, #{tipo}, #{url})")
+	int insert(int id_anuncio, String tipo, String url) throws SQLException;
+
 }

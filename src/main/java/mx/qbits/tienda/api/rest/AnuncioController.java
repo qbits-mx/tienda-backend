@@ -14,16 +14,23 @@ import mx.qbits.tienda.api.model.exceptions.BusinessException;
 import mx.qbits.tienda.api.model.exceptions.ControllerException;
 import mx.qbits.tienda.api.service.AnuncioService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping(value = "/api")
-//@Component
+@CrossOrigin(origins="*")
 public class AnuncioController {
     
     private AnuncioService anuncioService;
         
-    public AnuncioController(AnuncioService anuncioService) {
-        this.anuncioService = anuncioService;
-    }
+    @Autowired
+	public AnuncioController(AnuncioService anuncioService) {
+		this.anuncioService = anuncioService;
+	}
     
     /**
      * Devuelve los anuncios que se han calificado con un comentario que no se han auditado aún
@@ -114,4 +121,22 @@ public class AnuncioController {
     } 
 
 
+
+	@PostMapping(path = "/salva-anuncio.json", produces = "application/json; charset=utf-8")
+	public int salvaAnuncio(@RequestBody Anuncio anuncio) throws BusinessException{
+		int idUsuario = anuncio.getIdUsuario();
+		int idCatalogoCondicion = anuncio.getIdCatalogoCondicion();
+		int idCatalogoFormaPago = anuncio.getIdCatalogoFormaDePago();
+		int idCatalogoZonaEntrega = anuncio.getIdCatalogoZonaDeEntrega();
+		int idCatalogoDepartamento = anuncio.getIdCatalogoDepartamento();
+		String descripcion = anuncio.getDescripcion();
+		LocalDate vigencia = anuncio.getVigenciaAnuncio();
+		String datosContacto = anuncio.getContacto();
+		String nombre = anuncio.getNombre();
+		double precio = anuncio.getPrecio();
+		int anuncioPublicado = anuncioService.salvaAnuncio(idUsuario, idCatalogoCondicion,
+				idCatalogoFormaPago, idCatalogoZonaEntrega,idCatalogoDepartamento,
+				descripcion, vigencia, datosContacto, nombre, precio);
+		return anuncioPublicado;
+	}
 }

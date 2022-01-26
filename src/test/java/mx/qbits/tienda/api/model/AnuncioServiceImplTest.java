@@ -21,12 +21,13 @@ import org.mockito.quality.Strictness;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import static org.mockito.BDDMockito.*;
 
 /**
  * <p>Descripción:</p>
  * Class 'AnuncioServiceImplTest' asociada al servicio AnuncioServiceImpl.
- * @author  JoseRamirezRojas
+ * @author  Dos de Pastor
  * @version 1.0-SNAPSHOT
  * @since 1.0-SNAPSHOT
  * @see mx.qbits.tienda.api.model.AnuncioServiceImplTest
@@ -103,9 +104,122 @@ public class AnuncioServiceImplTest {
             assertTrue(false);
         }
     }
-    
-    
-    
+   
+    /**
+     * Prueba para verificar que se guarda un anuncio con todos los parámetros necesarios.
+     */
+    @Test
+    public void guardaAnuncioOK() {
+        // given
+        Anuncio creado = new Anuncio();
+        int idAnuncio = 0;
+        try{
+            given(anuncioMapper.insert(1, 1, 4, 3, 2, "hermoso árbol de navidad", LocalDate.of(2021, 1, 27), "prueba@gmail.com",
+                    "Árbol navideño", 756.23)).willReturn(1);
+            creado.setActivo(false);
+            creado.setId(1);
+            LinkedList<Anuncio> anuncios = new LinkedList<>();
+            anuncios.add(creado);
+            given(anuncioMapper.getAnuncioActivo(1)).willReturn(anuncios);
+        }catch(SQLException e) {
+            assert(false);
+        }
 
-    
+        // when
+        try{
+            idAnuncio = anuncioService.salvaAnuncio(1, 1,
+                    4, 3, 2,
+                    "hermoso árbol de navidad",
+                    LocalDate.of(2021, 1, 27),
+                    "prueba@gmail.com",
+                    "Árbol navideño", 756.23);
+        }catch(BusinessException e) {
+            assert(false);
+        }
+
+        // then
+
+        then(idAnuncio).isEqualTo(1);
+    }
+
+    /**
+     * Prueba para verificar que se guarda un anuncio aún cuando la vigencia tiene un valor nulo.
+     */
+    @Test
+    public void guardaAnuncioFechaNull() {
+        // given
+        Anuncio creado = new Anuncio();
+        int idAnuncio = 0;
+        try{
+            given(anuncioMapper.insert(1, 1,
+                    4, 3, 2,
+                    "hermoso árbol de navidad", null,
+                    "prueba@gmail.com",
+                    "Árbol navideño", 756.23)).willThrow(new SQLException());
+            creado.setActivo(false);
+            creado.setId(1);
+            LinkedList<Anuncio> anuncios = new LinkedList<>();
+            anuncios.add(creado);
+            given(anuncioMapper.getAnuncioActivo(1)).willReturn(anuncios);
+        }catch(SQLException e) {
+            assert(false);
+        }
+
+        // when
+        try{
+            idAnuncio = anuncioService.salvaAnuncio(1, 1,
+                    4, 3, 2,
+                    "hermoso árbol de navidad",
+                    null,
+                    "prueba@gmail.com",
+                    "Árbol navideño", 756.23);
+        }catch(BusinessException e) {
+            assert(false);
+        }
+
+        // then
+
+        then(idAnuncio).isEqualTo(1);
+    }
+
+    /**
+     * Prueba para verificar que sólo se guardan anuncios cuando el usuario al que pertenecen
+     * no tiene otros anuncios activos.
+     */
+    @Test
+    public void guardaConActivo() {
+        // given
+        Anuncio creado = new Anuncio();
+        int idAnuncio = 0;
+        try{
+            given(anuncioMapper.insert(1, 1,
+                    4, 3, 2,
+                    "hermoso árbol de navidad", null,
+                    "prueba@gmail.com",
+                    "Árbol navideño", 756.23)).willThrow(new SQLException());
+            creado.setActivo(true);
+            creado.setId(1);
+            LinkedList<Anuncio> anuncios = new LinkedList<>();
+            anuncios.add(creado);
+            given(anuncioMapper.getAnuncioActivo(1)).willReturn(anuncios);
+        }catch(SQLException e) {
+            assert(false);
+        }
+
+        // when
+        try{
+            idAnuncio = anuncioService.salvaAnuncio(1, 1,
+                    4, 3, 2,
+                    "hermoso árbol de navidad",
+                    null,
+                    "prueba@gmail.com",
+                    "Árbol navideño", 756.23);
+        }catch(BusinessException e) {
+            assert(false);
+        }
+
+        // then
+
+        then(idAnuncio).isEqualTo(-1);
+    }
 }

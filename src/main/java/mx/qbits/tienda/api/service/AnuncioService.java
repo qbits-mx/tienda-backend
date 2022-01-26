@@ -4,6 +4,7 @@ import java.util.List;
 
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
+import java.time.LocalDate;
 
 /**
  * @author  JoseRamirezRojas
@@ -72,4 +73,24 @@ public interface AnuncioService {
 	 * @throws BusinessException
 	 */
 	double getCalificacionPromedio(int idUsuario) throws BusinessException;
+    
+    /**
+    * Metodo para salvar el anuncio en la base da datos
+    * @param int idUsuario
+    * @param int catalogoPago
+    * @param int catalogoCondicion
+    * @param int catalogoEntrega
+    * @param int catalogoDepartamento
+    * @param String descripcion
+    * @param LocalDate vigencia
+    * @param String datosContacto
+    * @param String nombre
+    * @param int precio
+    */
+    int salvaAnuncio(int idUsuario, int catalogoPago,
+                         int catalogoCondicion, int catalogoEntrega, int catalogoDepartamento, String descripcion,
+                         LocalDate vigencia, String datosContacto, String nombre, double precio)
+            throws BusinessException;
 }
+
+
