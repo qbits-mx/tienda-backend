@@ -7,5 +7,6 @@ import java.util.List;
 
 
 public interface MultimediaService{
+    List<Multimedia> getMultimedia(int idAnuncio) throws BusinessException;
     int salvaMultimedia(List<Multimedia> multimedia) throws BusinessException;
 }

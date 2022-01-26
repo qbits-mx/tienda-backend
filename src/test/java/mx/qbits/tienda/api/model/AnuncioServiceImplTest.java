@@ -3,6 +3,8 @@ package mx.qbits.tienda.api.model;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.List;
+
 import mx.qbits.tienda.api.mapper.AnuncioMapper;
 import mx.qbits.tienda.api.model.domain.Anuncio;
 import mx.qbits.tienda.api.model.exceptions.BusinessException;
@@ -17,6 +19,9 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import static org.mockito.BDDMockito.*;
 
 /**
@@ -42,6 +47,64 @@ public class AnuncioServiceImplTest {
         anuncioService = new AnuncioServiceImpl(anuncioMapper);
     }
 
+    /**
+     * Prueba para verificar que se no se guarda una calificación en un id no existente 
+     */
+    @Test
+    public void guardaCalifIdNoExist() {
+        int idAnuncio = 0;
+        try{
+        	int status = anuncioService.crearCalificacionAnuncio(idAnuncio, "comentario", 100);
+            assertEquals(status,1);
+        }catch(BusinessException e) {
+            assertTrue(false);
+        }
+    }
+    
+    /**
+     * Prueba para verificar que se no se guarda una calificación en un id no existente 
+     */
+    @Test
+    public void guardaCalifOk() {
+        int idAnuncio = 0;
+        try{
+        	int status = anuncioService.crearCalificacionAnuncio(idAnuncio, "comentario", 5);
+            assertEquals(status,1);
+        }catch(BusinessException e) {
+            assertTrue(false);
+        }
+    }
+    
+    /**
+     * Prueba para verificar que no se audita una calificación en un id no existente 
+     */
+    @Test
+    public void auditarComentIdNoExiste() {
+        int idAnuncio = 0;
+        byte aprobacion = 1;
+        try{
+        	int status = anuncioService.aprobarComentario(idAnuncio, aprobacion);
+            assertEquals(status,1);
+        }catch(BusinessException e) {
+            assertTrue(false);
+        }
+    }
+    
+    /**
+     * Prueba para verificar que se audita una calificación en un id existente 
+     */
+    @Test
+    public void auditarComentOk() {
+        int idAnuncio = 1;
+        byte aprobacion = 1;
+        try{
+        	int status = anuncioService.aprobarComentario(idAnuncio, aprobacion);
+            assertEquals(status,1);
+        }catch(BusinessException e) {
+            assertTrue(false);
+        }
+    }
+   
     /**
      * Prueba para verificar que se guarda un anuncio con todos los parámetros necesarios.
      */

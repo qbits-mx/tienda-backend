@@ -7,9 +7,8 @@ package mx.qbits.tienda.api.model.domain;
  * @version 1.0-SNAPSHOT
  */
 public class Multimedia {
-	
-	int id;
-	int idAnuncio;
+	  int id;
+	  int idAnuncio;
     String url;
     String tipo;
 
@@ -34,6 +33,7 @@ public class Multimedia {
         this.tipo = tipo;
     }
     
+
     /**
     * Getter de id
     * @return int id
@@ -42,6 +42,7 @@ public class Multimedia {
     	return id;
     }
     
+
     /**
     * Setter de id
     * @param id
@@ -50,6 +51,7 @@ public class Multimedia {
     	this.id = id;
     }
     
+
     /**
     * Getter de idAnuncio
     * @return int idAnuncio

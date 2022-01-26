@@ -1,5 +1,6 @@
 package mx.qbits.tienda.api.service;
 
+
 import java.util.List;
 
 import mx.qbits.tienda.api.model.domain.Gente;

@@ -57,7 +57,7 @@ public interface RolMapper {
      * @return Rol correspondiente al id del parámetro
      * @throws java.sql.SQLException Se dispara en caso de que ocurra un error en esta operación desde la base de datos
      */
-    @Select("SELECT " + CAMPOS_ROL + " FROM rol WHERE id = #{id} and activo=true")
+    @Select("SELECT id, nombre, activo FROM rol WHERE id = #{id} and activo=true")
     Rol getRol(int id) throws SQLException;
 
     /**
@@ -112,7 +112,7 @@ public interface RolMapper {
      * @return a {@link java.util.List} object.
      * @throws java.sql.SQLException if any.
      */
-    @Select("SELECT " + CAMPOS_ROL + " FROM rol WHERE activo=true")
+    @Select("SELECT id, nombre, activo FROM rol")
     List<Rol> getAll() throws SQLException;
 
     /**

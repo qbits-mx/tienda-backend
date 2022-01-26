@@ -1,4 +1,5 @@
 package mx.qbits.tienda.api.service;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,6 +17,16 @@ public class MultimediaServiceImpl implements MultimediaService{
 	@Autowired
 	public MultimediaServiceImpl(MultimediaMapper mapper){
 		this.mapper = mapper;
+	}
+    
+    @Override
+	public List<Multimedia> getMultimedia(int idAnuncio) throws BusinessException {
+		try {
+			List<Multimedia> multi = mapper.getMultimedia(idAnuncio);
+			return multi;
+		}catch(SQLException e) {
+			throw new BusinessException(e);
+		}
 	}
 
 	@Override

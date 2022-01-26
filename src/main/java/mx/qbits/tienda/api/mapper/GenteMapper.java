@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GenteMapper {
+
     final String CAMPOS_GENTE = " id, correo, clave, instante_bloqueo ";
 
     @Results(id="GenteMapping", value = {
@@ -28,7 +30,7 @@ public interface GenteMapper {
     Gente getById(int id) throws SQLException;
 
     @ResultMap("GenteMapping")
-    @Select("SELECT " + CAMPOS_GENTE + " FROM gente WHERE instante_bloqueo>0")
+    @Select("SELECT " + CAMPOS_GENTE + " FROM gente WHERE instante_bloqueo>0 ")
     List<Gente> getNonBlockedUsers() throws SQLException;
 
     @Insert("INSERT INTO gente(correo, clave, instante_bloqueo) VALUES(#{correo}, #{clave}, 0)")
